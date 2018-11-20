@@ -13,7 +13,7 @@
  */
 class Games4 {
 
-    public $Games4;
+    public $games4;
 
     public function __construct($con) {
 
@@ -22,17 +22,17 @@ class Games4 {
         $players = new players();
         $i = 0;
         while ($row = $ris->fetch_array()) {
-            $this->Games4[$i] = new game4($row["id"], $row["date"], $row["result1"], $row["result2"], $players->getPlayerById($row["player1"]), $players->getPlayerById($row["player2"]), $players->getPlayerById($row["player3"]), $players->getPlayerById($row["player4"]));
+            $this->games4[$i] = new game4($row["id"], $row["date"], $row["result1"], $row["result2"], $players->getPlayerById($row["player1"]), $players->getPlayerById($row["player2"]), $players->getPlayerById($row["player3"]), $players->getPlayerById($row["player4"]));
             $i++;
         }
     }
 
     public function getGameById($id) {
         $game = "ERRORE";
-        for ($x = 0; $x < $this->Games4->length(); $x++) {
-            if ($this->Games4[$x]->id == $id) {
+        for ($x = 0; $x < $this->games4->length(); $x++) {
+            if ($this->games4[$x]->id == $id) {
 
-                return $this->Games4[$x];
+                return $this->games4[$x];
             }
         }
         return $game;

@@ -12,27 +12,25 @@
  * @author tacch
  */
 class Players {
+
     public $players;
 
     public function __construct($con) {
+        require_once('Player.php');
 
         $sql = "SELECT * from `player`";
         $ris = $con->query($sql);
         $i = 0;
         while ($row = $ris->fetch_array()) {
-            $this->players[$i] = new player();
-            $this->players[$i]->id = $row["id"];
-            $this->players[$i]->nome = $row["nome"];
+            $this->players[$i] = new player($row["id"], $row["nome"]);
 
             $i++;
         }
     }
-
-    public function getPlayerById() {
+    public function getPlayerById($id) {
         $player = new player(0, "");
-        for ($x = 0; $x < $this->players->length(); $x++) {
+        for ($x = 0; $x < count($this->players); $x++) {
             if ($this->players[$x]->id == $id) {
-                
                 return $this->players[$x];
             }
         }

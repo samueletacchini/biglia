@@ -17,10 +17,10 @@ class Game4 {
     public $date;
     public $result1;
     public $result2;
-    public $player1;
-    public $player2;
-    public $player3;
-    public $player4;
+    public $player1; //ATTACCANTE1
+    public $player2; //DIFENSORE1
+    public $player3; //ATTACCANTE2
+    public $player4; //DIFENSORE1
 
     function __construct($id, $date, $result1, $result2, $player1, $player2, $player3, $player4) {
         $this->id = $id;
@@ -32,6 +32,5 @@ class Game4 {
         $this->player3 = $player3;
         $this->player4 = $player4;
     }
-
 
 }

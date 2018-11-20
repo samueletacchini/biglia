@@ -115,7 +115,7 @@ session_start();
     <body>
 
         <div class="jumbotron text-center" >
-            <h1 align="center"> La Mucca</h1>
+            <h1 align="center"> La Mucca   https://github.com/samueletacchini/biglia/invitations</h1>
         </div>
 
 
@@ -132,7 +132,7 @@ session_start();
                         Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
                         Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Pa
                     </div>
-                    
+
                     <div  class="  panel-default col-md-6">Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
                         Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
                         Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
@@ -147,97 +147,49 @@ session_start();
                     <h3 align = "center">Classifica 1 vs 1</h3>
                 </div>
                 <div class = "panel-body" >
-                    <div>
-                        <b style="color:gray; font-size:125%;"> PDF : </b>
-                        <p style="color:gray"> - PDF Update</p>
-                        <p style="color:gray"> - PDF SkillCard</p>
-                        <p style="color:gray"> - PDF Aica</p>
-                    </div>
-                    <div style="margin-top:5%">
-                        <b style="color:gray; font-size:125%;"> Tabella User : </b>
-                        <p style="color:gray"> - Tabella riassuntiva delle prenotazioni a gli esami.</p>
-                        <p style="color:gray"> - Nella voce "Bolletino" :</p>
-                        <ul>
-                            <li style="color:gray">
-                                <p style="color:gray">Se contrassegnato da <span style="color:#ff0000; font-size:150%;" class="glyphicon glyphicon-remove-sign"></span>  il PDF del <b>Bollettino</b> non è presente.</p>
-                            </li>
-                            <li style="color:gray">
-                                <p style="color:gray">Se contrassegnato da <span style="color:#ffcc00; font-size:150%;" class="glyphicon glyphicon-exclamation-sign"></span>  il PDF del <b>Bollettino</b> è presente, ma ancora da approvare.</p>
-                            </li>
-                            <li style="color:gray">
-                                <p style="color:gray">Se contrassegnato da <span style="color:#33cc33; font-size:150%;" class="glyphicon glyphicon-ok-sign"></span>  il PDF del <b>Bollettino</b> è stato approvato.</p>
-                            </li>
-                        </ul>
-                        <p style="color:gray"> - Nella voce "Pdf" :</p>
-                        <ul>
-                            <li style="color:gray">
-                                <p style="color:gray">Se contrassegnato da <span style="color:#ff0000; font-size:150%;" class="glyphicon glyphicon-remove-sign"></span>  il PDF della <b>Prenotazione</b> non è presente.</p>
-                            </li>
-                            <li style="color:gray">
-                                <p style="color:gray">Se contrassegnato da <span style="color:#ffcc00; font-size:150%;" class="glyphicon glyphicon-exclamation-sign"></span>  il PDF della <b>Prenotazione</b> è presente, ma ancora da approvare.</p>
-                            </li>
-                            <li style="color:gray">
-                                <p style="color:gray">Se contrassegnato da <span style="color:#33cc33; font-size:150%;" class="glyphicon glyphicon-ok-sign"></span>  il PDF della <b>Penotazione</b> è stato approvato.</p>
-                            </li>
-                        </ul>
-                    </div>
+                    <table class="table table-bordered">
+                        <tr><td >Nome</td><td>Vittorie</td></tr>
+                        <?php
+                        require_once('ConnessioneDb.php');
+                        require_once('Games2.php');
+                        require_once('Players.php');
 
-                    <div style="margin-top:5%">
-                        <b style="color:gray; font-size:125%;"> Prossime date esami: </b>
-                        <p style="color:gray"> - Illustrazione delle eventuali date future disponibili per la prenotazione di un esame</l>.</p>
-                    </div>
-                    <div style="margin-top:5%">
-                        <b style="color:gray; font-size:125%;"> Carica file: </b>
-                        <p style="color:gray"> - Pannello destinato al caricamneto del PDF <b>"Bollettino"</b> e il PDF della <b>"Prenotazione"</b>.</p>
-                    </div>
+                        $db = new ConnessioneDb();
+                        $games2 = new Games2($db);
+                        $players = new Players($db);
+                        foreach ($games2->games2 as $key => $value) {
+                            
+                        }
+
+                        for ($i = 0; $i < count($players->players); $i++) {
+                            echo "<tr><td>{$players->players[$i]->nome}</td>";
+                            echo "<td>{$games2->games2[$i]->result1}</td>";
+
+
+                            echo "</tr>";
+                        }
+
+                        echo "</table>";
+                        ?>
+                    </table>
+
                 </div>
-            </div><div class = "panel panel-default col-md-6">
-                <div class = "form-group">
+            </div>
+            <div class = "panel panel-default col-md-6">
+                <div class = "form-group col-md-12">
                     <h3 align = "center">Classifica 2 vs 2</h3>
                 </div>
-                <div class = "panel-body" >
+                <div class = "panel" >
                     <div>
-                        <b style="color:gray; font-size:125%;"> PDF : </b>
-                        <p style="color:gray"> - PDF Update</p>
-                        <p style="color:gray"> - PDF SkillCard</p>
-                        <p style="color:gray"> - PDF Aica</p>
-                    </div>
-                    <div style="margin-top:5%">
-                        <b style="color:gray; font-size:125%;"> Tabella User : </b>
-                        <p style="color:gray"> - Tabella riassuntiva delle prenotazioni a gli esami.</p>
-                        <p style="color:gray"> - Nella voce "Bolletino" :</p>
-                        <ul>
-                            <li style="color:gray">
-                                <p style="color:gray">Se contrassegnato da <span style="color:#ff0000; font-size:150%;" class="glyphicon glyphicon-remove-sign"></span>  il PDF del <b>Bollettino</b> non è presente.</p>
-                            </li>
-                            <li style="color:gray">
-                                <p style="color:gray">Se contrassegnato da <span style="color:#ffcc00; font-size:150%;" class="glyphicon glyphicon-exclamation-sign"></span>  il PDF del <b>Bollettino</b> è presente, ma ancora da approvare.</p>
-                            </li>
-                            <li style="color:gray">
-                                <p style="color:gray">Se contrassegnato da <span style="color:#33cc33; font-size:150%;" class="glyphicon glyphicon-ok-sign"></span>  il PDF del <b>Bollettino</b> è stato approvato.</p>
-                            </li>
-                        </ul>
-                        <p style="color:gray"> - Nella voce "Pdf" :</p>
-                        <ul>
-                            <li style="color:gray">
-                                <p style="color:gray">Se contrassegnato da <span style="color:#ff0000; font-size:150%;" class="glyphicon glyphicon-remove-sign"></span>  il PDF della <b>Prenotazione</b> non è presente.</p>
-                            </li>
-                            <li style="color:gray">
-                                <p style="color:gray">Se contrassegnato da <span style="color:#ffcc00; font-size:150%;" class="glyphicon glyphicon-exclamation-sign"></span>  il PDF della <b>Prenotazione</b> è presente, ma ancora da approvare.</p>
-                            </li>
-                            <li style="color:gray">
-                                <p style="color:gray">Se contrassegnato da <span style="color:#33cc33; font-size:150%;" class="glyphicon glyphicon-ok-sign"></span>  il PDF della <b>Penotazione</b> è stato approvato.</p>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div style="margin-top:5%">
-                        <b style="color:gray; font-size:125%;"> Prossime date esami: </b>
-                        <p style="color:gray"> - Illustrazione delle eventuali date future disponibili per la prenotazione di un esame</l>.</p>
-                    </div>
-                    <div style="margin-top:5%">
-                        <b style="color:gray; font-size:125%;"> Carica file: </b>
-                        <p style="color:gray"> - Pannello destinato al caricamneto del PDF <b>"Bollettino"</b> e il PDF della <b>"Prenotazione"</b>.</p>
+                        lalalalalalalalalalalalalalalalalalalalalalalalalalal
+                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
                     </div>
                 </div>
             </div>
