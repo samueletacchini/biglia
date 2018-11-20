@@ -38,9 +38,6 @@ session_start();
         .custom-file-input:active::before {
             background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
         }
-
-
-
         #my_file {
             display: none;
         }
@@ -70,8 +67,8 @@ session_start();
             overflow: hidden;
             text-overflow: ellipsis;
         }
-    </style>
-    <style>
+
+
         .panel{
             margin-bottom:2%;
         }
@@ -115,220 +112,235 @@ session_start();
     <body>
 
         <div class="jumbotron text-center" >
-            <h1 align="center"> La Mucca   https://github.com/samueletacchini/biglia/invitations</h1>
+            <h1 align="center"> La Mucca</h1>
         </div>
 
 
-        <div class="col-md-8">
 
-            <div class="panel panel-default">
-                <div class="form-group">
-                    <h3 align='center'>Inserimento Partite</h3>
+
+
+
+        <div class="col-md-8 panel panel-default">
+
+            <div class="form-group">
+                <h3 align='center'>Inserimento Partite</h3>
+            </div>
+
+            <div class="panel-body text-center">
+
+                <div class="panel-default col-md-6">1 vs 1
+                    <div style="background-image: url('img/biglia.png'); background-size: 100%; height:20%" id="div1vs1">
+                        <select style="margin-top: 5%" id="player1">
+                            <?php
+                            require_once("ConnessioneDb.php");
+                            require_once("Players.php");
+                            $db = new ConnessioneDb();
+
+                            $players = new Players($db);
+                            $numPlayers = count($players->players);
+                            for ($i = 0; $i < $numPlayers; $i++) {
+                                echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                            }
+
+                            $date = date("Y-m-d");
+                            ?>
+                        </select>
+
+                        <br>
+                        <input style="color: blue; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" type="text" placeholder="Blu"></input><br>
+                        <button style="margin-top: 2%">UE</button><br>
+                        <input style="color: red; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" type="text" placeholder="Rossi"></input><br>
+                        <select style="margin-top: 2%" id="player2">
+                            <?php
+                            for ($i = 0; $i < $numPlayers; $i++) {
+                                echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+
                 </div>
-                <div class="panel-body text-center">
-                    <div class="panel-default col-md-6">1 vs 1
-                        <div style="background-image: url('img/biglia.png'); background-size: 100%; height:20%" id="div1vs1">
-                            <select style="margin-top: 5%" id="player1">
-                                <?php
-                                require_once("ConnessioneDb.php");
-                                $db = new ConnessioneDb();
 
-                                $players = new Players($db);
-                                $numPlayers = count($players->players);
-                                for ($i = 0; $i < $numPlayers; $i++) {
-                                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                <div  class="panel-default col-md-6">
+                    2 vs 2
+                    <div style="background-image: url('img/biglia.png'); background-size: 100%; height:20%" id="div2vs2">
+                        <div class="col-md-4">
+                            <table style="height: 100%">
+                                <tbody>
+                                    <tr>
+                                        <td class="align-top">
+                                            <select id="player1">
+                                                <?php
+                                                for ($i = 0; $i < $numPlayers; $i++) {
+                                                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </td>
+                                        <td class="align-middle">
+
+                                        </td>
+                                        <td class="align-bottom">
+                                            <select id="player3">
+                                                <?php
+                                                for ($i = 0; $i < $numPlayers; $i++) {
+                                                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-4">
+                            <table style="height: 100%">
+                                <tbody>
+                                    <tr>
+                                        <td class="align-top">
+                                            <input style="color: blue; width: 50%; font-weight: bold; text-align: center" type="text" placeholder="Blu"></input><br>
+                                        </td>
+                                        <td class="align-middle">
+                                            <button>UE</button><br>
+                                        </td>
+                                        <td class="align-bottom">
+                                            <input style="color: red; width: 50%; font-weight: bold; text-align: center" type="text" placeholder="Rossi"></input>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-4">					
+                            <table style="height: 100%">
+                                <tbody>
+                                    <tr>
+                                        <td class="align-top">
+                                            <select id="player2">
+                                                <?php
+                                                for ($i = 0; $i < $numPlayers; $i++) {
+                                                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </td>
+                                        <td class="align-middle">
+
+                                        </td>
+                                        <td class="align-bottom">
+                                            <select id="player4">
+                                                <?php
+                                                for ($i = 0; $i < $numPlayers; $i++) {
+                                                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="panel-body text-center">
+
+                <div>
+                    <div class="form-group">
+                        <h3 align='center'>Classifiche</h3>
+                    </div>
+                    <div class = "panel panel-default col-md-6">
+                        <div class = "form-group">
+                            <h3 align = "center">1 vs 1</h3>
+                        </div>
+                        <div class = "panel-body" >
+                            <table class="table table-bordered">
+                                <tr><td >Nome</td><td>Vittorie</td></tr>
+                                <?php
+                                require_once('ConnessioneDb.php');
+                                require_once('Games2.php');
+                                require_once('Players.php');
+
+                                //    $db = new ConnessioneDb();
+                                $games2 = new Games2($db);
+                                //   $players = new Players($db);
+                                foreach ($games2->games2 as $key => $value) {
+                                    
                                 }
 
-                                $date = date("Y-m-d");
-                                ?>
-                            </select><br>
-                            <input style="color: blue; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" type="text" placeholder="Blu"></input><br>
-                            <button style="margin-top: 2%">UE</button><br>
-                            <input style="color: red; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" type="text" placeholder="Rossi"></input><br>
-                            <select style="margin-top: 2%" id="player2">
-                                <?php
-                                for ($i = 0; $i < $numPlayers; $i++) {
-                                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
+                                for ($i = 0; $i < count($players->players); $i++) {
+                                    echo "<tr><td>{$players->players[$i]->name}</td>";
+                                    echo "<td>{$games2->games2[$i]->result1}</td>";
+
+
+                                    echo "</tr>";
                                 }
+
+                                echo "</table>";
                                 ?>
-                            </select>
+                            </table>
+
                         </div>
-
                     </div>
-
-                    <div  class="panel-default col-md-6">2 vs 2
-                        <div style="background-image: url('img/biglia.png'); background-size: 100%; height:20%" id="div2vs2">
-                            <div class="col-md-4">
-                                <table style="height: 100%">
-                                    <tbody>
-                                        <tr>
-                                            <td class="align-top">
-                                                <select id="player1">
-                                                    <?php
-                                                    for ($i = 0; $i < $numPlayers; $i++) {
-                                                        echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </td>
-                                            <td class="align-middle">
-
-                                            </td>
-                                            <td class="align-bottom">
-                                                <select id="player3">
-                                                    <?php
-                                                    for ($i = 0; $i < $numPlayers; $i++) {
-                                                        echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-4">
-                                <table style="height: 100%">
-                                    <tbody>
-                                        <tr>
-                                            <td class="align-top">
-                                                <input style="color: blue; width: 50%; font-weight: bold; text-align: center" type="text" placeholder="Blu"></input><br>
-                                            </td>
-                                            <td class="align-middle">
-                                                <button>UE</button><br>
-                                            </td>
-                                            <td class="align-bottom">
-                                                <input style="color: red; width: 50%; font-weight: bold; text-align: center" type="text" placeholder="Rossi"></input>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-4">					
-                                <table style="height: 100%">
-                                    <tbody>
-                                        <tr>
-                                            <td class="align-top">
-                                                <select id="player2">
-                                                    <?php
-                                                    for ($i = 0; $i < $numPlayers; $i++) {
-                                                        echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </td>
-                                            <td class="align-middle">
-
-                                            </td>
-                                            <td class="align-bottom">
-                                                <select id="player4">
-                                                    <?php
-                                                    for ($i = 0; $i < $numPlayers; $i++) {
-                                                        echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <div class = "panel panel-default col-md-6">
+                        <div class = "form-group col-md-12">
+                            <h3 align = "center">2 vs 2</h3>
+                        </div>
+                        <div class = "panel" >
+                            <div>
+                                lalalalalalalalalalalalalalalalalalalalalalalalalalal
+                                lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalal
+                                lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+                                lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalal
+                                lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+                                lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalal
+                                lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+                                lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalal
+                                lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div>
+                <div class="panel panel-default">
+                    <div class="form-group">
+                        NOME UTENTE E ROBE
+                    </div>
+                    <div id="login" class="panel-body">
+
+                        LISTA DI PRENOTAZIONI E 
 
                     </div>
                 </div>
             </div>
-            <div class = "panel panel-default col-md-6">
-                <div class = "form-group">
-                    <h3 align = "center">Classifica 1 vs 1</h3>
-                </div>
-                <div class = "panel-body" >
-                    <table class="table table-bordered">
-                        <tr><td >Nome</td><td>Vittorie</td></tr>
-                        <?php
-                        require_once('ConnessioneDb.php');
-                        require_once('Games2.php');
-                        require_once('Players.php');
+            <div>
+                <div class="panel panel-default"  id="link">
+                    <div class="form-group">
+                        <h3 align='center'>Prossime date Esami</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <tr><td style="color:gray">Data</td><td style="color:gray">Dalle</td><td style="color:gray">Alle</td></tr>
+                            LISTA DATE PRENOTAZIONI
+                        </table>
 
-                        $db = new ConnessioneDb();
-                        $games2 = new Games2($db);
-                        $players = new Players($db);
-                        foreach ($games2->games2 as $key => $value) {
-                            
-                        }
-
-                        for ($i = 0; $i < count($players->players); $i++) {
-                            echo "<tr><td>{$players->players[$i]->nome}</td>";
-                            echo "<td>{$games2->games2[$i]->result1}</td>";
-
-
-                            echo "</tr>";
-                        }
-
-                        echo "</table>";
-                        ?>
-                    </table>
-
-                </div>
-            </div>
-            <div class = "panel panel-default col-md-6">
-                <div class = "form-group col-md-12">
-                    <h3 align = "center">Classifica 2 vs 2</h3>
-                </div>
-                <div class = "panel" >
-                    <div>
-                        lalalalalalalalalalalalalalalalalalalalalalalalalalal
-                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
-                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
-                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
-                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
-                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
-                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
-                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
-                        lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+                        <form action="prenotazione.php" method="post">
+                            BOTTOni
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div>
-            <div class="panel panel-default">
-                <div class="form-group">
-                    NOME UTENTE E ROBE
-                </div>
-                <div id="login" class="panel-body">
 
-                    LISTA DI PRENOTAZIONI E 
-
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="panel panel-default"  id="link">
-                <div class="form-group">
-                    <h3 align='center'>Prossime date Esami</h3>
-                </div>
-                <div class="panel-body">
-                    <table class="table table-bordered">
-                        <tr><td style="color:gray">Data</td><td style="color:gray">Dalle</td><td style="color:gray">Alle</td></tr>
-                        LISTA DATE PRENOTAZIONI
-                    </table>
-
-                    <form action="prenotazione.php" method="post">
-                        BOTTOni
-                    </form>
-                </div>
-            </div>
-        </div>
-        <?php
-        if (!isset($_SESSION['user'])) {
-            echo '<div class="panel panel-default" style="height:20% width:5%;"><iframe style="max-width:100%;min-width:100%;" height="400" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2838.5097460187676!2d10.88803611520416!3d44.64793607909977!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477fef95e7474705%3A0xe65e79e7b059ecb4!2sIstituto+di+Istruzione+Superiore+F.Corni%2C+sede+Vinci!5e0!3m2!1sit!2sit!4v1525778801134" frameborder="0" style="border:0" allowfullscreen></iframe></div>';
-        }
-        ?>
-        <?php
-        if (isset($_SESSION['user'])) {
-            echo '<div class="panel panel-default"  id="link2">
+            <?php
+            if (isset($_SESSION['user'])) {
+                echo '<div class="panel panel-default"  id="link2">
                 <div class="form-group">
                     <h3 align="center">Carica File</h3>
                 </div>
@@ -394,80 +406,75 @@ session_start();
                         
                         </div>
                         ';
-        }
-        ?>
-    </div>
-</div>
-<script>
-    function updateDiv()
-    {
-    document.getElementById("buttons").innerHTML = document.getElementById("buttons").innerHTML;
-    document.getElementById("login").innerHTML = document.getElementById("login").innerHTML;
-    }
-    src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-            src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            type = "text/javascript" src = "bootstrap-table.js"
-</script>
-<script>
-            document.getElementById('get_file').onclick = function () {
-    document.getElementById('my_file').click();
-    };
-    $('input[type=file]').change(function (e) {
-    $('#customfileupload').html($(this).val());
-    });</script>
-
-
-
-<script>
-    var html = '<br><div class="form-row"><div class="col-md-10"><label for="scuola">Seleziona per quale prenotazione</label><select name="prenotazioni" class="form-control" id="prenotazioni"> ' + '<?php echo $reggia; ?>' + '</select></div></div>';
-    function myFunction() {
-    if (document.getElementById("pdfprenotazione").checked == false && document.getElementById("pdfupdate").checked == false && document.getElementById("bollettinoprenotazione").checked == false) {
-    document.getElementById("clicco").innerHTML = "";
-    } else {
-    document.getElementById("clicco").innerHTML = html;
-    }
-
-
-    }
-
-    function close() {
-    document.getElementById("alert").innerHTML = "";
-    }
-
-    function cancella() {
-    document.getElementById("clicco").innerHTML = "";
-    }
-</script>
-<div class="col-md-12">                                 
-    <footer class="container text-center" id="foot" >                                         
-        <p>                            
-            <br/><strong>MODENA, Cognento(MO), La Polly</strong>                              
-            <br/>                   credits to Pino & Tacco                             
-            <br/>                       Contact us to          
-            <br/>                    pino@tuoppadre.com - pino@tuoppadre.com -<a href="https://www.tuoppadre.com">tuoppadre.com</a>                                           
-        </p>                                 
-    </footer>     
-</div>
-</body>
-<script>
-    function login() {
-    var user = document.getElementById('username').value;
-    var pass = document.getElementById('password').value;
-    $.ajax({
-    type: "POST",
-            url: 'php/login.php',
-            data: {
-            username: user,
-                    password: pass
             }
-    success: function (data) {
-    if (data === 'Login') {
-    window.location.replace('/Uida/pagine/home.php');
-    } else {
-    alert('Credenziali invalide!');
-    }
-    }
-    });
-    }
-</script>
+            ?>
+        </div>
+
+        <script>
+            function updateDiv()
+            {
+            document.getElementById("buttons").innerHTML = document.getElementById("buttons").innerHTML;
+            document.getElementById("login").innerHTML = document.getElementById("login").innerHTML;
+            }
+            src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                    src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                    type = "text/javascript" src = "bootstrap-table.js"
+
+                    document.getElementById('get_file').onclick = function () {
+            document.getElementById('my_file').click();
+            };
+            $('input[type=file]').change(function (e) {
+            $('#customfileupload').html($(this).val());
+            });
+            var html = '<br><div class="form-row"><div class="col-md-10"><label for="scuola">Seleziona per quale prenotazione</label><select name="prenotazioni" class="form-control" id="prenotazioni"> ' + '<?php echo $reggia; ?>' + '</select></div></div>';
+            function myFunction() {
+            if (document.getElementById("pdfprenotazione").checked == false && document.getElementById("pdfupdate").checked == false && document.getElementById("bollettinoprenotazione").checked == false) {
+            document.getElementById("clicco").innerHTML = "";
+            } else {
+            document.getElementById("clicco").innerHTML = html;
+            }
+
+
+            }
+
+            function close() {
+            document.getElementById("alert").innerHTML = "";
+            }
+
+            function cancella() {
+            document.getElementById("clicco").innerHTML = "";
+            }
+        </script>
+        <div class="col-md-12">                                 
+            <footer class="container text-center" id="foot" >                                         
+                <p>                            
+                    <br/><strong>MODENA, Cognento(MO), La Polly</strong>                              
+                    <br/>                   credits to Pino & Tacco                             
+                    <br/>                       Contact us to          
+                    <br/>                    pino@tuoppadre.com - pino@tuoppadre.com -<a href="https://www.tuoppadre.com">tuoppadre.com</a>                                           
+                </p>                                 
+            </footer>     
+        </div>
+    </body>
+    <script>
+        function login() {
+        var user = document.getElementById('username').value;
+        var pass = document.getElementById('password').value;
+        $.ajax({
+        type: "POST",
+                url: 'php/login.php',
+                data: {
+                username: user,
+                        password: pass
+                }
+        success: function (data) {
+        if (data === 'Login') {
+        window.location.replace('/Uida/pagine/home.php');
+        } else {
+        alert('Credenziali invalide!');
+        }
+        }
+        });
+        }
+    </script>
 </html>

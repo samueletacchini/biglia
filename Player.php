@@ -14,11 +14,11 @@
 class Player {
 
     public $id;
-    public $nome;
+    public $name;
 
     public function __construct($id, $nome) {
         $this->id = $id;
-        $this->nome = $nome;
+        $this->name = $nome;
     }
 
     //put your code here
