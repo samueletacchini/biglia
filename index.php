@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 ?>
 <html>
@@ -126,19 +126,115 @@ session_start();
                     <h3 align='center'>Inserimento Partite</h3>
                 </div>
                 <div class="panel-body text-center">
-                    <div  class="  panel-default col-md-6">
-                        iteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
-                        Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
-                        Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
-                        Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Pa
+                    <div class="panel-default col-md-6">1 vs 1
+						<div style="background-image: url('img/biglia.png'); background-size: 100%; height:20%" id="div1vs1">
+							<select style="margin-top: 5%" id="player1">
+							<?php
+								require_once("ConnessioneDb.php");
+								$db = new ConnessioneDb();
+								
+								$players = new Players($db);
+								$numPlayers = count($players->players);
+								for($i = 0; $i < $numPlayers; $i++){
+									echo "<option value='".$players->players[$i]->id."'><a style='color: blue'>".$players->players[$i]->name."</a></option>";
+								}
+								
+								$date = date("Y-m-d");
+							?>
+							</select><br>
+							<input style="color: blue; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" type="text" placeholder="Blu"></input><br>
+							<button style="margin-top: 2%">UE</button><br>
+							<input style="color: red; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" type="text" placeholder="Rossi"></input><br>
+							<select style="margin-top: 2%" id="player2">
+							<?php
+								for($i = 0; $i < $numPlayers; $i++){
+									echo "<option value='".$players->players[$i]->id."'><a style='color: red'>".$players->players[$i]->name."</a></option>";
+								}
+							?>
+							</select>
+						</div>
+                        
                     </div>
                     
-                    <div  class="  panel-default col-md-6">Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
-                        Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
-                        Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
-                        Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
-                        Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
-                        Inserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento PartiteInserimento Partite
+                    <div  class="panel-default col-md-6">2 vs 2
+						<div style="background-image: url('img/biglia.png'); background-size: 100%; height:20%" id="div2vs2">
+							<div class="col-md-4">
+								<table style="height: 100%">
+									<tbody>
+										<tr>
+											<td class="align-top">
+												<select id="player1">
+													<?php
+														for($i = 0; $i < $numPlayers; $i++){
+															echo "<option value='".$players->players[$i]->id."'><a style='color: blue'>".$players->players[$i]->name."</a></option>";
+														}
+													?>
+												</select>
+											</td>
+											<td class="align-middle">
+												
+											</td>
+											<td class="align-bottom">
+												<select id="player3">
+												<?php
+													for($i = 0; $i < $numPlayers; $i++){
+														echo "<option value='".$players->players[$i]->id."'><a style='color: red'>".$players->players[$i]->name."</a></option>";
+													}
+												?>
+												</select>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="col-md-4">
+								<table style="height: 100%">
+									<tbody>
+										<tr>
+											<td class="align-top">
+												<input style="color: blue; width: 50%; font-weight: bold; text-align: center" type="text" placeholder="Blu"></input><br>
+											</td>
+											<td class="align-middle">
+												<button>UE</button><br>
+											</td>
+											<td class="align-bottom">
+												<input style="color: red; width: 50%; font-weight: bold; text-align: center" type="text" placeholder="Rossi"></input>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="col-md-4">					
+								<table style="height: 100%">
+									<tbody>
+										<tr>
+											<td class="align-top">
+												<select id="player2">
+												<?php
+													for($i = 0; $i < $numPlayers; $i++){
+														echo "<option value='".$players->players[$i]->id."'><a style='color: blue'>".$players->players[$i]->name."</a></option>";
+													}
+												?>
+												</select>
+											</td>
+											<td class="align-middle">
+												
+											</td>
+											<td class="align-bottom">
+												<select id="player4">
+												<?php
+													for($i = 0; $i < $numPlayers; $i++){
+														echo "<option value='".$players->players[$i]->id."'><a style='color: red'>".$players->players[$i]->name."</a></option>";
+													}
+												?>
+												</select>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+                        
                     </div>
                 </div>
             </div>
