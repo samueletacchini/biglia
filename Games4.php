@@ -16,10 +16,11 @@ class Games4 {
     public $games4;
 
     public function __construct($con) {
-
+        require_once 'players.php';
+        require_once 'game4.php';
         $sql = "SELECT * FROM `game4`";
         $ris = $con->query($sql);
-        $players = new players();
+        $players = new players($con);
         $i = 0;
         while ($row = $ris->fetch_array()) {
             $this->games4[$i] = new game4($row["id"], $row["date"], $row["result1"], $row["result2"], $players->getPlayerById($row["player1"]), $players->getPlayerById($row["player2"]), $players->getPlayerById($row["player3"]), $players->getPlayerById($row["player4"]));
