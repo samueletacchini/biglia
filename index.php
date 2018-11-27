@@ -312,6 +312,19 @@ session_start();
                                     echo "</table>";
                                     ?>
                                 </table>
+                                <div id='cls4warp'>
+                                    <?php 
+                                        $paginaCls4 = $_SESSION['cls4'];
+                                        
+                                        if($paginaCls4 == 1){
+                                            echo "<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>";
+                                            echo "<span href=\"index.php?cls4=\"".($paginaCls4+1)."\" class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>";
+                                        }else{
+                                            echo "<span href=\"index.php?cls4=\"".($paginaCls4-1)."\" class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>";
+                                            echo "<span href=\"index.php?cls4=\"".($paginaCls4+1)."\" class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>";
+                                        }            
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
