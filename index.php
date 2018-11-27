@@ -1,6 +1,5 @@
 ﻿<?php
 session_start();
-
 ?>
 <html>
     <head>
@@ -287,24 +286,24 @@ session_start();
                                         }
                                     }
 
+                                    $perpagina = 20;
                                     arsort($classifica);
-                                    if (!isset($_SESSION["max"])) {
-                                        $_SESSION["max"] = 20;
+                                    if (isset($_get["cls4"])) {
+                                        $_SESSION["cls4"] = $_get["cls4"];
                                     } else {
-                                        $max = $_SESSION["max"];
+                                        $_SESSION["cls4"] = 1;     
                                     }
-                                    if (!isset($_SESSION["i"])) {
-                                        $_SESSION["i"] = 0;
-                                    } else {
-                                        $i = $_SESSION["i"];
-                                    }
+
+                                    $max = $_SESSION["cls4"] * $perpagina;
+
+
+                                    $i = $_SESSION["cls4"] * $perpagina - $perpagina;
+
 
                                     foreach ($classifica4 as $key => $value) {
                                         if ($i < $max) {
                                             echo "<tr><td>" . $key . "</td>";
                                             echo "<td>$value</td>";
-
-
                                             echo "</tr>";
                                             $i++;
                                         }
@@ -351,9 +350,9 @@ session_start();
                 </div>
             </div>
 
-<?php
-if (isset($_SESSION['user'])) {
-    echo '<div class="panel panel-default"  id="link2">
+            <?php
+            if (isset($_SESSION['user'])) {
+                echo '<div class="panel panel-default"  id="link2">
                 <div class="form-group">
                     <h3 align="center">Carica File</h3>
                 </div>
@@ -419,8 +418,8 @@ if (isset($_SESSION['user'])) {
                         
                         </div>
                         ';
-}
-?>
+            }
+            ?>
         </div>
 
         <script>
