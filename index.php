@@ -125,7 +125,7 @@ session_start();
             <div class="panel-body text-center">
 
                 <div class="panel-default col-md-6">1 vs 1
-                    <div style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" id="div1vs1">
+                    <div style="background-image: url('img/biglia.jpg'); background-size: 100%; height:30%" id="div1vs1">
                         <select style="margin-top: 5%" id="player1Game2">
                             <?php
                             require_once("ConnessioneDb.php");
@@ -158,7 +158,7 @@ session_start();
                 </div>
 
                 <div  class="panel-default col-md-6"> 2 vs 2
-                    <div style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" id="div2vs2">
+                    <div style="background-image: url('img/biglia.jpg'); background-size: 100%; height:30%" id="div2vs2">
                         <div class="col-md-4">
                             <select style="margin-top: 20%" id="player1Game4">
                                 <?php
@@ -209,7 +209,7 @@ session_start();
                     <div class="form-group">
                         <h3 align='center'>Classifiche</h3>
                     </div>
-                    <div class = "panel panel-default col-md-6">
+                    <div class = "panel panel-default col-md-4">
                         <div class = "form-group">
                             <h3 align = "center">1 vs 1</h3>
                         </div>
@@ -252,9 +252,58 @@ session_start();
                             </div>
                         </div>
                     </div>
-                    <div class = "panel panel-default col-md-6">
+
+                    <div class = "panel panel-default col-md-4">
+                        <div class = "form-group">
+                            <h3 align = "center">2 vs 2 </h3>
+                            <h5 align = "center">Solo </h5>
+                        </div>
+                        <div class = "panel-body" >
+                            <div>
+                                <table class="table table-bordered">
+                                    <tr><td >Nome</td><td>Vittorie</td></tr>
+                                    <?php
+                                    require_once('ConnessioneDb.php');
+                                    require_once('Games4.php');
+                                    require_once('Players.php');
+
+                                    $games4 = new Games4($db);
+
+                                    for ($i = 0; $i < count($players->players); $i++) {
+                                        $classifica2[$players->players[$i]->name] = 0;
+                                    }
+
+                                    for ($i = 0; $i < count($games4->games4); $i++) {
+                                        if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
+                                            $classifica2[$games4->games4[$i]->player1->name] ++;
+                                            $classifica2[$games4->games4[$i]->player2->name] ++;
+                                        } else {
+                                            $classifica2[$games4->games4[$i]->player3->name] ++;
+                                            $classifica2[$games4->games4[$i]->player4->name] ++;
+                                        }
+                                    }
+
+                                    arsort($classifica2);
+
+
+                                    foreach ($classifica2 as $key => $value) {
+                                        echo "<tr><td>" . $key . "</td>";
+                                        echo "<td>$value</td>";
+                                        echo "</tr>";
+                                    }
+
+                                    echo "</table>";
+                                    ?>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class = "panel panel-default col-md-4">
                         <div class = "form-group col-md-12">
                             <h3 align = "center">2 vs 2</h3>
+                            <h5 align = "center">Duo </h5>
+
                         </div>
                         <div class = "panel">
                             <div>
@@ -265,7 +314,6 @@ session_start();
                                     require_once('Games4.php');
                                     require_once('Players.php');
 
-                                    $games4 = new Games4($db);
 //                                    for ($i = 0; $i < count($players->players); $i++) {
 //                                        $classifica[$players->players[$i]->name] = 0;
 //                                    }
@@ -286,22 +334,24 @@ session_start();
                                         }
                                     }
 
-                                    $perpagina = 20;
                                     arsort($classifica);
-                                    if (isset($_get["cls4"])) {
-                                        $_SESSION["cls4"] = $_get["cls4"];
+                                    $perpagina = 20;
+
+
+                                    $paginamax = count($classifica) / 20;
+
+                                    if (isset($_GET["cls4"])) {
+                                        $_SESSION["cls4"] = $_GET["cls4"];
                                     } else {
-                                        $_SESSION["cls4"] = 1;     
+                                        $_SESSION["cls4"] = 1;
                                     }
 
                                     $max = $_SESSION["cls4"] * $perpagina;
 
-
-                                    $i = $_SESSION["cls4"] * $perpagina - $perpagina;
-
+                                    $min = $_SESSION["cls4"] * $perpagina - $perpagina;
 
                                     foreach ($classifica4 as $key => $value) {
-                                        if ($i < $max) {
+                                        if ($i < $max && $i > $min) {
                                             echo "<tr><td>" . $key . "</td>";
                                             echo "<td>$value</td>";
                                             echo "</tr>";
@@ -313,21 +363,24 @@ session_start();
                                     ?>
                                 </table>
                                 <div id='cls4warp'>
-                                    <?php 
-                                        $paginaCls4 = $_SESSION['cls4'];
-                                        
-                                        if($paginaCls4 == 1){
-                                            echo "<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>";
-                                            echo "<span href=\"index.php?cls4=\"".($paginaCls4+1)."\" class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>";
-                                        }else{
-                                            echo "<span href=\"index.php?cls4=\"".($paginaCls4-1)."\" class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>";
-                                            echo "<span href=\"index.php?cls4=\"".($paginaCls4+1)."\" class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>";
-                                        }            
+                                    <?php
+                                    if ($_SESSION['cls4'] > 1) {
+                                        echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] - 1) . " \"> <span  class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span></a>";
+                                    }
+                                    if ($_SESSION['cls4'] < $paginamax) {
+                                        //echo "<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>";
+                                        echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] + 1) . " \" > <span  class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span></a>";
+                                    }
+
+// echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] + 1) . " \"> <span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span></a>";
                                     ?>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
+
                 </div>
             </div>
 
