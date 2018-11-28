@@ -125,7 +125,7 @@ session_start();
             <div class="panel-body text-center">
 
                 <div class="panel-default col-md-6">1 vs 1
-                    <div style="background-image: url('img/biglia.jpg'); background-size: 100%; height:30%" id="div1vs1">
+                    <div style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" id="div1vs1">
                         <select style="margin-top: 5%" id="player1Game2">
                             <?php
                             require_once("ConnessioneDb.php");
@@ -158,7 +158,7 @@ session_start();
                 </div>
 
                 <div  class="panel-default col-md-6"> 2 vs 2
-                    <div style="background-image: url('img/biglia.jpg'); background-size: 100%; height:30%" id="div2vs2">
+                    <div style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" id="div2vs2">
                         <div class="col-md-4">
                             <select style="margin-top: 20%" id="player1Game4">
                                 <?php
@@ -204,7 +204,34 @@ session_start();
 
             </div>
             <div class="panel-body text-center">
+                <div  class=" panel panel-default" >
+                    <div class="form-group">
+                        <h3 align='center'>Ultime Partite</h3>
+                    </div>
+                    <div class = "panel-body" >
+                        <table class="table table-bordered">
+                            <tr><td >Nome</td><td>Vittorie</td></tr>
+                            <?php
+                            require_once('ConnessioneDb.php');
+                            require_once('Games2.php');
+                            require_once('Games4.php');
 
+                            $games2 = new Games2($db);
+                            for ($i = 0; $i < count($players->players); $i++) {
+                                $classifica[$players->players[$i]->name] = 0;
+                            }
+
+                            for ($i = 0; $i < count($games2->games2); $i++) {
+                                if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
+                                    $classifica[$games2->games2[$i]->player1->name] ++;
+                                } else {
+                                    $classifica[$games2->games2[$i]->player2->name] ++;
+                                }
+                            }
+                            ?>
+                        </table>
+                    </div>
+                </div>
                 <div>
                     <div class="form-group">
                         <h3 align='center'>Classifiche</h3>
