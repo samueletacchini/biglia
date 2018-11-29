@@ -141,10 +141,10 @@ session_start();
                             $date = date("Y-m-d");
                             ?>
                         </select>
-
+                        <input id="defResult1Game2" type="number" value="0">
                         <br>
                         <input style="color: blue; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" type="number" placeholder="Blu" id="result1Game2"></input><br>
-                        <button style="margin-top: 2%" onclick="checkGame2()">Conferma</button><br>
+                        <button style="margin-top: 2%" onclick="checkGame2()">Conferma</button><input id="dateGame2" type="date" value="<?php $date ?>"><br>
                         <input style="color: red; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" type="number" placeholder="Rossi" id="result2Game2"></input><br>
                         <select style="margin-top: 2%" id="player2Game2">
                             <?php
@@ -153,6 +153,7 @@ session_start();
                             }
                             ?>
                         </select>
+                        <input id="defResult2Game2" type="number" value="0">
                     </div>
 
                 </div>
@@ -160,7 +161,7 @@ session_start();
                 <div  class="panel-default col-md-6"> 2 vs 2
                     <div style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" id="div2vs2">
                         <div class="col-md-4">
-                            <select style="margin-top: 20%" id="player1Game4">
+                            <select style="margin-top: 20%" id="player1Game4"> <!-- ATTACCANTE SQUADRA 1 -->
                                 <?php
                                 for ($i = 0; $i < $numPlayers; $i++) {
                                     echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
@@ -168,21 +169,22 @@ session_start();
                                 ?>
                             </select>
                             <br>
-                            <select style="margin-top: 115%" id="player3Game4">
+                            <select style="margin-top: 115%" id="player4Game4"> <!-- DIFENSORE SQUADRA 2 -->
                                 <?php
                                 for ($i = 0; $i < $numPlayers; $i++) {
                                     echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
                                 }
                                 ?>
                             </select>
+                            <input id="defResult1Game4" type="number" value="0">
                         </div>
                         <div class="col-md-4">
                             <input style="color: blue; width: 50%; font-weight: bold; text-align: center; margin-top: 20%" type="number" min="0" placeholder="Blu"><br>
-                            <button style="margin-top: 35%">Conferma</button><br>
+                            <button style="margin-top: 35%">Conferma</button><input id="dateGame4" type="date" value="<?php $date ?>"><br>
                             <input style="color: red; width: 50%; font-weight: bold; text-align: center; margin-top: 40%" type="number" min="0" placeholder="Rossi">
                         </div>
                         <div class="col-md-4">	
-                            <select style="margin-top: 20%" id="player4Game4">
+                            <select style="margin-top: 20%" id="player2Game4"> <!-- DIFENSORE SQUADRA 1 -->
                                 <?php
                                 for ($i = 0; $i < $numPlayers; $i++) {
                                     echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
@@ -190,13 +192,14 @@ session_start();
                                 ?>
                             </select>		
                             <br>
-                            <select style="margin-top: 115%" id="player2Game4">
+                            <select style="margin-top: 115%" id="player3Game4"> <!-- ATTACCANTE SQUADRA 2 -->
                                 <?php
                                 for ($i = 0; $i < $numPlayers; $i++) {
                                     echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
                                 }
                                 ?>
                             </select>
+                            <input id="defResult2Game4" type="number" value="0">
                         </div>
                     </div>
                 </div>
@@ -587,35 +590,93 @@ session_start();
     </body>
     <script>
         function checkGame2(){
-        var idPlayer1 = $("#player1Game2").val();
-        var idPlayer2 = $("#player2Game2").val();
-        var result1 = $("#result1Game2").val();
-        var result2 = $("#result2Game2").val();
-        if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 == 10 || result2 == 10)){
-        insertGame(result1, result2, idPlayer1, idPlayer2);
-        } else{
-        return false;
+            var date = $("#dateGame2").val();
+            var result1 = $("#result1Game2").val();
+            var result2 = $("#result2Game2").val();
+            var defResult1 = $("#defResult1Game2").val();
+            var defResult2 = $("#defResult2Game2").val();
+            var idPlayer1 = $("#player1Game2").val();
+            var idPlayer2 = $("#player2Game2").val();
+            if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 >= 10 || result2 >= 10)){
+                if(idPlayer1 != idPlayer2){
+                    insertGame2(date, result1, result2, idPlayer1, idPlayer2);
+                }
+            } else{
+                return false;
+            }
         }
-        }
 
-
-
-        function insertGame2(result1, result2, idPlayer1, idPlayer2) {
-        var date = <?php echo Date("Y-m-d"); ?>;
-        $.ajax({
-        type: "POST",
+        function insertGame2(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2) {
+            $.ajax({
+                type: "POST",
                 url: 'php/addGame2.php',
                 data: {
-                date: date,
-                        result1: result1,
-                        result2: result2,
-                        idPlayer1: idPlayer1,
-                        idPlayer2: idPlayer2
+                    date: date,
+                    result1: result1,
+                    result2: result2,
+                    defResult1: defResult1,
+                    defResult2: defResult2,
+                    idPlayer1: idPlayer1,
+                    idPlayer2: idPlayer2
                 }
-        success: function (data) {
-        alert("tutto è andato ok (forse)");
+                success: function (data) {
+                    $("#dateGame2").val("<?php $date ?>");
+                    $("#result1Game2").val("0");
+                    $("#result2Game2").val("0");
+                    $("#defResult1Game2").val("0");
+                    $("#defResult2Game2").val("0");
+                    $("#player1Game2").val($("#player1Game2 option:first").val());
+                    $("#player2Game2").val($("#player2Game2 option:second").val());
+                }
+            });
         }
-        });
+        
+        function checkGame4(){
+            var date = $("#dateGame4").val();
+            var result1 = $("#result1Game4").val();
+            var result2 = $("#result2Game4").val();
+            var defResult1 = $("#defResult1Game4").val();
+            var defResult2 = $("#defResult2Game4").val();
+            var idPlayer1 = $("#player1Game4").val();
+            var idPlayer2 = $("#player2Game4").val();
+            var idPlayer3 = $("#player3Game4").val();
+            var idPlayer4 = $("#player4Game4").val();
+            if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 >= 10 || result2 >= 10)){
+                if(idPlayer1 != idPlayer2 != idPlayer3 != idPlayer4){
+                    insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4);
+                }
+            } else{
+                return false;
+            }
+        }
+
+        function insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4) {
+            $.ajax({
+                type: "POST",
+                url: 'php/addGame4.php',
+                data: {
+                    date: date,
+                    result1: result1,
+                    result2: result2,
+                    defResult1: defResult1,
+                    defResult2: defResult2,
+                    idPlayer1: idPlayer1,
+                    idPlayer2: idPlayer2,
+                    idPlayer3: idPlayer3,
+                    idPlayer4: idPlayer4
+                }
+                success: function (data) {
+                    $("#dateGame4").val("<?php $date ?>");
+                    $("#result1Game4").val("0");
+                    $("#result2Game4").val("0");
+                    $("#defResult1Game4").val("0");
+                    $("#defResult2Game4").val("0");
+                    $("#player1Game4").val($("#player1Game4 option:first").val());
+                    $("#player2Game4").val($("#player2Game4 option:second").val());
+                    $("#player3Game4").val($("#player3Game4 option:third").val());
+                    $("#player4Game4").val($("#player4Game4 option:fourth").val());
+                }
+            });
         }
     </script>
 </html>
