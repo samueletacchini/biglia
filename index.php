@@ -209,215 +209,261 @@ session_start();
                         <h3 align='center'>Ultime Partite</h3>
                     </div>
                     <div class = "panel-body" >
-                        <table class="table table-bordered">
-                            <tr><td>Data</td><td>Blu</td><td>ris</td><td>ris2</td><td>Rossi</td></tr>
-                            <?php
-                            require_once('ConnessioneDb.php');
-                            require_once('Games2.php');
-                            require_once('Games4.php');
-                            $ir = 0;
+                        <div class = " panel-default col-md-5" >
+                            <div class=" panel-default panel form-group">
+                                <h4 align='center'>1 vs 1</h4>
+                            </div>
+                            <div>
+                                <table  class=" text-center table table-bordered">
+                                    <tr><td>Giorni fa</td><td>Blu</td><td>Score</td><td>Rossi</td></tr>
+                                    <?php
+                                    require_once('ConnessioneDb.php');
+                                    require_once('Games2.php');
+                                    require_once('Games4.php');
 
-                            $games2 = new Games2($db);
-                            $games4 = new Games4($db);
+                                    $games2 = new Games2($db);
+                                    $games4 = new Games4($db);
 
 
+                                    $oggi = new DateTime($date);
 
-                            for ($i = 0; $i < count($games2->games2); $i++) {
-                                $classificarec[$ir]["date"] = $games2->games2[$i]->date;
-                                $classificarec[$ir]["blu"] = $games2->games2[$i]->player1;
-                                $classificarec[$ir]["ris1"] = $games2->games2[$i]->result1;
-                                $classificarec[$ir]["ris2"] = $games2->games2[$i]->result1;
-                                $classificarec[$ir]["red"] = $games2->games2[$i]->player2;
-                                $classificarec[$ir]["id"] = $games2->games2[$i]->id;
+                                    for ($i = count($games2->games2) - 1; $i > count($games2->games2) - 4; $i--) {
 
-                                $ir++;
-                            }
+                                        $diff = new DateTime($games2->games2[$i]->date);
+                                        $data = $diff->diff($oggi);
+                                        echo "<tr><td>" . $data->format('%a') . "</td>";
 
-//                            for ($i = 0; $i < count($games4->games4); $i++) {
-//                                $classifica[$ir]["date"] = $games4->games4[$i]->date;
-//                                $classifica[$ir]["blu"] = $games4->games4[$i]->player2 . " - " . $games4->games4[$i]->player1;
-//                                $classifica[$ir]["ris1"] = $games4->games4[$i]->result1;
-//                                $classifica[$ir]["ris2"] = $games4->games4[$i]->result1;
-//                                $classifica[$ir]["red"] = $games4->games4[$i]->player4 . " - " . $games4->games4[$i]->player3;
-//                                $classifica[$ir]["id"] = $games4->games4[$i]->id;
-//                                $ir++;
-//                            }
+                                        //echo "<td>{$games2->games2[$i]->player1->name}</td>";
+                                        // echo "<td>{$games2->games2[$i]->player2->name}</td>";
 
-           //                 $final = array_msort($classifica, array('date' => SORT_DESC, 'id' => SORT_DESC));
-                            ?>
-                        </table>
+
+                                        if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
+                                            echo "<td><b>{$games2->games2[$i]->player1->name}</b></td>";
+                                            echo "<td><b>({$games2->games2[$i]->defResult1}) {$games2->games2[$i]->result1}</b>  - {$games2->games2[$i]->result2} ({$games2->games2[$i]->defResult2})</td>";
+                                            echo "<td>{$games2->games2[$i]->player2->name}</td>";
+                                        } else {
+                                            echo "<td><b>{$games2->games2[$i]->player1->name}</b></td>";
+                                            echo "<td><b>({$games2->games2[$i]->defResult1}) {$games2->games2[$i]->result1} </b> - {$games2->games2[$i]->result2} ({$games2->games2[$i]->defResult2})</td>";
+                                            echo "<td>{$games2->games2[$i]->player2->name}</td>";
+                                        }
+                                        echo "</tr>";
+                                    }
+
+
+                                    //$final = array_msort($classifica, array('date' => SORT_DESC, 'id' => SORT_DESC));
+                                    ?>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class = " panel-default col-md-7" >
+                            <div class=" panel-default panel form-group">
+                                <h4 align='center'>2 vs 2</h4>
+                            </div>
+                            <div>
+                                <table  class=" text-center table table-bordered">
+                                    <tr><td>Giorni fa</td><td>Blu</td><td>Score</td><td>Rossi</td></tr>
+                                    <?php
+                                    for ($i = count($games4->games4) - 1; $i > count($games4->games4) - 3; $i--) {
+
+                                        $diff = new DateTime($games4->games4[$i]->date);
+                                        $data = $diff->diff($oggi);
+                                        if ($data->format('%a') == 0) {
+                                            echo "<tr><td>Oggi</td>";
+                                        } else {
+                                            echo "<tr><td>" . $data->format('%a') . "</td>";
+                                        }
+
+                                        //echo "<td>{$games4->games4[$i]->player1->name}</td>";
+                                        // echo "<td>{$games4->games4[$i]->player2->name}</td>";
+
+
+                                        if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
+                                            echo "<td><b>" . $games4->games4[$i]->player2->name . " - " . $games4->games4[$i]->player1->name . "</b></td>";
+                                            echo "<td><b>({$games4->games4[$i]->defResult1}) {$games4->games4[$i]->result1}</b>  - {$games4->games4[$i]->result2} ({$games4->games4[$i]->defResult2})</td>";
+                                            echo "<td>" . $games4->games4[$i]->player4->name . " - " . $games4->games4[$i]->player3->name . "</td>";
+                                        } else {
+                                            echo "<td><b>" . $games4->games4[$i]->player2->name . " - " . $games4->games4[$i]->player1->name . "</b></td>";
+                                            echo "<td><b>({$games4->games4[$i]->defResult1}) {$games4->games4[$i]->result1} </b> - {$games4->games4[$i]->result2} ({$games4->games4[$i]->defResult2})</td>";
+                                            echo "<td>" . $games4->games4[$i]->player4->name . " - " . $games4->games4[$i]->player3->name . "</td>";
+                                        }
+                                        echo "</tr>";
+                                    }
+
+
+                                    //$final = array_msort($classifica, array('date' => SORT_DESC, 'id' => SORT_DESC));
+                                    ?>
+                                </table>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
                 <div>
                     <div class="form-group">
                         <h3 align='center'>Classifiche</h3>
                     </div>
-                    <div class = "panel panel-default col-md-4">
-                        <div class = "form-group">
+                    <div class = "panel panel-default panel-body col-md-4">
+                        <div class = " panel panel-default form-group">
                             <h3 align = "center">1 vs 1</h3>
+                            <h5 align = "center">Solo </h5>
+
                         </div>
-                        <div class = "panel-body" >
-                            <div>
-                                <table class="table table-bordered">
-                                    <tr><td >Nome</td><td>Vittorie</td></tr>
-                                    <?php
-                                    require_once('ConnessioneDb.php');
-                                    require_once('Games2.php');
-                                    require_once('Players.php');
+                        <table class=" text-center  table table-hover">
+                            <tr><td>#</td><td>Player</td><td>Vittorie</td></tr>
+                            <?php
+                            require_once('ConnessioneDb.php');
+                            require_once('Games2.php');
+                            require_once('Players.php');
 
-                                    for ($i = 0; $i < count($players->players); $i++) {
-                                        $classifica[$players->players[$i]->name] = 0;
-                                    }
+                            for ($i = 0; $i < count($players->players); $i++) {
+                                $classifica[$players->players[$i]->name] = 0;
+                            }
 
-                                    for ($i = 0; $i < count($games2->games2); $i++) {
-                                        if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
-                                            $classifica[$games2->games2[$i]->player1->name] ++;
-                                        } else {
-                                            $classifica[$games2->games2[$i]->player2->name] ++;
-                                        }
-                                    }
+                            for ($i = 0; $i < count($games2->games2); $i++) {
+                                if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
+                                    $classifica[$games2->games2[$i]->player1->name] ++;
+                                } else {
+                                    $classifica[$games2->games2[$i]->player2->name] ++;
+                                }
+                            }
 
-                                    arsort($classifica);
+                            arsort($classifica);
+                            $i = 1;
+                            foreach ($classifica as $key => $value) {
+                                echo "<tr><td>$i</td>";
+                                echo "<td>$key</td>";
+                                echo "<td>$value</td>";
+                                echo "</tr>";
+                                $i++;
+                            }
 
-
-                                    foreach ($classifica as $key => $value) {
-                                        echo "<tr><td>" . $key . "</td>";
-                                        echo "<td>$value</td>";
-
-
-                                        echo "</tr>";
-                                    }
-
-                                    echo "</table>";
-                                    ?>
-                                </table>
-                            </div>
-                        </div>
+                            echo "</table>";
+                            ?>
+                        </table>
                     </div>
 
-                    <div class = "panel panel-default col-md-4">
-                        <div class = "form-group">
+                    <div class = "panel panel-default panel-body col-md-4">
+                        <div class = " panel panel-default form-group">
                             <h3 align = "center">2 vs 2 </h3>
                             <h5 align = "center">Solo </h5>
                         </div>
-                        <div class = "panel-body" >
-                            <div>
-                                <table class="table table-bordered">
-                                    <tr><td >Nome</td><td>Vittorie</td></tr>
-                                    <?php
-                                    require_once('ConnessioneDb.php');
-                                    require_once('Games4.php');
-                                    require_once('Players.php');
+                        <table class=" text-center  table table-hover">
+                            <tr><td>#</td><td>Player</td><td>Vittorie</td></tr>
+                            <?php
+                            require_once('ConnessioneDb.php');
+                            require_once('Games4.php');
+                            require_once('Players.php');
 
 
-                                    for ($i = 0; $i < count($players->players); $i++) {
-                                        $classifica2[$players->players[$i]->name] = 0;
-                                    }
+                            for ($i = 0; $i < count($players->players); $i++) {
+                                $classifica2[$players->players[$i]->name] = 0;
+                            }
 
-                                    for ($i = 0; $i < count($games4->games4); $i++) {
-                                        if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
-                                            $classifica2[$games4->games4[$i]->player1->name] ++;
-                                            $classifica2[$games4->games4[$i]->player2->name] ++;
-                                        } else {
-                                            $classifica2[$games4->games4[$i]->player3->name] ++;
-                                            $classifica2[$games4->games4[$i]->player4->name] ++;
-                                        }
-                                    }
+                            for ($i = 0; $i < count($games4->games4); $i++) {
+                                if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
+                                    $classifica2[$games4->games4[$i]->player1->name] ++;
+                                    $classifica2[$games4->games4[$i]->player2->name] ++;
+                                } else {
+                                    $classifica2[$games4->games4[$i]->player3->name] ++;
+                                    $classifica2[$games4->games4[$i]->player4->name] ++;
+                                }
+                            }
 
-                                    arsort($classifica2);
+                            arsort($classifica2);
 
+                            $i = 1;
+                            foreach ($classifica2 as $key => $value) {
+                                echo "<tr><td>$i</td>";
+                                echo "<td>$key</td>";
+                                echo "<td>$value</td>";
+                                echo "</tr>";
+                                $i++;
+                            }
 
-                                    foreach ($classifica2 as $key => $value) {
-                                        echo "<tr><td>" . $key . "</td>";
-                                        echo "<td>$value</td>";
-                                        echo "</tr>";
-                                    }
-
-                                    echo "</table>";
-                                    ?>
-                                </table>
-                            </div>
-                        </div>
+                            echo "</table>";
+                            ?>
+                        </table>
                     </div>
 
-                    <div class = "panel panel-default col-md-4">
-                        <div class = "form-group col-md-12">
+                    <div class = "panel panel-default panel-body col-md-4">
+                        <div class = " panel panel-default  form-group">
                             <h3 align = "center">2 vs 2</h3>
                             <h5 align = "center">Duo </h5>
-
                         </div>
-                        <div class = "panel">
-                            <div>
-                                <table class="table table-bordered">
-                                    <tr><td >Nome</td><td>Vittorie</td></tr>
-                                    <?php
-                                    require_once('ConnessioneDb.php');
-                                    require_once('Games4.php');
-                                    require_once('Players.php');
+                        <table class=" text-center  table table-hover">
+                            <tr><td>#</td><td>Player</td><td>Vittorie</td></tr>
+                            <?php
+                            require_once('ConnessioneDb.php');
+                            require_once('Games4.php');
+                            require_once('Players.php');
 
 //                                    for ($i = 0; $i < count($players->players); $i++) {
 //                                        $classifica[$players->players[$i]->name] = 0;
 //                                    }
 
-                                    for ($i = 0; $i < count($games4->games4); $i++) {
-                                        if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
-                                            if (isset($classifica4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
-                                                $classifica4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] ++;
-                                            } else {
-                                                $classifica4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 1;
-                                            }
-                                        } else {
-                                            if (isset($classifica4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
-                                                $classifica4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] ++;
-                                            } else {
-                                                $classifica4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 1;
-                                            }
-                                        }
-                                    }
-
-                                    arsort($classifica);
-                                    $perpagina = 20;
-
-
-                                    $paginamax = count($classifica) / 20;
-
-                                    if (isset($_GET["cls4"])) {
-                                        $_SESSION["cls4"] = $_GET["cls4"];
+                            for ($i = 0; $i < count($games4->games4); $i++) {
+                                if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
+                                    if (isset($classifica4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
+                                        $classifica4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] ++;
                                     } else {
-                                        $_SESSION["cls4"] = 1;
+                                        $classifica4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 1;
                                     }
-
-                                    $max = $_SESSION["cls4"] * $perpagina;
-
-                                    $min = $_SESSION["cls4"] * $perpagina - $perpagina;
-
-                                    foreach ($classifica4 as $key => $value) {
-                                        if ($i < $max && $i > $min) {
-                                            echo "<tr><td>" . $key . "</td>";
-                                            echo "<td>$value</td>";
-                                            echo "</tr>";
-                                            $i++;
-                                        }
+                                } else {
+                                    if (isset($classifica4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
+                                        $classifica4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] ++;
+                                    } else {
+                                        $classifica4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 1;
                                     }
+                                }
+                            }
 
-                                    echo "</table>";
-                                    ?>
-                                </table>
-                                <div id='cls4warp'>
-                                    <?php
-                                    if ($_SESSION['cls4'] > 1) {
-                                        echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] - 1) . " \"> <span  class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span></a>";
-                                    }
-                                    if ($_SESSION['cls4'] < $paginamax) {
-                                        //echo "<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>";
-                                        echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] + 1) . " \" > <span  class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span></a>";
-                                    }
+                            arsort($classifica);
+                            $perpagina = 20;
 
-// echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] + 1) . " \"> <span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span></a>";
-                                    ?>
-                                </div>
-                            </div>
+
+                            $paginamax = count($classifica) / 20;
+
+                            if (isset($_GET["cls4"])) {
+                                $_SESSION["cls4"] = $_GET["cls4"];
+                            } else {
+                                $_SESSION["cls4"] = 1;
+                            }
+
+                            $max = $_SESSION["cls4"] * $perpagina;
+
+                            $min = $_SESSION["cls4"] * $perpagina - $perpagina;
+
+                            $ii = 1;
+                            foreach ($classifica4 as $key => $value) {
+                                if ($i < $max && $i > $min) {
+                                    echo "<tr><td>$ii</td>";
+                                    echo "<td>$key</td>";
+
+                                    // echo '<td> <div class = "col-md-5" > ' . explode("-", $key)[0] . '  </div><div class = "col-md-2" > - </div><div class = "col-md-5" > ' . explode("-", $key)[1] . '  </div></td>';
+                                    echo "<td>$value</td>";
+
+                                    echo "</tr>";
+                                    $ii++;
+                                }
+                            }
+
+                            echo "</table>";
+                            ?>
+                        </table>
+                        <div id='cls4warp'>
+                            <?php
+                            if ($_SESSION['cls4'] > 1) {
+                                echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] - 1) . " \"> <span  class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span></a>";
+                            }
+                            if ($_SESSION['cls4'] < $paginamax) {
+                                //echo "<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>";
+                                echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] + 1) . " \" > <span  class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span></a>";
+                            }
+                            ?>
                         </div>
+
                     </div>
 
 
