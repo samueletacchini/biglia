@@ -223,27 +223,27 @@ session_start();
 
 
                             for ($i = 0; $i < count($games2->games2); $i++) {
-                                $classifica[$ir]["date"] = $games2->games2[$i]->date;
-                                $classifica[$ir]["blu"] = $games2->games2[$i]->player1;
-                                $classifica[$ir]["ris1"] = $games2->games2[$i]->result1;
-                                $classifica[$ir]["ris2"] = $games2->games2[$i]->result1;
-                                $classifica[$ir]["red"] = $games2->games2[$i]->player2;
-                                $classifica[$ir]["id"] = $games2->games2[$i]->id;
+                                $classificarec[$ir]["date"] = $games2->games2[$i]->date;
+                                $classificarec[$ir]["blu"] = $games2->games2[$i]->player1;
+                                $classificarec[$ir]["ris1"] = $games2->games2[$i]->result1;
+                                $classificarec[$ir]["ris2"] = $games2->games2[$i]->result1;
+                                $classificarec[$ir]["red"] = $games2->games2[$i]->player2;
+                                $classificarec[$ir]["id"] = $games2->games2[$i]->id;
 
                                 $ir++;
                             }
 
-                            for ($i = 0; $i < count($games4->games4); $i++) {
-                                $classifica[$ir]["date"] = $games4->games4[$i]->date;
-                                $classifica[$ir]["blu"] = $games4->games4[$i]->player2 . " - " . $games4->games4[$i]->player1;
-                                $classifica[$ir]["ris1"] = $games4->games4[$i]->result1;
-                                $classifica[$ir]["ris2"] = $games4->games4[$i]->result1;
-                                $classifica[$ir]["red"] = $games4->games4[$i]->player4 . " - " . $games4->games4[$i]->player3;
-                                $classifica[$ir]["id"] = $games4->games4[$i]->id;
-                                $ir++;
-                            }
+//                            for ($i = 0; $i < count($games4->games4); $i++) {
+//                                $classifica[$ir]["date"] = $games4->games4[$i]->date;
+//                                $classifica[$ir]["blu"] = $games4->games4[$i]->player2 . " - " . $games4->games4[$i]->player1;
+//                                $classifica[$ir]["ris1"] = $games4->games4[$i]->result1;
+//                                $classifica[$ir]["ris2"] = $games4->games4[$i]->result1;
+//                                $classifica[$ir]["red"] = $games4->games4[$i]->player4 . " - " . $games4->games4[$i]->player3;
+//                                $classifica[$ir]["id"] = $games4->games4[$i]->id;
+//                                $ir++;
+//                            }
 
-                            $final = array_msort($classifica, array('date' => SORT_DESC, 'id' => SORT_DESC));
+           //                 $final = array_msort($classifica, array('date' => SORT_DESC, 'id' => SORT_DESC));
                             ?>
                         </table>
                     </div>

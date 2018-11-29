@@ -23,7 +23,7 @@ class Games4 {
         $players = new players($con);
         $i = 0;
         while ($row = $ris->fetch_array()) {
-            $this->games4[$i] = new game4($row["id"], $row["date"], $row["result1"], $row["result2"], $players->getPlayerById($row["player1"]), $players->getPlayerById($row["player2"]), $players->getPlayerById($row["player3"]), $players->getPlayerById($row["player4"]));
+            $this->games4[$i] = new game4($row["id"], $row["date"], $row["result1"], $row["result2"], $row["defResult1"], $row["defResult2"], $players->getPlayerById($row["player1"]), $players->getPlayerById($row["player2"]), $players->getPlayerById($row["player3"]), $players->getPlayerById($row["player4"]));
             $i++;
         }
     }
