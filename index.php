@@ -210,24 +210,40 @@ session_start();
                     </div>
                     <div class = "panel-body" >
                         <table class="table table-bordered">
-                            <tr><td >Nome</td><td>Vittorie</td></tr>
+                            <tr><td>Data</td><td>Blu</td><td>ris</td><td>ris2</td><td>Rossi</td></tr>
                             <?php
                             require_once('ConnessioneDb.php');
                             require_once('Games2.php');
                             require_once('Games4.php');
+                            $ir = 0;
 
                             $games2 = new Games2($db);
-                            for ($i = 0; $i < count($players->players); $i++) {
-                                $classifica[$players->players[$i]->name] = 0;
-                            }
+                            $games4 = new Games4($db);
+
+
 
                             for ($i = 0; $i < count($games2->games2); $i++) {
-                                if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
-                                    $classifica[$games2->games2[$i]->player1->name] ++;
-                                } else {
-                                    $classifica[$games2->games2[$i]->player2->name] ++;
-                                }
+                                $classifica[$ir]["date"] = $games2->games2[$i]->date;
+                                $classifica[$ir]["blu"] = $games2->games2[$i]->player1;
+                                $classifica[$ir]["ris1"] = $games2->games2[$i]->result1;
+                                $classifica[$ir]["ris2"] = $games2->games2[$i]->result1;
+                                $classifica[$ir]["red"] = $games2->games2[$i]->player2;
+                                $classifica[$ir]["id"] = $games2->games2[$i]->id;
+
+                                $ir++;
                             }
+
+                            for ($i = 0; $i < count($games4->games4); $i++) {
+                                $classifica[$ir]["date"] = $games4->games4[$i]->date;
+                                $classifica[$ir]["blu"] = $games4->games4[$i]->player2 . " - " . $games4->games4[$i]->player1;
+                                $classifica[$ir]["ris1"] = $games4->games4[$i]->result1;
+                                $classifica[$ir]["ris2"] = $games4->games4[$i]->result1;
+                                $classifica[$ir]["red"] = $games4->games4[$i]->player4 . " - " . $games4->games4[$i]->player3;
+                                $classifica[$ir]["id"] = $games4->games4[$i]->id;
+                                $ir++;
+                            }
+
+                            $final = array_msort($classifica, array('date' => SORT_DESC, 'id' => SORT_DESC));
                             ?>
                         </table>
                     </div>
@@ -249,7 +265,6 @@ session_start();
                                     require_once('Games2.php');
                                     require_once('Players.php');
 
-                                    $games2 = new Games2($db);
                                     for ($i = 0; $i < count($players->players); $i++) {
                                         $classifica[$players->players[$i]->name] = 0;
                                     }
@@ -294,7 +309,6 @@ session_start();
                                     require_once('Games4.php');
                                     require_once('Players.php');
 
-                                    $games4 = new Games4($db);
 
                                     for ($i = 0; $i < count($players->players); $i++) {
                                         $classifica2[$players->players[$i]->name] = 0;
@@ -347,16 +361,16 @@ session_start();
 
                                     for ($i = 0; $i < count($games4->games4); $i++) {
                                         if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
-                                            if (isset($classifica4[$games4->games4[$i]->player1->name . "-" . $games4->games4[$i]->player2->name])) {
-                                                $classifica4[$games4->games4[$i]->player1->name . "-" . $games4->games4[$i]->player2->name] ++;
+                                            if (isset($classifica4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
+                                                $classifica4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] ++;
                                             } else {
-                                                $classifica4[$games4->games4[$i]->player1->name . "-" . $games4->games4[$i]->player2->name] = 1;
+                                                $classifica4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 1;
                                             }
                                         } else {
-                                            if (isset($classifica4[$games4->games4[$i]->player3->name . "-" . $games4->games4[$i]->player4->name])) {
-                                                $classifica4[$games4->games4[$i]->player3->name . "-" . $games4->games4[$i]->player4->name] ++;
+                                            if (isset($classifica4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
+                                                $classifica4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] ++;
                                             } else {
-                                                $classifica4[$games4->games4[$i]->player3->name . "-" . $games4->games4[$i]->player4->name] = 1;
+                                                $classifica4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 1;
                                             }
                                         }
                                     }
@@ -514,42 +528,6 @@ session_start();
             }
             ?>
         </div>
-
-        <script>
-            function updateDiv()
-            {
-            document.getElementById("buttons").innerHTML = document.getElementById("buttons").innerHTML;
-            document.getElementById("login").innerHTML = document.getElementById("login").innerHTML;
-            }
-            src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-                    src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-                    type = "text/javascript" src = "bootstrap-table.js"
-
-                    document.getElementById('get_file').onclick = function () {
-            document.getElementById('my_file').click();
-            };
-            $('input[type=file]').change(function (e) {
-            $('#customfileupload').html($(this).val());
-            });
-            var html = '<br><div class="form-row"><div class="col-md-10"><label for="scuola">Seleziona per quale prenotazione</label><select name="prenotazioni" class="form-control" id="prenotazioni"> ' + '<?php echo $reggia; ?>' + '</select></div></div>';
-            function myFunction() {
-            if (document.getElementById("pdfprenotazione").checked == false && document.getElementById("pdfupdate").checked == false && document.getElementById("bollettinoprenotazione").checked == false) {
-            document.getElementById("clicco").innerHTML = "";
-            } else {
-            document.getElementById("clicco").innerHTML = html;
-            }
-
-
-            }
-
-            function close() {
-            document.getElementById("alert").innerHTML = "";
-            }
-
-            function cancella() {
-            document.getElementById("clicco").innerHTML = "";
-            }
-        </script>
         <div class="col-md-12">                                 
             <footer class="container text-center" id="foot" >                                         
                 <p>                            
