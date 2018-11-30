@@ -14,6 +14,24 @@ session_start();
     </head>
 
     <style>
+        .trattino1 { display: inline; } 
+        /* Smartphone Portrait and Landscape */ 
+        @media only screen 
+        and (min-device-width : 320px) 
+        and (max-device-width : 480px){ 
+            .trattino1 { display: none;}
+        }        
+
+        .trattino2 {display: none;} 
+        /* Smartphone Portrait and Landscape */ 
+        @media only screen 
+        and (min-device-width : 320px) 
+        and (max-device-width : 480px){ 
+            .trattino2 {display: inline;}
+        }
+
+        .sparisci{display: inline;} 
+
         .custom-file-input::-webkit-file-upload-button {
             visibility: hidden;
         }
@@ -115,50 +133,103 @@ session_start();
             <h1 align="center"> La Mucca</h1>
         </div>
 
+        <div class="col-md-8 panel-default">
+            <div class="panel-body text-center sparisci">
 
-        <div class="col-md-8 panel panel-default">
-
-            <div class="form-group">
-                <h3 align='center'>Inserimento Partite</h3>
-            </div>
-
-            <div class="panel-body text-center">
-
-                <div class="panel-default col-md-6">1 vs 1
-                    <div style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" id="div1vs1">
-                        <select style="margin-top: 5%" id="player1Game2">
-                            <?php
-                            require_once("ConnessioneDb.php");
-                            require_once("Players.php");
-                            $db = new ConnessioneDb();
-
-                            $players = new Players($db);
-                            $numPlayers = count($players->players);
-                            for ($i = 0; $i < $numPlayers; $i++) {
-                                echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
-                            }
-
-                            $date = date("Y-m-d");
-                            ?>
-                        </select>
-                        <input id="defResult1Game2" type="number" value="0">
-                        <br>
-                        <input style="color: blue; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" type="number" placeholder="Blu" id="result1Game2"></input><br>
-                        <button style="margin-top: 2%" onclick="checkGame2()">Conferma</button><input id="dateGame2" type="date" value="<?php $date ?>"><br>
-                        <input style="color: red; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" type="number" placeholder="Rossi" id="result2Game2"></input><br>
-                        <select style="margin-top: 2%" id="player2Game2">
-                            <?php
-                            for ($i = 0; $i < $numPlayers; $i++) {
-                                echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
-                            }
-                            ?>
-                        </select>
-                        <input id="defResult2Game2" type="number" value="0">
+                <div class="form-group panel-default panel">
+                    <h3 align='center'>Inserimento Partite</h3>
+                </div>
+                <div class=" panel-default form-group col-md-6">
+                    <div class=" panel-default panel form-group">
+                        <h4 align='center'>1 vs 1</h4>
                     </div>
+                    <!-- style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" -->
+                    <div class="panel-default form-group"  id="div1vs1">
+                        <table class="table table-bordered text-center">
+                            <tr><td>
+                                    <select class="form-control" style="margin-top: 5%" id="player1Game2">
+                                        <?php
+                                        require_once("ConnessioneDb.php");
+                                        require_once("Players.php");
+                                        $db = new ConnessioneDb();
+                                        $date = date("Y-m-d");
 
+                                        $players = new Players($db);
+                                        $numPlayers = count($players->players);
+                                        for ($i = 0; $i < $numPlayers; $i++) {
+                                            echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <!-- style="color: blue; width: 13%; margin-top: 2%; font-weight: bold; text-align: center"-->
+                                    <input class="form-control" type="number" placeholder="Blu" id="result1Game2">
+                                </td>
+                                <td>
+                                    <input class="form-control" id="defResult1Game2" type="number" value="0">
+                                </td>
+                                <td>
+                                    <!-- <input class="form-control" id="dateGame2" type="date" value="<?php echo $date ?>"> -->
+                                    <div class="input-append date form_datetime">
+                                        <input size="10" type="text" value="<?php echo $date ?>" readonly>
+                                        <span class="add-on"><i class="icon-th"></i></span>
+                                    </div>
+
+                                    <script type="text/javascript">
+                                        $(".form_datetime").datetimepicker({
+                                        format: "yyyy-mm-dd"
+                                        });
+                                    </script>   
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
+                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
+                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
+                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
+                            </tr>
+                            <tr>
+                                <td><b><h5>Players</b></h5></td>
+                                <td><h5><b>Punti</b></h5></td>
+                                <td><h5><b>Goal Difesa</b></h5></td>
+                                <td><h5><b>Data</b></h5></td>
+                            </tr>
+                            <tr>
+                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
+                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
+                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
+                                <td rowspan="2"> <button class="form-control"  onclick="checkGame2()">Conferma</button></td>
+                                <!--<td><span class="glyphicon glyphicon-arrow-down"></span></td>  -->                          </tr>
+                            <tr>
+                                <td>
+                                    <select class="form-control" style="margin-top: 2%" id="player2Game2">
+                                        <?php
+                                        for ($i = 0; $i < $numPlayers; $i++) {
+                                            echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td><input class="form-control" type="number" placeholder="Rossi" id="result2Game2"></td>
+                                <td><input class="form-control" id="defResult2Game2" type="number" value="0"></td>
+                            </tr>
+
+
+
+                            <!-- style="color: red; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" -->
+
+
+
+                        </table>
+                    </div>
                 </div>
 
-                <div  class="panel-default col-md-6"> 2 vs 2
+                <div  class="panel-default col-md-6">
+                    <div class=" panel-default panel form-group">
+                        <h4 align='center'>2 vs 2</h4>
+                    </div>
                     <div style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" id="div2vs2">
                         <div class="col-md-4">
                             <select style="margin-top: 20%" id="player1Game4"> <!-- ATTACCANTE SQUADRA 1 -->
@@ -203,16 +274,16 @@ session_start();
                         </div>
                     </div>
                 </div>
-
-
             </div>
             <div class="panel-body text-center">
-                <div  class=" panel panel-default" >
-                    <div class="form-group">
-                        <h3 align='center'>Ultime Partite</h3>
-                    </div>
+                <div  class="" >
                     <div class = "panel-body" >
-                        <div class = " panel-default col-md-5" >
+                        <div  class=" panel-default panel form-group">
+                            <h3 align='center'  >Ultime Partite</h3>
+                        </div>
+                    </div>
+                    <div class = "" >
+                        <div class = " panel-default col-md-5 " >
                             <div class=" panel-default panel form-group">
                                 <h4 align='center'>1 vs 1</h4>
                             </div>
@@ -220,13 +291,15 @@ session_start();
                                 <table  class=" text-center table table-bordered">
                                     <tr><td>Giorni fa</td><td>Blu</td><td>Score</td><td>Rossi</td></tr>
                                     <?php
-                                    require_once('ConnessioneDb.php');
+                                    require_once("ConnessioneDb.php");
+                                    require_once("Players.php");
+                                    $db = new ConnessioneDb();
+                                    $date = date("Y-m-d");
                                     require_once('Games2.php');
                                     require_once('Games4.php');
 
                                     $games2 = new Games2($db);
                                     $games4 = new Games4($db);
-
 
                                     $oggi = new DateTime($date);
 
@@ -234,26 +307,26 @@ session_start();
 
                                         $diff = new DateTime($games2->games2[$i]->date);
                                         $data = $diff->diff($oggi);
-                                        echo "<tr><td>" . $data->format('%a') . "</td>";
-
-                                        //echo "<td>{$games2->games2[$i]->player1->name}</td>";
-                                        // echo "<td>{$games2->games2[$i]->player2->name}</td>";
-
+                                        if ($data->format('%a') == 0) {
+                                            echo "<tr><td>Oggi</td>";
+                                        } else {
+                                            echo "<tr><td>" . $data->format('%a') . "</td>";
+                                        }
 
                                         if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
+                                            if (true) {
+                                                
+                                            }
                                             echo "<td><b>{$games2->games2[$i]->player1->name}</b></td>";
                                             echo "<td><b>({$games2->games2[$i]->defResult1}) {$games2->games2[$i]->result1}</b>  - {$games2->games2[$i]->result2} ({$games2->games2[$i]->defResult2})</td>";
                                             echo "<td>{$games2->games2[$i]->player2->name}</td>";
                                         } else {
-                                            echo "<td><b>{$games2->games2[$i]->player1->name}</b></td>";
-                                            echo "<td><b>({$games2->games2[$i]->defResult1}) {$games2->games2[$i]->result1} </b> - {$games2->games2[$i]->result2} ({$games2->games2[$i]->defResult2})</td>";
-                                            echo "<td>{$games2->games2[$i]->player2->name}</td>";
+                                            echo "<td>{$games2->games2[$i]->player1->name}</td>";
+                                            echo "<td>({$games2->games2[$i]->defResult1}) {$games2->games2[$i]->result1}  - <b>{$games2->games2[$i]->result2} ({$games2->games2[$i]->defResult2})</b></td>";
+                                            echo "<td><b>{$games2->games2[$i]->player2->name}</b></td>";
                                         }
                                         echo "</tr>";
                                     }
-
-
-                                    //$final = array_msort($classifica, array('date' => SORT_DESC, 'id' => SORT_DESC));
                                     ?>
                                 </table>
                             </div>
@@ -267,7 +340,7 @@ session_start();
                                 <table  class=" text-center table table-bordered">
                                     <tr><td>Giorni fa</td><td>Blu</td><td>Score</td><td>Rossi</td></tr>
                                     <?php
-                                    for ($i = count($games4->games4) - 1; $i > count($games4->games4) - 3; $i--) {
+                                    for ($i = count($games4->games4) - 1; $i > count($games4->games4) - 4; $i--) {
 
                                         $diff = new DateTime($games4->games4[$i]->date);
                                         $data = $diff->diff($oggi);
@@ -282,19 +355,19 @@ session_start();
 
 
                                         if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
-                                            echo "<td><b>" . $games4->games4[$i]->player2->name . " - " . $games4->games4[$i]->player1->name . "</b></td>";
+                                            echo "<td><b> " . $games4->games4[$i]->player2->name . "<a1 class='trattino1'> - </a1><br class='trattino2'>" . $games4->games4[$i]->player1->name . "</b></td>";
                                             echo "<td><b>({$games4->games4[$i]->defResult1}) {$games4->games4[$i]->result1}</b>  - {$games4->games4[$i]->result2} ({$games4->games4[$i]->defResult2})</td>";
-                                            echo "<td>" . $games4->games4[$i]->player4->name . " - " . $games4->games4[$i]->player3->name . "</td>";
+                                            echo "<td>" . $games4->games4[$i]->player4->name . " <a1 class='trattino1'> - </a1><br class='trattino2'> " . $games4->games4[$i]->player3->name . "</td>";
                                         } else {
-                                            echo "<td><b>" . $games4->games4[$i]->player2->name . " - " . $games4->games4[$i]->player1->name . "</b></td>";
-                                            echo "<td><b>({$games4->games4[$i]->defResult1}) {$games4->games4[$i]->result1} </b> - {$games4->games4[$i]->result2} ({$games4->games4[$i]->defResult2})</td>";
-                                            echo "<td>" . $games4->games4[$i]->player4->name . " - " . $games4->games4[$i]->player3->name . "</td>";
+                                            echo "<td>" . $games4->games4[$i]->player2->name . " <a1 class='trattino1'> - </a1><br class='trattino2'> " . $games4->games4[$i]->player1->name . "</td>";
+                                            echo "<td>({$games4->games4[$i]->defResult1}) {$games4->games4[$i]->result1}  - <b> {$games4->games4[$i]->result2} ({$games4->games4[$i]->defResult2})</b></td>";
+                                            echo "<td><b>" . $games4->games4[$i]->player4->name . " <a1 class='trattino1'> - </a1><br class='trattino2'> " . $games4->games4[$i]->player3->name . "</b></td>";
                                         }
                                         echo "</tr>";
                                     }
 
 
-                                    //$final = array_msort($classifica, array('date' => SORT_DESC, 'id' => SORT_DESC));
+//$final = array_msort($classifica, array('date' => SORT_DESC, 'id' => SORT_DESC));
                                     ?>
                                 </table>
                             </div>
@@ -308,13 +381,13 @@ session_start();
                         <h3 align='center'>Classifiche</h3>
                     </div>
                     <div class = "panel panel-default panel-body col-md-4">
-                        <div class = " panel panel-default form-group">
+                        <div class = " panel panel-default  form-group">
                             <h3 align = "center">1 vs 1</h3>
                             <h5 align = "center">Solo </h5>
 
                         </div>
-                        <table class=" text-center  table table-hover">
-                            <tr><td>#</td><td>Player</td><td>Vittorie</td></tr>
+                        <table class=" text-center table table-hover">
+                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td></tr>
                             <?php
                             require_once('ConnessioneDb.php');
                             require_once('Games2.php');
@@ -335,8 +408,36 @@ session_start();
                             arsort($classifica);
                             $i = 1;
                             foreach ($classifica as $key => $value) {
-                                echo "<tr><td>$i</td>";
-                                echo "<td>$key</td>";
+                                switch ($i) {
+                                    case $value:
+                                    case 1:
+                                        //echo "<tr bgcolor='#C98910'><td>$i</td>";
+                                        echo '<tr bgcolor="#CFB53B"><td>' . $i . ' </td>';
+                                        echo "<td>🏆</td>";
+                                        echo "<td> $key</td>";
+
+                                        break;
+                                    case 2:
+                                        echo '<tr bgcolor="#A8A8A8"><td>' . $i . ' </td>';
+                                        echo "<td>🏆</td>";
+                                        echo "<td> $key</td>";
+
+
+                                        break;
+                                    case 3:
+                                        echo '<tr bgcolor="#965A38"><td>' . $i . ' </td>';
+                                        echo "<td>🏆</td>";
+                                        echo "<td> $key</td>";
+                                        break;
+                                    default:
+                                        echo "<tr><td>$i</td>";
+                                        echo "<td></td>";
+                                        echo "<td>$key</td>";
+
+                                        break;
+                                }
+
+                                //echo "<td>$key</td>";
                                 echo "<td>$value</td>";
                                 echo "</tr>";
                                 $i++;
@@ -353,7 +454,7 @@ session_start();
                             <h5 align = "center">Solo </h5>
                         </div>
                         <table class=" text-center  table table-hover">
-                            <tr><td>#</td><td>Player</td><td>Vittorie</td></tr>
+                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td></tr>
                             <?php
                             require_once('ConnessioneDb.php');
                             require_once('Games4.php');
@@ -378,8 +479,34 @@ session_start();
 
                             $i = 1;
                             foreach ($classifica2 as $key => $value) {
-                                echo "<tr><td>$i</td>";
-                                echo "<td>$key</td>";
+                                switch ($i) {
+                                    case $value:
+                                    case 1:
+                                        //echo "<tr bgcolor='#C98910'><td>$i</td>";
+                                        echo "<tr bgcolor='#CFB53B'><td>$i</td>";
+                                        echo "<td>🏆</td>";
+                                        echo "<td> $key</td>";
+                                        break;
+                                    case 2:
+                                        echo "<tr bgcolor='#A8A8A8'><td>$i</td>";
+                                        echo "<td>🏆</td>";
+                                        echo "<td> $key</td>";
+                                        // echo "<tr bgcolor='#E6E8FA'><td>$i</td>";
+                                        break;
+                                    case 3:
+                                        echo "<tr bgcolor='#965A38'><td>$i</td>";
+                                        echo "<td>🏆</td>";
+                                        echo "<td> $key</td>";
+                                        //echo "<tr bgcolor='#8C7853'><td>$i</td>";
+                                        break;
+                                    default:
+                                        echo "<tr><td>$i</td>";
+                                        echo "<td></td>";
+                                        echo "<td>$key</td>";
+                                        break;
+                                }
+                                // echo "<tr><td>$i</td>";
+                                // echo "<td>$key</td>";
                                 echo "<td>$value</td>";
                                 echo "</tr>";
                                 $i++;
@@ -396,7 +523,7 @@ session_start();
                             <h5 align = "center">Duo </h5>
                         </div>
                         <table class=" text-center  table table-hover">
-                            <tr><td>#</td><td>Player</td><td>Vittorie</td></tr>
+                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td></tr>
                             <?php
                             require_once('ConnessioneDb.php');
                             require_once('Games4.php');
@@ -441,9 +568,34 @@ session_start();
                             $ii = 1;
                             foreach ($classifica4 as $key => $value) {
                                 if ($i < $max && $i > $min) {
-                                    echo "<tr><td>$ii</td>";
-                                    echo "<td>$key</td>";
-
+                                    switch ($ii) {
+                                        case $value:
+                                        case 1:
+                                            //echo "<tr bgcolor='#C98910'><td>$i</td>";
+                                            echo "<tr bgcolor='#CFB53B'><td>$ii</td>";
+                                            echo "<td>🏆</td>";
+                                            echo "<td> $key</td>";
+                                            break;
+                                        case 2:
+                                            echo "<tr bgcolor='#A8A8A8'><td>$ii</td>";
+                                            echo "<td>🏆</td>";
+                                            echo "<td> $key</td>";
+                                            // echo "<tr bgcolor='#E6E8FA'><td>$i</td>";
+                                            break;
+                                        case 3:
+                                            echo "<tr bgcolor='#965A38'><td>$ii</td>";
+                                            echo "<td>🏆</td>";
+                                            echo "<td> $key</td>";
+                                            //echo "<tr bgcolor='#8C7853'><td>$i</td>";
+                                            break;
+                                        default:
+                                            echo "<tr><td>$ii</td>";
+                                            echo "<td></td>";
+                                            echo "<td>$key</td>";
+                                            break;
+                                    }
+                                    //   echo "<tr><td>$ii</td>";
+                                    //echo "<td>$key</td>";
                                     // echo '<td> <div class = "col-md-5" > ' . explode("-", $key)[0] . '  </div><div class = "col-md-2" > - </div><div class = "col-md-5" > ' . explode("-", $key)[1] . '  </div></td>';
                                     echo "<td>$value</td>";
 
@@ -484,6 +636,7 @@ session_start();
                     <div id="login" class="panel-body">
 
                         LISTA DI PRENOTAZIONI E 
+
 
                     </div>
                 </div>
@@ -583,100 +736,101 @@ session_start();
                     <br/><strong>MODENA, Cognento(MO), La Polly</strong>                              
                     <br/>                   credits to Pino & Tacco                             
                     <br/>                       Contact us to          
-                    <br/>                    pino@tuoppadre.com - pino@tuoppadre.com -<a href="https://www.tuoppadre.com">tuoppadre.com</a>                                           
+                    <br/>                    pino@tuoppadre.com - tacco@tuoppadre.com -<a href="https://www.tuoppadre.com">tuoppadre.com</a>                                           
                 </p>                                 
             </footer>     
         </div>
     </body>
     <script>
+
         function checkGame2(){
-            var date = $("#dateGame2").val();
-            var result1 = $("#result1Game2").val();
-            var result2 = $("#result2Game2").val();
-            var defResult1 = $("#defResult1Game2").val();
-            var defResult2 = $("#defResult2Game2").val();
-            var idPlayer1 = $("#player1Game2").val();
-            var idPlayer2 = $("#player2Game2").val();
-            if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 >= 10 || result2 >= 10)){
-                if(idPlayer1 != idPlayer2){
-                    insertGame2(date, result1, result2, idPlayer1, idPlayer2);
-                }
-            } else{
-                return false;
-            }
+        var date = $("#dateGame2").val();
+        var result1 = $("#result1Game2").val();
+        var result2 = $("#result2Game2").val();
+        var defResult1 = $("#defResult1Game2").val();
+        var defResult2 = $("#defResult2Game2").val();
+        var idPlayer1 = $("#player1Game2").val();
+        var idPlayer2 = $("#player2Game2").val();
+        if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 >= 10 || result2 >= 10)){
+        if (idPlayer1 != idPlayer2){
+        insertGame2(date, result1, result2, idPlayer1, idPlayer2);
+        }
+        } else{
+        return false;
+        }
         }
 
         function insertGame2(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2) {
-            $.ajax({
-                type: "POST",
+        $.ajax({
+        type: "POST",
                 url: 'php/addGame2.php',
                 data: {
-                    date: date,
-                    result1: result1,
-                    result2: result2,
-                    defResult1: defResult1,
-                    defResult2: defResult2,
-                    idPlayer1: idPlayer1,
-                    idPlayer2: idPlayer2
+                date: date,
+                        result1: result1,
+                        result2: result2,
+                        defResult1: defResult1,
+                        defResult2: defResult2,
+                        idPlayer1: idPlayer1,
+                        idPlayer2: idPlayer2
                 }
-                success: function (data) {
-                    $("#dateGame2").val("<?php $date ?>");
-                    $("#result1Game2").val("0");
-                    $("#result2Game2").val("0");
-                    $("#defResult1Game2").val("0");
-                    $("#defResult2Game2").val("0");
-                    $("#player1Game2").val($("#player1Game2 option:first").val());
-                    $("#player2Game2").val($("#player2Game2 option:second").val());
-                }
-            });
+        success: function (data) {
+        $("#dateGame2").val("<?php $date ?>");
+        $("#result1Game2").val("0");
+        $("#result2Game2").val("0");
+        $("#defResult1Game2").val("0");
+        $("#defResult2Game2").val("0");
+        $("#player1Game2").val($("#player1Game2 option:first").val());
+        $("#player2Game2").val($("#player2Game2 option:second").val());
         }
-        
+        });
+        }
+
         function checkGame4(){
-            var date = $("#dateGame4").val();
-            var result1 = $("#result1Game4").val();
-            var result2 = $("#result2Game4").val();
-            var defResult1 = $("#defResult1Game4").val();
-            var defResult2 = $("#defResult2Game4").val();
-            var idPlayer1 = $("#player1Game4").val();
-            var idPlayer2 = $("#player2Game4").val();
-            var idPlayer3 = $("#player3Game4").val();
-            var idPlayer4 = $("#player4Game4").val();
-            if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 >= 10 || result2 >= 10)){
-                if(idPlayer1 != idPlayer2 != idPlayer3 != idPlayer4){
-                    insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4);
-                }
-            } else{
-                return false;
-            }
+        var date = $("#dateGame4").val();
+        var result1 = $("#result1Game4").val();
+        var result2 = $("#result2Game4").val();
+        var defResult1 = $("#defResult1Game4").val();
+        var defResult2 = $("#defResult2Game4").val();
+        var idPlayer1 = $("#player1Game4").val();
+        var idPlayer2 = $("#player2Game4").val();
+        var idPlayer3 = $("#player3Game4").val();
+        var idPlayer4 = $("#player4Game4").val();
+        if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 >= 10 || result2 >= 10)){
+        if (idPlayer1 != idPlayer2 != idPlayer3 != idPlayer4){
+        insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4);
+        }
+        } else{
+        return false;
+        }
         }
 
         function insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4) {
-            $.ajax({
-                type: "POST",
+        $.ajax({
+        type: "POST",
                 url: 'php/addGame4.php',
                 data: {
-                    date: date,
-                    result1: result1,
-                    result2: result2,
-                    defResult1: defResult1,
-                    defResult2: defResult2,
-                    idPlayer1: idPlayer1,
-                    idPlayer2: idPlayer2,
-                    idPlayer3: idPlayer3,
-                    idPlayer4: idPlayer4
+                date: date,
+                        result1: result1,
+                        result2: result2,
+                        defResult1: defResult1,
+                        defResult2: defResult2,
+                        idPlayer1: idPlayer1,
+                        idPlayer2: idPlayer2,
+                        idPlayer3: idPlayer3,
+                        idPlayer4: idPlayer4
                 }
-                success: function (data) {
-                    $("#dateGame4").val("<?php $date ?>");
-                    $("#result1Game4").val("0");
-                    $("#result2Game4").val("0");
-                    $("#defResult1Game4").val("0");
-                    $("#defResult2Game4").val("0");
-                    $("#player1Game4").val($("#player1Game4 option:first").val());
-                    $("#player2Game4").val($("#player2Game4 option:second").val());
-                    $("#player3Game4").val($("#player3Game4 option:third").val());
-                    $("#player4Game4").val($("#player4Game4 option:fourth").val());
-                }
-            });
+        success: function (data) {
+        $("#dateGame4").val("<?php $date ?>");
+        $("#result1Game4").val("0");
+        $("#result2Game4").val("0");
+        $("#defResult1Game4").val("0");
+        $("#defResult2Game4").val("0");
+        $("#player1Game4").val($("#player1Game4 option:first").val());
+        $("#player2Game4").val($("#player2Game4 option:second").val());
+        $("#player3Game4").val($("#player3Game4 option:third").val());
+        $("#player4Game4").val($("#player4Game4 option:fourth").val());
+        }
+        });
         }
     </script>
 </html>
