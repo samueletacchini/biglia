@@ -4,10 +4,13 @@ session_start();
 <html>
     <head>
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="bootstrap-datetimepicker-master\js\bootstrap-datetimepicker.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="bootstrap-datetimepicker-master\css\bootstrap-datetimepicker.css">
         <link rel="stylesheet" href="css/PrenotazioneRegistrazione.css">
         <meta name="viewport" content="width=device-width,initial-sclae=1.0">
 
@@ -171,16 +174,11 @@ session_start();
                                 </td>
                                 <td>
                                     <!-- <input class="form-control" id="dateGame2" type="date" value="<?php echo $date ?>"> -->
-                                    <div class="input-append date form_datetime">
-                                        <input size="10" type="text" value="<?php echo $date ?>" readonly>
-                                        <span class="add-on"><i class="icon-th"></i></span>
-                                    </div>
+                                    <input size="10" type="text" value="<?php echo $date ?>" readonly class=" form-control form_datetime">
 
                                     <script type="text/javascript">
-                                        $(".form_datetime").datetimepicker({
-                                        format: "yyyy-mm-dd"
-                                        });
-                                    </script>   
+                                        $(".form_datetime").datePicker({format: 'yyyy-mm-dd'});
+                                    </script>       
 
                                 </td>
                             </tr>
