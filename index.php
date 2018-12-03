@@ -5,24 +5,13 @@ session_start();
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
-
-        <!-- 
-        VIOLA BELLO UN TOT #782ecc
-        CHE CAZZO MADONNA BELLISSIMA
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-          <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-  
-  
-          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>F
-  
-        -->
 
         <link rel="stylesheet" href="css/PrenotazioneRegistrazione.css">
         <meta name="viewport" content="width=device-width,initial-sclae=1.0">
@@ -197,25 +186,29 @@ session_start();
                                     </select>
                                 </td>
                                 <td class="col-md-3">
-                                    <!-- style="color: blue; width: 13%; margin-top: 2%; font-weight: bold; text-align: center"-->
                                     <input class="form-control" type="number" id="result1Game2" value="0">
                                 </td>
                                 <td class="col-md-3">
                                     <input class="form-control" type="number" id="defResult1Game2"  value="0">
                                 </td>
                                 <td class="col-md-2">
-                                    <!-- <input class="form-control" id="dateGame2" type="date" value="<?php echo $date ?>">  -->
-                                    <input size="10" type="text" value="<?php echo $date ?>" readonly class="form-control form_datetime" id="dateGame2">
-
+                                    <div class="form-group"> <!-- Date input -->
+                                        <input class="form-control" id="date" name="date"  type="text" value="<?php echo $date ?>"/>
+                                    </div>
 
                                     <script type="text/javascript">
-                                        //   $('.datepicker').datepicker();
-//                                        $(".form_datetime").datepicker({format: 'yyyy-mm-dd'});
-//                                        $('.form_datetime').datepicker({
-//                                        format: 'yyyy-mm-dd',
-//                                                startDate: '-3d'
-//                                        });
-                                    </script>       
+                                        $(document).ready(function () {
+                                            var date_input = $('input[name="date"]'); //our date input has the name "date"
+                                            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                                            var options = {
+                                                format: 'yyyy-mm-dd',
+                                                container: container,
+                                                todayHighlight: true,
+                                                autoclose: true,
+                                            };
+                                            date_input.datepicker(options);
+                                        })
+                                    </script>    
 
                                 </td>
                             </tr>
@@ -246,7 +239,6 @@ session_start();
 
 
 
-                            <!-- style="color: red; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" -->
 
 
 
@@ -257,7 +249,6 @@ session_start();
                     <div class=" panel-default panel form-group">
                         <h4 align='center'>2 vs 2</h4>
                     </div>
-                    <!-- style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" -->
                     <div class=" bg panel-default form-group " id="div1vs1">
                         <table id="ins1"  class=" text-center table table-borderless ">
                             <tr style="background: #1e90ff"><td class="col-md-3">
@@ -287,16 +278,29 @@ session_start();
                                     </select>
                                 </td>
                                 <td class="col-md-2">
-                                    <!-- style="color: blue; width: 13%; margin-top: 2%; font-weight: bold; text-align: center"-->
                                     <input class="form-control" type="number" id="result1Game4">
                                 </td>
                                 <td class="col-md-2">
                                     <input class="form-control" type="number" id="defResult1Game4" value="0">
                                 </td>
                                 <td class="col-md-2">
-                                    <!-- <input class="form-control" id="dateGame2" type="date" value="<?php echo $date ?>">  -->
-                                    <input size="10" type="text" value="<?php echo $date ?>" readonly class=" form-control form_datetime">
+                                    <div class="form-group"> <!-- Date input -->
+                                        <input class="form-control" id="date" name="date"  type="text" value="<?php echo $date ?>"/>
+                                    </div>
 
+                                    <script type="text/javascript">
+                                        $(document).ready(function () {
+                                            var date_input = $('input[name="date"]'); //our date input has the name "date"
+                                            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                                            var options = {
+                                                format: 'yyyy-mm-dd',
+                                                container: container,
+                                                todayHighlight: true,
+                                                autoclose: true,
+                                            };
+                                            date_input.datepicker(options);
+                                        })
+                                    </script>  
 
                                 </td>
                             </tr>
@@ -341,7 +345,6 @@ session_start();
 
 
 
-                            <!-- style="color: red; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" -->
 
 
 
@@ -472,8 +475,6 @@ session_start();
                                             echo "<tr><td>" . $data->format('%a') . "</td>";
                                         }
 
-                                        //echo "<td>{$games4->games4[$i]->player1->name}</td>";
-                                        // echo "<td>{$games4->games4[$i]->player2->name}</td>";
 
 
                                         if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
@@ -487,9 +488,6 @@ session_start();
                                         }
                                         echo "</tr>";
                                     }
-
-
-//$final = array_msort($classifica, array('date' => SORT_DESC, 'id' => SORT_DESC));
                                     ?>
                                 </table>
                             </div>
@@ -750,107 +748,21 @@ session_start();
 
         </div>
         <div class="col-md-4">
-            <div>
-                <div class="panel panel-default">
-                    <div class="form-group">
-                        NOME UTENTE E ROBE
-                    </div>
-                    <div id="login" class="panel-body">
+            <div class="panel panel-default">
+                <div class=" text-center form-group">
+                    <h2>WIP </h2>
+                </div>
+                <div id="login" class="panel-body">
 
-                        LISTA DI PRENOTAZIONI E 
+                    <?php
+                    for ($i = 0; $i < 700; $i++) {
+                        echo "WIP ";
+                    }
+                    ?>
 
 
-                    </div>
                 </div>
             </div>
-            <div>
-                <div class="panel panel-default"  id="link">
-                    <div class="form-group">
-                        <h3 align='center'>Prossime date Esami</h3>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-bordered">
-                            <tr><td style="color:gray">Data</td><td style="color:gray">Dalle</td><td style="color:gray">Alle</td></tr>
-                            LISTA DATE PRENOTAZIONI
-                        </table>
-
-                        <form action="prenotazione.php" method="post">
-                            BOTTONI
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <?php
-            if (isset($_SESSION['user'])) {
-                echo '<div class="panel panel-default"  id="link2">
-                <div class="form-group">
-                    <h3 align="center">Carica File</h3>
-                </div>
-                <div class="panel-body">
-                    <p align="center" style="color:grey">Selezionare il/i tipi di file che si è caricato:<p>
-                    <form name="carica" action="caricaFile.php" method="post" enctype="multipart/form-data">
-                        <div class="checkbox-inline col-md-offset-4">
-                        <div class="form-group">
-                            <input name="pdfskillcard"  class="form-check-input" type="checkbox" value="1" >
-                            <label  class="form-check-label" for="defaultCheck7">
-                                Pdf skillcard
-                            </label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input name="bollettinoskillcard" class="form-check-input" type="checkbox" value="1" id="bollettinoskillcard">
-                            <label  class="form-check-label" for="defaultCheck7">
-                                Bollettino skillcard
-                            </label>
-                        </div>
-                        
-                         <div class="form-group">
-                            <input name="pdfprenotazione" onchange="myFunction()" class="form-check-input" type="checkbox" value="1" id="pdfprenotazione">
-                            <label  class="form-check-label" for="defaultCheck7">
-                                Pdf prenotazione
-                            </label>
-                        </div> 
-                        
-                        <div class="form-group">
-                            <input name="bollettinoprenotazione" onchange="myFunction()" class="form-check-input" type="checkbox" value="1" id="bollettinoprenotazione">
-                            <label  class="form-check-label" for="defaultCheck7">
-                                Bollettino prenotazione 
-                            </label>
-                        </div>  
-                        
-                                                    
-                        <div class="form-group">
-                            <input name="pdfaica"  class="form-check-input" type="checkbox" value="1" id="pdfaica">
-                            <label  class="form-check-label" for="defaultCheck7">
-                                Pdf aica
-                            </label>
-                        </div>   
-                        <div class="form-group">
-                            <input name="pdfupdate" onchange="myFunction()" class="form-check-input" type="checkbox" value="1" id="pdfupdate">
-                            <label  class="form-check-label" for="defaultCheck7">
-                                Pdf update 
-                            </label>
-                        </div>
-                        </div>                           
-                        
-                        
-                        <p align="center">Seleziona i file da caricare:</p>
-                        <input accept="image/*" name="pdfs" type="file" class="custom-file-input" required>
-                        <br>
-                        <input type="submit" name="carica" value="Carica" class="btn btn-info btn-lg">
-                        <div id="clicco"></div>
-
-
-                        
-                        
-                        </form> 
-                        </div>
-                        
-                        </div>
-                        ';
-            }
-            ?>
         </div>
         <div class="col-md-12">                                 
             <footer class="container text-center" id="foot" >                                         
