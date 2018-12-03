@@ -162,7 +162,7 @@ session_start();
     <body>
 
         <div class="jumbotron text-center" >
-            <h1 align="center">La Mucca</h1>
+            <h1 align="center">Mucca & Polly</h1>
         </div>
 
         <div class="col-md-8 panel-default">
@@ -175,11 +175,10 @@ session_start();
                     <div class=" panel-default panel form-group">
                         <h4 align='center'>1 vs 1</h4>
                     </div>
-                    <!-- style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" -->
-                    <div class=" bg panel-default form-group " id="div1vs1">
+                    <div id="div1vs1">
                         <table id="ins1"  class=" text-center table table-borderless ">
-                            <tr><td>
-                                    <select class="form-control"  id="player1Game2">
+                            <tr style="background: #1e90ff"><td class="col-md-4">
+                                    <select class="form-control" id="player1Game2">
                                         <?php
                                         require_once("ConnessioneDb.php");
                                         require_once("Players.php");
@@ -189,28 +188,24 @@ session_start();
                                         $players = new Players($db);
                                         $numPlayers = count($players->players);
                                         for ($i = 0; $i < $numPlayers; $i++) {
-                                            echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            if ($i == 0) {
+                                                echo "<option selected value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            } else {
+                                                echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            }
                                         }
                                         ?>
                                     </select>
                                 </td>
-                                <td>
+                                <td class="col-md-3">
                                     <!-- style="color: blue; width: 13%; margin-top: 2%; font-weight: bold; text-align: center"-->
-                                    <input class="form-control" type="number" placeholder="Blu" id="result1Game2">
+                                    <input class="form-control" type="number" id="result1Game2" value="0">
                                 </td>
-                                <td>
-                                    <input class="form-control" id="defResult1Game2" type="number" value="0">
+                                <td class="col-md-3">
+                                    <input class="form-control" type="number" id="defResult1Game2"  value="0">
                                 </td>
-                                <td>
-                                    <!-- 
-                                    <input class="form-control" id="dateGame2" type="date" value="<?php echo $date ?>">
-                                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                                     <span class=""><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
-                                    <input  size="10" type="hidden" value="<?php echo $date ?>"  class=" form-control form_datetime">
-                                    
-                                                                        <input class="datepicker" data-date-format="mm/dd/yyyy">
+                                <td class="col-md-2">
 
-                                    -->
                                     <div class="form-group"> <!-- Date input -->
                                         <input class="form-control" id="date" name="date"  type="text" value="<?php echo $date ?>"/>
                                     </div>
@@ -231,37 +226,29 @@ session_start();
 
                                 </td>
                             </tr>
-                            <tr style="font-size:25px;">
-                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
-                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
-                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
-                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
-                            </tr>
                             <tr style="font-size:16px;">
-                                <td><b>Players</b></td>
-                                <td><b>Punti</b></td>
-                                <td><b>Goal Difesa</b></td>
-                                <td><b>Data</b></td>
+                                <td class="col-md-4"><b>Players</b></td>
+                                <td class="col-md-3"><b>Punti</b></td>
+                                <td class="col-md-3"><b>Sfida</b></td>
+                                <td class="col-md-2"><b>Data</b></td>
                             </tr>
-                            <tr style="font-size:25px;">
-                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
-                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
-                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
-                                <td rowspan="2"> <button class="form-control btn" style=' background-color: DodgerBlue; color: white'  onclick="checkGame2()"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button> </td>
-                                <!--<td><span class="glyphicon glyphicon-arrow-down"></span></td>  -->                          
-                            </tr>
-                            <tr>
-                                <td>
+                            <tr style="background: red">
+                                <td  class="col-md-4">
                                     <select class="form-control"  id="player2Game2">
                                         <?php
                                         for ($i = 0; $i < $numPlayers; $i++) {
-                                            echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            if ($i == 1) {
+                                                echo "<option selected value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            } else {
+                                                echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            }
                                         }
                                         ?>
                                     </select>
                                 </td>
-                                <td><input class="form-control" type="number" placeholder="Rossi" id="result2Game2"></td>
-                                <td><input class="form-control" id="defResult2Game2" type="number" value="0"></td>
+                                <td class="col-md-3"><input class="form-control" type="number" id="result2Game2" value="0"></td>
+                                <td class="col-md-3"><input class="form-control" id="defResult2Game2" type="number" value="0"></td>
+                                <td class="col-md-2"> <button class="form-control btn" style="background-color: #ffffff; color: red"  id="submitGame2"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button> </td>
                             </tr>
 
 
@@ -280,81 +267,83 @@ session_start();
                     <!-- style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" -->
                     <div class=" bg panel-default form-group " id="div1vs1">
                         <table id="ins1"  class=" text-center table table-borderless ">
-                            <tr><td>
-                                    <select class="form-control"  id="player1Game2">
+                            <tr style="background: #1e90ff"><td class="col-md-3">
+                                    <select class="form-control"  id="player2Game4">
                                         <?php
                                         for ($i = 0; $i < $numPlayers; $i++) {
-                                            echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            if ($i == 0) {
+                                                echo "<option selected value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            } else {
+                                                echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            }
                                         }
                                         ?>
                                     </select>
                                 </td>
-                                <td>
-                                    <select class="form-control"  id="player1Game2">
+                                <td class="col-md-3">
+                                    <select class="form-control"  id="player1Game4">
                                         <?php
                                         for ($i = 0; $i < $numPlayers; $i++) {
-                                            echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            if ($i == 1) {
+                                                echo "<option selected value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            } else {
+                                                echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            }
                                         }
                                         ?>
                                     </select>
                                 </td>
-                                <td>
+                                <td class="col-md-2">
                                     <!-- style="color: blue; width: 13%; margin-top: 2%; font-weight: bold; text-align: center"-->
-                                    <input class="form-control" type="number" placeholder="Blu" id="result1Game2">
+                                    <input class="form-control" type="number" id="result1Game4">
                                 </td>
-                                <td>
-                                    <input class="form-control" id="defResult1Game2" type="number" value="0">
+                                <td class="col-md-2">
+                                    <input class="form-control" type="number" id="defResult1Game4" value="0">
                                 </td>
-                                <td>
+                                <td class="col-md-2">
                                     <!-- <input class="form-control" id="dateGame2" type="date" value="<?php echo $date ?>">  -->
                                     <input size="10" type="text" value="<?php echo $date ?>" readonly class=" form-control form_datetime">
 
 
                                 </td>
                             </tr>
-                            <tr style="font-size:25px;">
-                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
-                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
-                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
-                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
-                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
-                            </tr>
                             <tr style="font-size:16px;">
-                                <td><b>Difensori</b></td>
-                                <td><b>Attaccanti</b></td>
-                                <td><b>Punti</b></td>
-                                <td><b>Goal Difesa</b></td>
-                                <td><b>Data</b></td>
+                                <td class="col-md-3"><b>Difensori</b></td>
+                                <td class="col-md-3"><b>Attaccanti</b></td>
+                                <td class="col-md-2"><b>Punti</b></td>
+                                <td class="col-md-2"><b>Sfida</b></td>
+                                <td class="col-md-2"><b>Data</b></td>
                             </tr>
-                            <tr style="font-size:25px;">
-                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
-                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
-                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
-                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
-                                <td rowspan="2"> <button class="form-control btn" style=' background-color: DodgerBlue; color: white'  onclick="checkGame2()"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
-                                <!--<td><span class="glyphicon glyphicon-arrow-down"></span></td>  -->                          
-                            </tr>
-                            <tr>    
-                                <td>
-                                    <select class="form-control"  id="player2Game2">
+                            <tr  style="background: red">    
+                                <td class="col-md-3">
+                                    <select class="form-control"  id="player4Game4">
                                         <?php
                                         for ($i = 0; $i < $numPlayers; $i++) {
-                                            echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            if ($i == 2) {
+                                                echo "<option selected value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            } else {
+                                                echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            }
                                         }
                                         ?>
                                     </select>
                                 </td>
-                                <td>
-                                    <select class="form-control" id="player2Game2">
+                                <td class="col-md-3">
+                                    <select class="form-control" id="player3Game4">
                                         <?php
                                         for ($i = 0; $i < $numPlayers; $i++) {
-                                            echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            if ($i == 3) {
+                                                echo "<option selected value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            } else {
+                                                echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                            }
                                         }
                                         ?>
                                     </select>
                                 </td>
-                                <td><input class="form-control" type="number" placeholder="Rossi" id="result2Game2"></td>
-                                <td><input class="form-control" id="defResult2Game2" type="number" value="0"></td>
+                                <td class="col-md-2"><input class="form-control" type="number" id="result2Game4"></td>
+                                <td class="col-md-2"><input class="form-control" id="defResult2Game4" type="number" value="0"></td>
+                                <td class="col-md-2"> <button class="form-control btn" style="background-color: white; color: red"  id="submitGame2"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
                             </tr>
 
 
@@ -794,35 +783,32 @@ session_start();
                     <br/><strong>MODENA, Cognento(MO), La Polly</strong>                              
                     <br/>                   credits to Pino & Tacco                             
                     <br/>                       Contact us to          
-                    <br/>                    pino@tuoppadre.com - tacco@tuoppadre.com -<a href="https://www.tuoppadre.com">tuoppadre.com</a>                                           
+                    <br/>                    pino@tuoppadre.com - tacco@tuoppadre.com - <a href="https://www.tuoppadre.com">tuoppadre.com</a>                                           
                 </p>                                 
             </footer>     
         </div>
     </body>
     <script>
-
-        document.getElementById("ins1").height = (screen.width / 4) / 1.85270425777;
-        function checkGame2() {
+        $("#submitGame2").click(function () {
             var date = $("#dateGame2").val();
-            var result1 = $("#result1Game2").val();
-            var result2 = $("#result2Game2").val();
-            var defResult1 = $("#defResult1Game2").val();
-            var defResult2 = $("#defResult2Game2").val();
-            var idPlayer1 = $("#player1Game2").val();
-            var idPlayer2 = $("#player2Game2").val();
-            if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 >= 10 || result2 >= 10)) {
+            var result1 = parseInt($("#result1Game2").val());
+            var result2 = parseInt($("#result2Game2").val());
+            var defResult1 = parseInt($("#defResult1Game2").val());
+            var defResult2 = parseInt($("#defResult2Game2").val());
+            var idPlayer1 = parseInt($("#player1Game2").val());
+            var idPlayer2 = parseInt($("#player2Game2").val());
+
+            if ((result1 > (result2 + 1) || result2 > (result1 + 1)) && (result1 >= 10 || result2 >= 10)) {
                 if (idPlayer1 != idPlayer2) {
-                    insertGame2(date, result1, result2, idPlayer1, idPlayer2);
+                    insertGame2(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2);
                 }
-            } else {
-                return false;
             }
-        }
+        });
 
         function insertGame2(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2) {
             $.ajax({
                 type: "POST",
-                url: 'php/addGame2.php',
+                url: 'addGame2.php',
                 data: {
                     date: date,
                     result1: result1,
@@ -840,33 +826,39 @@ session_start();
                     $("#defResult2Game2").val("0");
                     $("#player1Game2").val($("#player1Game2 option:first").val());
                     $("#player2Game2").val($("#player2Game2 option:second").val());
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.responseText);
+                    alert(thrownError);
+
                 }
             });
         }
 
-        function checkGame4() {
+        $("#submitGame4").click(function () {
             var date = $("#dateGame4").val();
-            var result1 = $("#result1Game4").val();
-            var result2 = $("#result2Game4").val();
-            var defResult1 = $("#defResult1Game4").val();
-            var defResult2 = $("#defResult2Game4").val();
-            var idPlayer1 = $("#player1Game4").val();
-            var idPlayer2 = $("#player2Game4").val();
-            var idPlayer3 = $("#player3Game4").val();
-            var idPlayer4 = $("#player4Game4").val();
-            if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 >= 10 || result2 >= 10)) {
-                if (idPlayer1 != idPlayer2 != idPlayer3 != idPlayer4) {
+            var result1 = parseInt($("#result1Game4").val());
+            var result2 = parseInt($("#result2Game4").val());
+            var defResult1 = parseInt($("#defResult1Game4").val());
+            var defResult2 = parseInt($("#defResult2Game4").val());
+            var idPlayer1 = parseInt($("#player1Game4").val());
+            var idPlayer2 = parseInt($("#player2Game4").val());
+            var idPlayer3 = parseInt($("#player3Game4").val());
+            var idPlayer4 = parseInt($("#player4Game4").val());
+
+            if ((result1 > (result2 + 1) || result2 > (result1 + 1)) && (result1 >= 10 || result2 >= 10)) {
+                if (idPlayer1 != idPlayer2) {
                     insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4);
                 }
-            } else {
-                return false;
             }
-        }
+        });
+
 
         function insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4) {
             $.ajax({
                 type: "POST",
-                url: 'php/addGame4.php',
+                url: 'addGame4.php',
+
                 data: {
                     date: date,
                     result1: result1,
@@ -878,7 +870,9 @@ session_start();
                     idPlayer3: idPlayer3,
                     idPlayer4: idPlayer4
                 },
-                success: function billy(data) {
+                success: function (data) {
+                    alert(data);
+
                     $("#dateGame4").val("<?php $date ?>");
                     $("#result1Game4").val("0");
                     $("#result2Game4").val("0");
@@ -888,6 +882,11 @@ session_start();
                     $("#player2Game4").val($("#player2Game4 option:second").val());
                     $("#player3Game4").val($("#player3Game4 option:third").val());
                     $("#player4Game4").val($("#player4Game4 option:fourth").val());
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.responseText);
+                    alert(thrownError);
+
                 }
             });
         }
