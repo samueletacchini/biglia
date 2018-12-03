@@ -232,7 +232,7 @@ session_start();
                                 <td><span class="glyphicon glyphicon-arrow-down"></span></td>
                                 <td><span class="glyphicon glyphicon-arrow-down"></span></td>
                                 <td><span class="glyphicon glyphicon-arrow-down"></span></td>
-                                <td rowspan="2"> <button class="form-control"  onclick="checkGame2()">Conferma</button></td>
+                                <td rowspan="2"> <button class="form-control btn" style=' background-color: DodgerBlue; color: white'  onclick="checkGame2()"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button> </td>
                                 <!--<td><span class="glyphicon glyphicon-arrow-down"></span></td>  -->                          
                             </tr>
                             <tr>
@@ -316,10 +316,10 @@ session_start();
                                 <td><span class="glyphicon glyphicon-arrow-down"></span></td>
                                 <td><span class="glyphicon glyphicon-arrow-down"></span></td>
                                 <td><span class="glyphicon glyphicon-arrow-down"></span></td>
-                                <td rowspan="2"> <button class="form-control"  onclick="checkGame2()">Conferma</button></td>
+                                <td rowspan="2"> <button class="form-control btn" style=' background-color: DodgerBlue; color: white'  onclick="checkGame2()"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
                                 <!--<td><span class="glyphicon glyphicon-arrow-down"></span></td>  -->                          
                             </tr>
-                            <tr>
+                            <tr>    
                                 <td>
                                     <select class="form-control"  id="player2Game2">
                                         <?php
