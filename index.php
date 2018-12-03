@@ -3,14 +3,27 @@ session_start();
 ?>
 <html>
     <head>
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-        <script src="bootstrap-datetimepicker-master\js\bootstrap-datetimepicker.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="bootstrap-datetimepicker-master\css\bootstrap-datetimepicker.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+        <!-- 
+        VIOLA BELLO UN TOT #782ecc
+        CHE CAZZO MADONNA BELLISSIMA
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+          <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  
+  
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>F
+  
+        -->
+
         <link rel="stylesheet" href="css/PrenotazioneRegistrazione.css">
         <meta name="viewport" content="width=device-width,initial-sclae=1.0">
 
@@ -33,7 +46,22 @@ session_start();
             .trattino2 {display: inline;}
         }
 
-        .sparisci{display: inline;} 
+
+        .bgg{
+            /* The image used */
+            background-image: url("img/biglia.png");
+
+
+            /* Full height */
+            /* height: 32%;*/
+            /* opacity: 0.5; */
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
 
         .custom-file-input::-webkit-file-upload-button {
             visibility: hidden;
@@ -133,12 +161,12 @@ session_start();
     <body>
 
         <div class="jumbotron text-center" >
-            <h1 align="center"> La Mucca</h1>
+            <h1 align="center">La Mucca</h1>
         </div>
 
         <div class="col-md-8 panel-default">
-            <div class="panel-body text-center sparisci">
 
+            <div class="panel-body text-center">
                 <div class="form-group panel-default panel">
                     <h3 align='center'>Inserimento Partite</h3>
                 </div>
@@ -147,10 +175,10 @@ session_start();
                         <h4 align='center'>1 vs 1</h4>
                     </div>
                     <!-- style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" -->
-                    <div class="panel-default form-group"  id="div1vs1">
-                        <table class="table table-bordered text-center">
+                    <div class=" bg panel-default form-group " id="div1vs1">
+                        <table id="ins1"  class=" text-center table table-borderless ">
                             <tr><td>
-                                    <select class="form-control" style="margin-top: 5%" id="player1Game2">
+                                    <select class="form-control"  id="player1Game2">
                                         <?php
                                         require_once("ConnessioneDb.php");
                                         require_once("Players.php");
@@ -173,36 +201,43 @@ session_start();
                                     <input class="form-control" id="defResult1Game2" type="number" value="0">
                                 </td>
                                 <td>
-                                    <!-- <input class="form-control" id="dateGame2" type="date" value="<?php echo $date ?>"> -->
+                                    <!-- <input class="form-control" id="dateGame2" type="date" value="<?php echo $date ?>">  -->
                                     <input size="10" type="text" value="<?php echo $date ?>" readonly class=" form-control form_datetime">
 
+
                                     <script type="text/javascript">
-                                        $(".form_datetime").datePicker({format: 'yyyy-mm-dd'});
+                                        //   $('.datepicker').datepicker();
+//                                        $(".form_datetime").datepicker({format: 'yyyy-mm-dd'});
+//                                        $('.form_datetime').datepicker({
+//                                        format: 'yyyy-mm-dd',
+//                                                startDate: '-3d'
+//                                        });
                                     </script>       
 
                                 </td>
                             </tr>
-                            <tr>
+                            <tr style="font-size:25px;">
                                 <td><span class="glyphicon glyphicon-arrow-up"></span></td>
                                 <td><span class="glyphicon glyphicon-arrow-up"></span></td>
                                 <td><span class="glyphicon glyphicon-arrow-up"></span></td>
                                 <td><span class="glyphicon glyphicon-arrow-up"></span></td>
                             </tr>
-                            <tr>
-                                <td><b><h5>Players</b></h5></td>
-                                <td><h5><b>Punti</b></h5></td>
-                                <td><h5><b>Goal Difesa</b></h5></td>
-                                <td><h5><b>Data</b></h5></td>
+                            <tr style="font-size:16px;">
+                                <td><b>Players</b></td>
+                                <td><b>Punti</b></td>
+                                <td><b>Goal Difesa</b></td>
+                                <td><b>Data</b></td>
                             </tr>
-                            <tr>
+                            <tr style="font-size:25px;">
                                 <td><span class="glyphicon glyphicon-arrow-down"></span></td>
                                 <td><span class="glyphicon glyphicon-arrow-down"></span></td>
                                 <td><span class="glyphicon glyphicon-arrow-down"></span></td>
                                 <td rowspan="2"> <button class="form-control"  onclick="checkGame2()">Conferma</button></td>
-                                <!--<td><span class="glyphicon glyphicon-arrow-down"></span></td>  -->                          </tr>
+                                <!--<td><span class="glyphicon glyphicon-arrow-down"></span></td>  -->                          
+                            </tr>
                             <tr>
                                 <td>
-                                    <select class="form-control" style="margin-top: 2%" id="player2Game2">
+                                    <select class="form-control"  id="player2Game2">
                                         <?php
                                         for ($i = 0; $i < $numPlayers; $i++) {
                                             echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
@@ -223,55 +258,147 @@ session_start();
                         </table>
                     </div>
                 </div>
-
-                <div  class="panel-default col-md-6">
+                <div class=" panel-default form-group col-md-6">
                     <div class=" panel-default panel form-group">
                         <h4 align='center'>2 vs 2</h4>
                     </div>
-                    <div style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" id="div2vs2">
-                        <div class="col-md-4">
-                            <select style="margin-top: 20%" id="player1Game4"> <!-- ATTACCANTE SQUADRA 1 -->
-                                <?php
-                                for ($i = 0; $i < $numPlayers; $i++) {
-                                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
-                                }
-                                ?>
-                            </select>
-                            <br>
-                            <select style="margin-top: 115%" id="player4Game4"> <!-- DIFENSORE SQUADRA 2 -->
-                                <?php
-                                for ($i = 0; $i < $numPlayers; $i++) {
-                                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
-                                }
-                                ?>
-                            </select>
-                            <input id="defResult1Game4" type="number" value="0">
-                        </div>
-                        <div class="col-md-4">
-                            <input style="color: blue; width: 50%; font-weight: bold; text-align: center; margin-top: 20%" type="number" min="0" placeholder="Blu"><br>
-                            <button style="margin-top: 35%">Conferma</button><input id="dateGame4" type="date" value="<?php $date ?>"><br>
-                            <input style="color: red; width: 50%; font-weight: bold; text-align: center; margin-top: 40%" type="number" min="0" placeholder="Rossi">
-                        </div>
-                        <div class="col-md-4">	
-                            <select style="margin-top: 20%" id="player2Game4"> <!-- DIFENSORE SQUADRA 1 -->
-                                <?php
-                                for ($i = 0; $i < $numPlayers; $i++) {
-                                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
-                                }
-                                ?>
-                            </select>		
-                            <br>
-                            <select style="margin-top: 115%" id="player3Game4"> <!-- ATTACCANTE SQUADRA 2 -->
-                                <?php
-                                for ($i = 0; $i < $numPlayers; $i++) {
-                                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
-                                }
-                                ?>
-                            </select>
-                            <input id="defResult2Game4" type="number" value="0">
-                        </div>
+                    <!-- style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" -->
+                    <div class=" bg panel-default form-group " id="div1vs1">
+                        <table id="ins1"  class=" text-center table table-borderless ">
+                            <tr><td>
+                                    <select class="form-control"  id="player1Game2">
+                                        <?php
+                                        for ($i = 0; $i < $numPlayers; $i++) {
+                                            echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control"  id="player1Game2">
+                                        <?php
+                                        for ($i = 0; $i < $numPlayers; $i++) {
+                                            echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <!-- style="color: blue; width: 13%; margin-top: 2%; font-weight: bold; text-align: center"-->
+                                    <input class="form-control" type="number" placeholder="Blu" id="result1Game2">
+                                </td>
+                                <td>
+                                    <input class="form-control" id="defResult1Game2" type="number" value="0">
+                                </td>
+                                <td>
+                                    <!-- <input class="form-control" id="dateGame2" type="date" value="<?php echo $date ?>">  -->
+                                    <input size="10" type="text" value="<?php echo $date ?>" readonly class=" form-control form_datetime">
+
+
+                                </td>
+                            </tr>
+                            <tr style="font-size:25px;">
+                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
+                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
+                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
+                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
+                                <td><span class="glyphicon glyphicon-arrow-up"></span></td>
+                            </tr>
+                            <tr style="font-size:16px;">
+                                <td><b>Difensori</b></td>
+                                <td><b>Attaccanti</b></td>
+                                <td><b>Punti</b></td>
+                                <td><b>Goal Difesa</b></td>
+                                <td><b>Data</b></td>
+                            </tr>
+                            <tr style="font-size:25px;">
+                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
+                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
+                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
+                                <td><span class="glyphicon glyphicon-arrow-down"></span></td>
+                                <td rowspan="2"> <button class="form-control"  onclick="checkGame2()">Conferma</button></td>
+                                <!--<td><span class="glyphicon glyphicon-arrow-down"></span></td>  -->                          
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select class="form-control"  id="player2Game2">
+                                        <?php
+                                        for ($i = 0; $i < $numPlayers; $i++) {
+                                            echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control" id="player2Game2">
+                                        <?php
+                                        for ($i = 0; $i < $numPlayers; $i++) {
+                                            echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td><input class="form-control" type="number" placeholder="Rossi" id="result2Game2"></td>
+                                <td><input class="form-control" id="defResult2Game2" type="number" value="0"></td>
+                            </tr>
+
+
+
+                            <!-- style="color: red; width: 13%; margin-top: 2%; font-weight: bold; text-align: center" -->
+
+
+
+                        </table>
                     </div>
                 </div>
+                <!--                <div  class="panel-default col-md-6">
+                                    <div class=" panel-default panel form-group">
+                                        <h4 align='center'>2 vs 2</h4>
+                                    </div>
+                                    <div style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" id="div2vs2">
+                                        <div class="col-md-4">
+                                            <select style="margin-top: 20%" id="player1Game4">  ATTACCANTE SQUADRA 1 
+                <?php
+                for ($i = 0; $i < $numPlayers; $i++) {
+                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                }
+                ?>
+                                            </select>
+                                            <br>
+                                            <select style="margin-top: 115%" id="player4Game4">  DIFENSORE SQUADRA 2 
+                <?php
+                for ($i = 0; $i < $numPlayers; $i++) {
+                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
+                }
+                ?>
+                                            </select>
+                                            <input id="defResult1Game4" type="number" value="0">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input style="color: blue; width: 50%; font-weight: bold; text-align: center; margin-top: 20%" type="number" min="0" placeholder="Blu"><br>
+                                            <button style="margin-top: 35%">Conferma</button><input id="dateGame4" type="date" value="<?php $date ?>"><br>
+                                            <input style="color: red; width: 50%; font-weight: bold; text-align: center; margin-top: 40%" type="number" min="0" placeholder="Rossi">
+                                        </div>
+                                        <div class="col-md-4">	
+                                            <select style="margin-top: 20%" id="player2Game4">  DIFENSORE SQUADRA 1 
+                <?php
+                for ($i = 0; $i < $numPlayers; $i++) {
+                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
+                }
+                ?>
+                                            </select>		
+                                            <br>
+                                            <select style="margin-top: 115%" id="player3Game4">  ATTACCANTE SQUADRA 2 
+                <?php
+                for ($i = 0; $i < $numPlayers; $i++) {
+                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
+                }
+                ?>
+                                            </select>
+                                            <input id="defResult2Game4" type="number" value="0">
+                                        </div>
+                                    </div>
+                                </div>-->
             </div>
             <div class="panel-body text-center">
                 <div  class="" >
@@ -651,7 +778,7 @@ session_start();
                         </table>
 
                         <form action="prenotazione.php" method="post">
-                            BOTTOni
+                            BOTTONI
                         </form>
                     </div>
                 </div>
@@ -741,6 +868,7 @@ session_start();
     </body>
     <script>
 
+        document.getElementById("ins1").height = (screen.width / 4) / 1.85270425777;
         function checkGame2(){
         var date = $("#dateGame2").val();
         var result1 = $("#result1Game2").val();
@@ -817,7 +945,7 @@ session_start();
                         idPlayer3: idPlayer3,
                         idPlayer4: idPlayer4
                 }
-        success: function (data) {
+        success: function billy (data) {
         $("#dateGame4").val("<?php $date ?>");
         $("#result1Game4").val("0");
         $("#result2Game4").val("0");

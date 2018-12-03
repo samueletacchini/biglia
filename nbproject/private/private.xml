@@ -4,16 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/lamucca/Games2.php</file>
-            <file>file:/C:/xampp/htdocs/lamucca/img/biglia.png</file>
-            <file>file:/C:/xampp/htdocs/lamucca/index.php</file>
             <file>file:/C:/xampp/htdocs/lamucca/Games4.php</file>
-            <file>file:/C:/xampp/htdocs/lamucca/ConnessioneDb.php</file>
             <file>file:/C:/xampp/htdocs/lamucca/Game4.php</file>
-            <file>file:/C:/xampp/htdocs/lamucca/Player.php</file>
             <file>file:/C:/xampp/htdocs/lamucca/Players.php</file>
+            <file>file:/C:/xampp/htdocs/lamucca/css/PrenotazioneRegistrazione.css</file>
+            <file>file:/C:/xampp/htdocs/lamucca/css/bootstrap-glyphicons.css</file>
             <file>file:/C:/xampp/htdocs/lamucca/addGame4.php</file>
             <file>file:/C:/xampp/htdocs/lamucca/Game2.php</file>
             <file>file:/C:/xampp/htdocs/lamucca/addGame2.php</file>
+            <file>file:/C:/xampp/htdocs/lamucca/img/biglia.png</file>
+            <file>file:/C:/xampp/htdocs/lamucca/index.php</file>
+            <file>file:/C:/xampp/htdocs/lamucca/ConnessioneDb.php</file>
+            <file>file:/C:/xampp/htdocs/lamucca/Player.php</file>
         </group>
     </open-files>
 </project-private>
