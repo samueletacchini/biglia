@@ -5,11 +5,12 @@ session_start();
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
         <!-- 
         VIOLA BELLO UN TOT #782ecc
@@ -201,17 +202,31 @@ session_start();
                                     <input class="form-control" id="defResult1Game2" type="number" value="0">
                                 </td>
                                 <td>
-                                    <!-- <input class="form-control" id="dateGame2" type="date" value="<?php echo $date ?>">  -->
-                                    <input size="10" type="text" value="<?php echo $date ?>" readonly class=" form-control form_datetime">
+                                    <!-- 
+                                    <input class="form-control" id="dateGame2" type="date" value="<?php echo $date ?>">
+                                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                     <span class=""><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
+                                    <input  size="10" type="hidden" value="<?php echo $date ?>"  class=" form-control form_datetime">
+                                    
+                                                                        <input class="datepicker" data-date-format="mm/dd/yyyy">
 
+                                    -->
+                                    <div class="form-group"> <!-- Date input -->
+                                        <input class="form-control" id="date" name="date"  type="text" value="<?php echo $date ?>"/>
+                                    </div>
 
                                     <script type="text/javascript">
-                                        //   $('.datepicker').datepicker();
-//                                        $(".form_datetime").datepicker({format: 'yyyy-mm-dd'});
-//                                        $('.form_datetime').datepicker({
-//                                        format: 'yyyy-mm-dd',
-//                                                startDate: '-3d'
-//                                        });
+                                        $(document).ready(function () {
+                                            var date_input = $('input[name="date"]'); //our date input has the name "date"
+                                            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                                            var options = {
+                                                format: 'yyyy-mm-dd',
+                                                container: container,
+                                                todayHighlight: true,
+                                                autoclose: true,
+                                            };
+                                            date_input.datepicker(options);
+                                        })
                                     </script>       
 
                                 </td>
@@ -741,7 +756,7 @@ session_start();
                                 //echo "<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>";
                                 echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] + 1) . " \" > <span  class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span></a>";
                             }
-                            ?>
+                            ?>  
                         </div>
 
                     </div>
@@ -755,105 +770,23 @@ session_start();
         <div class="col-md-4">
             <div>
                 <div class="panel panel-default">
-                    <div class="form-group">
-                        NOME UTENTE E ROBE
+                    <div class="text-center form-group">
+                        <h2>WIP</h2>
                     </div>
                     <div id="login" class="panel-body">
 
-                        LISTA DI PRENOTAZIONI E 
+
+                        <?php
+                        for ($i = 0; $i < 700; $i++) {
+                            echo "WIP ";
+                        }
+                        ?>
+
 
 
                     </div>
                 </div>
             </div>
-            <div>
-                <div class="panel panel-default"  id="link">
-                    <div class="form-group">
-                        <h3 align='center'>Prossime date Esami</h3>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-bordered">
-                            <tr><td style="color:gray">Data</td><td style="color:gray">Dalle</td><td style="color:gray">Alle</td></tr>
-                            LISTA DATE PRENOTAZIONI
-                        </table>
-
-                        <form action="prenotazione.php" method="post">
-                            BOTTONI
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <?php
-            if (isset($_SESSION['user'])) {
-                echo '<div class="panel panel-default"  id="link2">
-                <div class="form-group">
-                    <h3 align="center">Carica File</h3>
-                </div>
-                <div class="panel-body">
-                    <p align="center" style="color:grey">Selezionare il/i tipi di file che si è caricato:<p>
-                    <form name="carica" action="caricaFile.php" method="post" enctype="multipart/form-data">
-                        <div class="checkbox-inline col-md-offset-4">
-                        <div class="form-group">
-                            <input name="pdfskillcard"  class="form-check-input" type="checkbox" value="1" >
-                            <label  class="form-check-label" for="defaultCheck7">
-                                Pdf skillcard
-                            </label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input name="bollettinoskillcard" class="form-check-input" type="checkbox" value="1" id="bollettinoskillcard">
-                            <label  class="form-check-label" for="defaultCheck7">
-                                Bollettino skillcard
-                            </label>
-                        </div>
-                        
-                         <div class="form-group">
-                            <input name="pdfprenotazione" onchange="myFunction()" class="form-check-input" type="checkbox" value="1" id="pdfprenotazione">
-                            <label  class="form-check-label" for="defaultCheck7">
-                                Pdf prenotazione
-                            </label>
-                        </div> 
-                        
-                        <div class="form-group">
-                            <input name="bollettinoprenotazione" onchange="myFunction()" class="form-check-input" type="checkbox" value="1" id="bollettinoprenotazione">
-                            <label  class="form-check-label" for="defaultCheck7">
-                                Bollettino prenotazione 
-                            </label>
-                        </div>  
-                        
-                                                    
-                        <div class="form-group">
-                            <input name="pdfaica"  class="form-check-input" type="checkbox" value="1" id="pdfaica">
-                            <label  class="form-check-label" for="defaultCheck7">
-                                Pdf aica
-                            </label>
-                        </div>   
-                        <div class="form-group">
-                            <input name="pdfupdate" onchange="myFunction()" class="form-check-input" type="checkbox" value="1" id="pdfupdate">
-                            <label  class="form-check-label" for="defaultCheck7">
-                                Pdf update 
-                            </label>
-                        </div>
-                        </div>                           
-                        
-                        
-                        <p align="center">Seleziona i file da caricare:</p>
-                        <input accept="image/*" name="pdfs" type="file" class="custom-file-input" required>
-                        <br>
-                        <input type="submit" name="carica" value="Carica" class="btn btn-info btn-lg">
-                        <div id="clicco"></div>
-
-
-                        
-                        
-                        </form> 
-                        </div>
-                        
-                        </div>
-                        ';
-            }
-            ?>
         </div>
         <div class="col-md-12">                                 
             <footer class="container text-center" id="foot" >                                         
@@ -869,94 +802,94 @@ session_start();
     <script>
 
         document.getElementById("ins1").height = (screen.width / 4) / 1.85270425777;
-        function checkGame2(){
-        var date = $("#dateGame2").val();
-        var result1 = $("#result1Game2").val();
-        var result2 = $("#result2Game2").val();
-        var defResult1 = $("#defResult1Game2").val();
-        var defResult2 = $("#defResult2Game2").val();
-        var idPlayer1 = $("#player1Game2").val();
-        var idPlayer2 = $("#player2Game2").val();
-        if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 >= 10 || result2 >= 10)){
-        if (idPlayer1 != idPlayer2){
-        insertGame2(date, result1, result2, idPlayer1, idPlayer2);
-        }
-        } else{
-        return false;
-        }
+        function checkGame2() {
+            var date = $("#dateGame2").val();
+            var result1 = $("#result1Game2").val();
+            var result2 = $("#result2Game2").val();
+            var defResult1 = $("#defResult1Game2").val();
+            var defResult2 = $("#defResult2Game2").val();
+            var idPlayer1 = $("#player1Game2").val();
+            var idPlayer2 = $("#player2Game2").val();
+            if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 >= 10 || result2 >= 10)) {
+                if (idPlayer1 != idPlayer2) {
+                    insertGame2(date, result1, result2, idPlayer1, idPlayer2);
+                }
+            } else {
+                return false;
+            }
         }
 
         function insertGame2(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2) {
-        $.ajax({
-        type: "POST",
+            $.ajax({
+                type: "POST",
                 url: 'php/addGame2.php',
                 data: {
-                date: date,
-                        result1: result1,
-                        result2: result2,
-                        defResult1: defResult1,
-                        defResult2: defResult2,
-                        idPlayer1: idPlayer1,
-                        idPlayer2: idPlayer2
+                    date: date,
+                    result1: result1,
+                    result2: result2,
+                    defResult1: defResult1,
+                    defResult2: defResult2,
+                    idPlayer1: idPlayer1,
+                    idPlayer2: idPlayer2
+                },
+                success: function (data) {
+                    $("#dateGame2").val("<?php $date ?>");
+                    $("#result1Game2").val("0");
+                    $("#result2Game2").val("0");
+                    $("#defResult1Game2").val("0");
+                    $("#defResult2Game2").val("0");
+                    $("#player1Game2").val($("#player1Game2 option:first").val());
+                    $("#player2Game2").val($("#player2Game2 option:second").val());
                 }
-        success: function (data) {
-        $("#dateGame2").val("<?php $date ?>");
-        $("#result1Game2").val("0");
-        $("#result2Game2").val("0");
-        $("#defResult1Game2").val("0");
-        $("#defResult2Game2").val("0");
-        $("#player1Game2").val($("#player1Game2 option:first").val());
-        $("#player2Game2").val($("#player2Game2 option:second").val());
-        }
-        });
+            });
         }
 
-        function checkGame4(){
-        var date = $("#dateGame4").val();
-        var result1 = $("#result1Game4").val();
-        var result2 = $("#result2Game4").val();
-        var defResult1 = $("#defResult1Game4").val();
-        var defResult2 = $("#defResult2Game4").val();
-        var idPlayer1 = $("#player1Game4").val();
-        var idPlayer2 = $("#player2Game4").val();
-        var idPlayer3 = $("#player3Game4").val();
-        var idPlayer4 = $("#player4Game4").val();
-        if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 >= 10 || result2 >= 10)){
-        if (idPlayer1 != idPlayer2 != idPlayer3 != idPlayer4){
-        insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4);
-        }
-        } else{
-        return false;
-        }
+        function checkGame4() {
+            var date = $("#dateGame4").val();
+            var result1 = $("#result1Game4").val();
+            var result2 = $("#result2Game4").val();
+            var defResult1 = $("#defResult1Game4").val();
+            var defResult2 = $("#defResult2Game4").val();
+            var idPlayer1 = $("#player1Game4").val();
+            var idPlayer2 = $("#player2Game4").val();
+            var idPlayer3 = $("#player3Game4").val();
+            var idPlayer4 = $("#player4Game4").val();
+            if ((result1 >= (result2 + 2) || result2 >= (result1 + 2)) && (result1 >= 10 || result2 >= 10)) {
+                if (idPlayer1 != idPlayer2 != idPlayer3 != idPlayer4) {
+                    insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4);
+                }
+            } else {
+                return false;
+            }
         }
 
         function insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4) {
-        $.ajax({
-        type: "POST",
+            $.ajax({
+                type: "POST",
                 url: 'php/addGame4.php',
                 data: {
-                date: date,
-                        result1: result1,
-                        result2: result2,
-                        defResult1: defResult1,
-                        defResult2: defResult2,
-                        idPlayer1: idPlayer1,
-                        idPlayer2: idPlayer2,
-                        idPlayer3: idPlayer3,
-                        idPlayer4: idPlayer4
+                    date: date,
+                    result1: result1,
+                    result2: result2,
+                    defResult1: defResult1,
+                    defResult2: defResult2,
+                    idPlayer1: idPlayer1,
+                    idPlayer2: idPlayer2,
+                    idPlayer3: idPlayer3,
+                    idPlayer4: idPlayer4
+                },
+                success: function billy(data) {
+                    $("#dateGame4").val("<?php $date ?>");
+                    $("#result1Game4").val("0");
+                    $("#result2Game4").val("0");
+                    $("#defResult1Game4").val("0");
+                    $("#defResult2Game4").val("0");
+                    $("#player1Game4").val($("#player1Game4 option:first").val());
+                    $("#player2Game4").val($("#player2Game4 option:second").val());
+                    $("#player3Game4").val($("#player3Game4 option:third").val());
+                    $("#player4Game4").val($("#player4Game4 option:fourth").val());
                 }
-        success: function billy (data) {
-        $("#dateGame4").val("<?php $date ?>");
-        $("#result1Game4").val("0");
-        $("#result2Game4").val("0");
-        $("#defResult1Game4").val("0");
-        $("#defResult2Game4").val("0");
-        $("#player1Game4").val($("#player1Game4 option:first").val());
-        $("#player2Game4").val($("#player2Game4 option:second").val());
-        $("#player3Game4").val($("#player3Game4 option:third").val());
-        $("#player4Game4").val($("#player4Game4 option:fourth").val());
-        }
-        });
+            });
         }
     </script>
 </html>
