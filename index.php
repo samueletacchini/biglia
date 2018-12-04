@@ -19,6 +19,23 @@ session_start();
     </head>
 
     <style>
+        @font-face {
+            font-family: 'grinchedregular';
+            src: url('css/fonts/grinchedregular-webfont.woff2') format('woff2'),
+                url('css/fonts/grinchedregular-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+
+        .title{
+            font-family: 'Harabara Bold', Arial, sans-serif;
+            font-weight:normal;
+            font-style:normal;
+        }
+
+
+
         .trattino1 { display: inline; } 
         /* Smartphone Portrait and Landscape */ 
         @media only screen 
@@ -149,8 +166,31 @@ session_start();
     </style>
     <body>
 
-        <div class="jumbotron text-center" >
-            <h1 align="center">Mucca & Polly</h1>
+        <div class="jumbotron  " >
+
+            <h1 class="title" id="title" align="center">Mucca & Polly</h1>
+            <div class="col-md-4 col-md-offset-4">
+                <h5 class=" " align="center">
+
+                    <?php
+                    require_once "Comments.php";
+                    require_once("ConnessioneDb.php");
+
+                    $db = new ConnessioneDb();
+                    $commenti = new Comments($db);
+
+
+                    $popu = $commenti->getPopuComment();
+                    echo '"' . $popu->text . '"';
+                    ?>
+
+                </h5>
+
+                <div style='text-align: right;'>
+                    <b> <i> -<?php echo $popu->author; ?> </i></b>
+                </div>
+            </div>
+
         </div>
         <div id="newalert">
 
@@ -173,9 +213,8 @@ session_start();
                                 <td style="background: #1e90ff" class="col-md-4">
                                     <select class="form-control" id="player1Game2">
                                         <?php
-                                        require_once("ConnessioneDb.php");
                                         require_once("Players.php");
-                                        $db = new ConnessioneDb();
+
                                         $date = date("Y-m-d");
 
                                         $players = new Players($db);
@@ -774,46 +813,44 @@ session_start();
                         <div   class=" text-center form-group">
                             <h3><i>Quote</i> Più Popu </h3>
                         </div>
-                        <div style="font-size:20px;">
-                            <div  class=" panel panel-default col-md-1"><b>#8</b></div>
-                            <div  class=" panel panel-default col-md-2"><a><span class="glyphicon glyphicon-thumbs-up" ></span></a> <b>3</b>  </div>
-                            <div  class=" panel panel-default col-md-9">autoreeeeeee</div>
+                        <div id ="quote">
+                            <div style="font-size:20px;">
+                                <div  class=" panel panel-default col-md-1"><b>#8</b></div>
+                                <div  class=" panel panel-default col-md-2"><a><span class="glyphicon glyphicon-thumbs-up" ></span></a> <b>3</b>  </div>
+                                <div  class=" panel panel-default col-md-9">autoreeeeeee</div>
 
-                        </div>
-                        <div  class=" panel panel-body panel-default ">askdhjbasldi aslidhba sdilhbas doli ahsbdla cxzj,bc xzj,kczxl.c zxòck nzòlxc askdhjbasldi aslidhba sdilhbas doli ahsbdla cxzj,bc xzj,kczxl.c zxòck nzòlxcaskdhjbasldi aslidhba sdilhbas doli ahsbdla cxzj,bc xzj,kczxl.c zxòck nzòlxcaskdhjbasldi aslidhba sdilhbas doli ahsbdla cxzj,bc xzj,kczxl.c zxòck nzòlxcaskdhjbasldi aslidhba sdilhbas doli ahsbdla cxzj,bc xzj,kczxl.c zxòck nzòlxc</div>
-
-
-
-
-                        <?php
-                        require_once "Comments.php";
-                        $commenti = new Comments($db);
-                        //count($commenti->comments)
-                        $classComm = array();
-
-                        for ($i = 0; $i < count($commenti->comments); $i++) {
-                            $classComm[$commenti->comments[$i]->id] = $commenti->comments[$i]->likes;
-                        }
-
-                        arsort($classComm);
-                        $i = 0;
-                        foreach ($classComm as $key => $value) {
-                            //  echo "id:".$key . "   -   likes:" . $value;
-                            //   echo "<br>";
-                            $comm = $commenti->getComment($key);
+                            </div>
+                            <div  class=" panel panel-body panel-default ">askdhjbasldi aslidhba sdilhbas doli ahsbdla cxzj,bc xzj,kczxl.c zxòck nzòlxc askdhjbasldi aslidhba sdilhbas doli ahsbdla </div>
 
 
-                            if ($i < 5) {
-                                echo '<div style="font-size:20px;">';
-                                echo '<div  class=" panel panel-default col-md-3"><b>#' . ($i + 1) . '</b> <span class="glyphicon glyphicon-thumbs-up" ></span>' . $comm->likes . ' </div>';
-                                echo '<div  class=" panel panel-default col-md-9">' . $comm->author . '</div>';
 
-                                echo '</div>';
-                                echo '<div  class=" panel panel-body panel-default ">' . $comm->text . '</div>';
+
+                            <?php
+//count($commenti->comments)
+                            $classComm = array();
+
+                            for ($i = 0; $i < count($commenti->comments); $i++) {
+                                $classComm[$commenti->comments[$i]->id] = $commenti->comments[$i]->likes;
                             }
-                            $i++;
-                        }
-                        ?>
+
+                            arsort($classComm);
+                            $i = 0;
+                            foreach ($classComm as $key => $value) {
+                                //  echo "id:".$key . "   -   likes:" . $value;
+                                //   echo "<br>";
+                                $comm = $commenti->getComment($key);
+
+                                if ($i < 5) {
+                                    echo '<div style="font-size:20px;">';
+                                    echo '<div  class=" panel panel-default col-md-3"><b>#' . ($i + 1) . '</b> <span class="glyphicon glyphicon-thumbs-up" ></span>' . $comm->likes . ' </div>';
+                                    echo '<div  class=" panel panel-default col-md-9">' . $comm->author . '</div>';
+                                    echo '</div>';
+                                    echo '<div  class=" panel panel-body panel-default ">' . $comm->text . '</div>';
+                                }
+                                $i++;
+                            }
+                            ?>
+                        </div>
                     </div>
 
                 </div>
@@ -844,6 +881,12 @@ session_start();
 
         });
 
+        function updateComments() {
+            var a = '';
+            alert(a);
+            return a;
+        }
+
         function insertComment(author, text) {
             $.ajax({
                 type: "POST",
@@ -859,12 +902,11 @@ session_start();
                     $("#newalert").html('<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Quote pubblicata!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
                     $("#author").val("");
                     $("#text").val("");
-
-
+                    //var b = updateComments();
+                    $("#quote").html(data);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     $("#newalert").html('<div id="alert" class="alert alert-danger alert-dismissible col-md-10 col-md-offset-1">la pubblicazione della quote ha avuto un <strong>ERRORE!</strong><a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
-
                     alert(xhr.responseText);
                     alert(thrownError);
                 }
@@ -883,14 +925,12 @@ session_start();
             var defResult2 = parseInt($("#defResult2Game2").val());
             var idPlayer1 = parseInt($("#player1Game2").val());
             var idPlayer2 = parseInt($("#player2Game2").val());
-
             if ((result1 > (result2 + 1) || result2 > (result1 + 1)) && (result1 >= 10 || result2 >= 10)) {
                 if (idPlayer1 != idPlayer2) {
                     insertGame2(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2);
                 }
             }
         });
-
         function insertGame2(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2) {
             $.ajax({
                 type: "POST",
@@ -914,11 +954,9 @@ session_start();
                     $("#player1Game2").val($("#player1Game2 option:first").val());
                     $("#player2Game2").val($("#player2Game2 option:second").val());
                     $("#newalert").html('<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Partita inserita!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
-
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     $("#newalert").html('<div id="alert" class="alert alert-danger alert-dismissible col-md-10 col-md-offset-1">L` inserimento della partita ha avuto  <strong>ERRORE!</strong><a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
-
                     // alert(xhr.responseText);
                     // alert(thrownError);
                 }
@@ -935,14 +973,12 @@ session_start();
             var idPlayer2 = parseInt($("#player2Game4").val());
             var idPlayer3 = parseInt($("#player3Game4").val());
             var idPlayer4 = parseInt($("#player4Game4").val());
-
             if ((result1 > (result2 + 1) || result2 > (result1 + 1)) && (result1 >= 10 || result2 >= 10)) {
                 if (idPlayer1 != idPlayer2) {
                     insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4);
                 }
             }
         });
-
         function insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4) {
             $.ajax({
                 type: "POST",
@@ -970,11 +1006,9 @@ session_start();
                     $("#player3Game4").val($("#player3Game4 option:third").val());
                     $("#player4Game4").val($("#player4Game4 option:fourth").val());
                     $("#newalert").html('<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Partita inserita!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
-
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     $("#newalert").html('<div id="alert" class="alert alert-danger alert-dismissible col-md-10 col-md-offset-1">L` inserimento della partita ha avuto  <strong>ERRORE!</strong><a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
-
                     //alert(xhr.responseText);
                     //   alert(thrownError);
                 }

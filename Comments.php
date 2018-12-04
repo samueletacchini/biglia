@@ -22,7 +22,7 @@ class Comments {
 
         $i = 0;
         while ($row = $ris->fetch_array()) {
-            $this->comments[$i] = new Comment($row["id"], $row["text"], $row["text"], $row["likes"]);
+            $this->comments[$i] = new Comment($row["id"], $row["author"], $row["text"], $row["likes"]);
             $i++;
         }
     }
@@ -46,7 +46,7 @@ class Comments {
                 $maxId = $this->comments[$x]->id;
             }
         }
-        return getComment($maxId);
+        return $this->getComment($maxId);
     }
 
 }
