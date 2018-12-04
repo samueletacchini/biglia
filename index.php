@@ -771,12 +771,7 @@ session_start();
                         <textarea class="form-control" id="text" name="text" type="text" maxlength="300" rows="4" cols="50" placeholder="testo" ></textarea>
                     </div>
 
-                    <br><br><br><br><br><br><br><br><br><br><br><br>
-                    <?php
-                    for ($i = 0; $i < 700; $i++) {
-                        echo "WIP ";
-                    }
-                    ?>
+
 
                 </div>
             </div>
