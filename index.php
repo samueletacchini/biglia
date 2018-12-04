@@ -425,7 +425,6 @@ session_start();
                                     <?php
                                     require_once("ConnessioneDb.php");
                                     require_once("Players.php");
-                                    $db = new ConnessioneDb();
                                     $date = date("Y-m-d");
                                     require_once('Games2.php');
                                     require_once('Games4.php');
@@ -757,7 +756,7 @@ session_start();
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class=" text-center form-group">
-                    <h2>Lascia una <i>`quote`</i> </h2>
+                    <h2>Lascia una <i>Quote</i> </h2>
                 </div>
                 <div  class="panel-body">
                     <div class="panel col-md-8">
@@ -771,12 +770,21 @@ session_start();
                         <textarea class="form-control" id="text" name="text" type="text" maxlength="300" rows="4" cols="50" placeholder="testo" ></textarea>
                     </div>
 
-                    <br><br><br><br><br><br><br><br><br><br><br><br>
-                    <?php
-                    for ($i = 0; $i < 700; $i++) {
-                        echo "WIP ";
-                    }
-                    ?>
+                    <br><br><br><br><br><br><br><br><br><br>
+                    <div class=" panel col-md-12">
+                        <div class=" text-center form-group">
+                            <h3><i>Quote</i> Più Popu </h3>
+                        </div>
+                        <?php
+                        require_once "Comments.php";
+                        $commenti = new Comments($db);
+
+
+                        for ($i = 0; $i < 700; $i++) {
+                            echo "WIP ";
+                        }
+                        ?>
+                    </div>
 
                 </div>
             </div>
