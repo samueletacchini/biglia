@@ -27,11 +27,17 @@ session_start();
             font-style: normal;
 
         }
-
         .title{
-            font-family: 'Harabara Bold', Arial, sans-serif;
-            font-weight:normal;
-            font-style:normal;
+            font-size: 550%;
+            font-family: 'grinchedregular';
+        }
+
+        .jumbotron{
+            border-style: solid;
+            border-color: #ae1f1b;
+            border-width: 10px;
+            color: #ae1f1b;
+            background-color: #FEFE9a;
         }
 
 
@@ -168,7 +174,7 @@ session_start();
 
         <div class="jumbotron  " >
 
-            <h1 class="title" id="title" align="center">Mucca & Polly</h1>
+            <div class="title" id="title" align="center">Mucca & Polly</div>
             <div class="col-md-4 col-md-offset-4">
                 <h5 class=" " align="center">
 
@@ -801,7 +807,7 @@ session_start();
                         <input class="form-control" id="author" name="author"  type="text" maxlength="15" placeholder="autore"/>
                     </div>
                     <div class="panel col-md-4">
-                        <button class="form-control btn" style="background-color: dodgerblue; "  id="submitComment"><span style="color: white; " class="glyphicon glyphicon-ok" ></span></button>
+                        <button class="form-control btn" style=" background-color: #FEFE9a;; "  id="submitComment"><span style="color: #ae1f1b;; " class="glyphicon glyphicon-ok" ></span></button>
                     </div>
 
                     <div class=" panel col-md-12">
