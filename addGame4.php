@@ -14,7 +14,7 @@
     
     $query = "INSERT INTO `game4`(`date`, `result1`, `result2`, `defResult1`, `defResult2`, `player1`, `player2`, `player3`, `player4`) VALUES ('{$date}', {$result1}, {$result2}, {$defResult1}, {$defResult2}, {$idPlayer1}, {$idPlayer2}, {$idPlayer3}, {$idPlayer4})";
     
-	echo $query;
+	//echo $query;
 	
     $db->query($query);
 ?>

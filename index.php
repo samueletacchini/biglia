@@ -152,6 +152,10 @@ session_start();
         <div class="jumbotron text-center" >
             <h1 align="center">Mucca & Polly</h1>
         </div>
+        <div id="newalert">
+
+        </div>
+
 
         <div class="col-md-8 panel-default">
 
@@ -165,7 +169,8 @@ session_start();
                     </div>
                     <div id="div1vs1">
                         <table id="ins1"  class=" text-center table table-borderless ">
-                            <tr style="background: #1e90ff"><td class="col-md-4">
+                            <tr>
+                                <td style="background: #1e90ff" class="col-md-4">
                                     <select class="form-control" id="player1Game2">
                                         <?php
                                         require_once("ConnessioneDb.php");
@@ -185,15 +190,15 @@ session_start();
                                         ?>
                                     </select>
                                 </td>
-                                <td class="col-md-3">
+                                <td style="background: #1e90ff" class="col-md-3">
                                     <input class="form-control" type="number" id="result1Game2" value="0">
                                 </td>
-                                <td class="col-md-3">
+                                <td style="background: #1e90ff" class="col-md-3">
                                     <input class="form-control" type="number" id="defResult1Game2"  value="0">
                                 </td>
-                                <td class="col-md-2">
+                                <td style="background: #d9d9d9" class="col-md-2">
                                     <div class="form-group"> <!-- Date input -->
-                                        <input class="form-control" id="date" name="date"  type="text" value="<?php echo $date ?>"/>
+                                        <input class="form-control" id="dateGame2" name="date"  type="text" value="<?php echo $date ?>"/>
                                     </div>
 
                                     <script type="text/javascript">
@@ -216,10 +221,10 @@ session_start();
                                 <td class="col-md-4"><b>Players</b></td>
                                 <td class="col-md-3"><b>Punti</b></td>
                                 <td class="col-md-3"><b>Sfida</b></td>
-                                <td class="col-md-2"><b>Data</b></td>
+                                <td style="background: #d9d9d9" class="col-md-2"><b>Data</b></td>
                             </tr>
-                            <tr style="background: red">
-                                <td  class="col-md-4">
+                            <tr>
+                                <td style="background: red" class="col-md-4">
                                     <select class="form-control"  id="player2Game2">
                                         <?php
                                         for ($i = 0; $i < $numPlayers; $i++) {
@@ -232,9 +237,9 @@ session_start();
                                         ?>
                                     </select>
                                 </td>
-                                <td class="col-md-3"><input class="form-control" type="number" id="result2Game2" value="0"></td>
-                                <td class="col-md-3"><input class="form-control" id="defResult2Game2" type="number" value="0"></td>
-                                <td class="col-md-2"> <button class="form-control btn" style="background-color: #ffffff; color: red"  id="submitGame2"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button> </td>
+                                <td style="background: red" class="col-md-3"><input class="form-control" type="number" id="result2Game2" value="0"></td>
+                                <td style="background: red" class="col-md-3"><input class="form-control" id="defResult2Game2" type="number" value="0"></td>
+                                <td style="background: #d9d9d9" class="col-md-2"> <button class="form-control btn" style="background-color: #ffffff; color: #000000"  id="submitGame2"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button> </td>
                             </tr>
 
 
@@ -251,7 +256,8 @@ session_start();
                     </div>
                     <div class=" bg panel-default form-group " id="div1vs1">
                         <table id="ins1"  class=" text-center table table-borderless ">
-                            <tr style="background: #1e90ff"><td class="col-md-3">
+                            <tr>
+                                <td style="background: #1e90ff" class="col-md-3">
                                     <select class="form-control"  id="player2Game4">
                                         <?php
                                         for ($i = 0; $i < $numPlayers; $i++) {
@@ -264,7 +270,7 @@ session_start();
                                         ?>
                                     </select>
                                 </td>
-                                <td class="col-md-3">
+                                <td style="background: #1e90ff" class="col-md-3">
                                     <select class="form-control"  id="player1Game4">
                                         <?php
                                         for ($i = 0; $i < $numPlayers; $i++) {
@@ -277,15 +283,15 @@ session_start();
                                         ?>
                                     </select>
                                 </td>
-                                <td class="col-md-2">
+                                <td style="background: #1e90ff" class="col-md-2">
                                     <input class="form-control" type="number" id="result1Game4">
                                 </td>
-                                <td class="col-md-2">
+                                <td style="background: #1e90ff" class="col-md-2">
                                     <input class="form-control" type="number" id="defResult1Game4" value="0">
                                 </td>
-                                <td class="col-md-2">
+                                <td style="background: #d9d9d9" class="col-md-2">
                                     <div class="form-group"> <!-- Date input -->
-                                        <input class="form-control" id="date" name="date"  type="text" value="<?php echo $date ?>"/>
+                                        <input class="form-control" id="dateGame4" name="date"  type="text" value="<?php echo $date ?>"/>
                                     </div>
 
                                     <script type="text/javascript">
@@ -309,10 +315,10 @@ session_start();
                                 <td class="col-md-3"><b>Attaccanti</b></td>
                                 <td class="col-md-2"><b>Punti</b></td>
                                 <td class="col-md-2"><b>Sfida</b></td>
-                                <td class="col-md-2"><b>Data</b></td>
+                                <td style="background: #d9d9d9" class="col-md-2"><b>Data</b></td>
                             </tr>
-                            <tr  style="background: red">    
-                                <td class="col-md-3">
+                            <tr>    
+                                <td style="background: red" class="col-md-3">
                                     <select class="form-control"  id="player4Game4">
                                         <?php
                                         for ($i = 0; $i < $numPlayers; $i++) {
@@ -325,7 +331,7 @@ session_start();
                                         ?>
                                     </select>
                                 </td>
-                                <td class="col-md-3">
+                                <td style="background: red" class="col-md-3">
                                     <select class="form-control" id="player3Game4">
                                         <?php
                                         for ($i = 0; $i < $numPlayers; $i++) {
@@ -338,9 +344,10 @@ session_start();
                                         ?>
                                     </select>
                                 </td>
-                                <td class="col-md-2"><input class="form-control" type="number" id="result2Game4"></td>
-                                <td class="col-md-2"><input class="form-control" id="defResult2Game4" type="number" value="0"></td>
-                                <td class="col-md-2"> <button class="form-control btn" style="background-color: white; color: red"  id="submitGame2"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
+
+                                <td style="background: red" class="col-md-2"><input class="form-control" type="number" id="result2Game4"></td>
+                                <td style="background: red" class="col-md-2"><input class="form-control" id="defResult2Game4" type="number" value="0"></td>
+                                <td style="background: #d9d9d9" class="col-md-2"> <button class="form-control btn" style="background-color: white; color: #000000"  id="submitGame2"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
                             </tr>
 
 
@@ -750,16 +757,26 @@ session_start();
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class=" text-center form-group">
-                    <h2>WIP </h2>
+                    <h2>Lascia una <i>`quote`</i> </h2>
                 </div>
-                <div id="login" class="panel-body">
+                <div  class="panel-body">
+                    <div class="panel col-md-8">
+                        <input class="form-control" id="author" name="author"  type="text" maxlength="15" placeholder="autore"/>
+                    </div>
+                    <div class="panel col-md-4">
+                        <button class="form-control btn" style="background-color: dodgerblue; "  id="submitComment"><span style="color: white; " class="glyphicon glyphicon-ok" ></span></button>
+                    </div>
 
+                    <div class=" panel col-md-12">
+                        <textarea class="form-control" id="text" name="text" type="text" maxlength="300" rows="4" cols="50" placeholder="testo" ></textarea>
+                    </div>
+
+                    <br><br><br><br><br><br><br><br><br><br><br><br>
                     <?php
                     for ($i = 0; $i < 700; $i++) {
                         echo "WIP ";
                     }
                     ?>
-
 
                 </div>
             </div>
@@ -776,6 +793,50 @@ session_start();
         </div>
     </body>
     <script>
+        function close() {
+            document.getElementById("alert").innerHTML = "";
+        }
+
+
+        $("#submitComment").click(function () {
+            var author = $("#author").val();
+            var text = $("#text").val();
+
+            insertComment(author, text);
+
+        });
+
+        function insertComment(author, text) {
+            $.ajax({
+                type: "POST",
+                url: 'addComment.php',
+                data: {
+                    author: author,
+                    text: text
+
+                }
+                ,
+                success: function (data) {
+                    //alert(data);
+                    $("#newalert").html('<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Quote pubblicata!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+                    $("#author").val("");
+                    $("#text").val("");
+
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#newalert").html('<div id="alert" class="alert alert-danger alert-dismissible col-md-10 col-md-offset-1">la pubblicazione della quote ha avuto un <strong>ERRORE!</strong><a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+
+                    alert(xhr.responseText);
+                    alert(thrownError);
+                }
+            });
+        }
+
+
+
+
+
         $("#submitGame2").click(function () {
             var date = $("#dateGame2").val();
             var result1 = parseInt($("#result1Game2").val());
@@ -806,7 +867,7 @@ session_start();
                     idPlayer2: idPlayer2
                 },
                 success: function (data) {
-                    alert(data);
+                    //alert(data);
                     $("#dateGame2").val("<?php $date ?>");
                     $("#result1Game2").val("0");
                     $("#result2Game2").val("0");
@@ -814,10 +875,14 @@ session_start();
                     $("#defResult2Game2").val("0");
                     $("#player1Game2").val($("#player1Game2 option:first").val());
                     $("#player2Game2").val($("#player2Game2 option:second").val());
+                    $("#newalert").html('<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Partita inserita!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.responseText);
-                    alert(thrownError);
+                    $("#newalert").html('<div id="alert" class="alert alert-danger alert-dismissible col-md-10 col-md-offset-1">L` inserimento della partita ha avuto  <strong>ERRORE!</strong><a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+
+                    // alert(xhr.responseText);
+                    // alert(thrownError);
                 }
             });
         }
@@ -856,7 +921,7 @@ session_start();
                     idPlayer4: idPlayer4
                 },
                 success: function (data) {
-                    alert(data);
+                    //alert(data);
                     $("#dateGame4").val("<?php $date ?>");
                     $("#result1Game4").val("0");
                     $("#result2Game4").val("0");
@@ -866,10 +931,14 @@ session_start();
                     $("#player2Game4").val($("#player2Game4 option:second").val());
                     $("#player3Game4").val($("#player3Game4 option:third").val());
                     $("#player4Game4").val($("#player4Game4 option:fourth").val());
+                    $("#newalert").html('<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Partita inserita!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.responseText);
-                    alert(thrownError);
+                    $("#newalert").html('<div id="alert" class="alert alert-danger alert-dismissible col-md-10 col-md-offset-1">L` inserimento della partita ha avuto  <strong>ERRORE!</strong><a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+
+                    //alert(xhr.responseText);
+                    //   alert(thrownError);
                 }
             });
         }
