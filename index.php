@@ -425,8 +425,6 @@ session_start();
                                     <?php
                                     require_once("ConnessioneDb.php");
                                     require_once("Players.php");
-                                    $db = new ConnessioneDb();
-                                    $date = date("Y-m-d");
                                     require_once('Games2.php');
                                     require_once('Games4.php');
 
@@ -757,7 +755,7 @@ session_start();
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class=" text-center form-group">
-                    <h2>Lascia una <i>`quote`</i> </h2>
+                    <h2>Lascia una <i>Quote</i> </h2>
                 </div>
                 <div  class="panel-body">
                     <div class="panel col-md-8">
@@ -771,7 +769,52 @@ session_start();
                         <textarea class="form-control" id="text" name="text" type="text" maxlength="300" rows="4" cols="50" placeholder="testo" ></textarea>
                     </div>
 
+                    <br><br><br><br><br><br><br><br><br><br>
+                    <div class=" panel col-md-12">
+                        <div   class=" text-center form-group">
+                            <h3><i>Quote</i> Più Popu </h3>
+                        </div>
+                        <div style="font-size:20px;">
+                            <div  class=" panel panel-default col-md-1"><b>#8</b></div>
+                            <div  class=" panel panel-default col-md-2"><a><span class="glyphicon glyphicon-thumbs-up" ></span></a> <b>3</b>  </div>
+                            <div  class=" panel panel-default col-md-9">autoreeeeeee</div>
 
+                        </div>
+                        <div  class=" panel panel-body panel-default ">askdhjbasldi aslidhba sdilhbas doli ahsbdla cxzj,bc xzj,kczxl.c zxòck nzòlxc askdhjbasldi aslidhba sdilhbas doli ahsbdla cxzj,bc xzj,kczxl.c zxòck nzòlxcaskdhjbasldi aslidhba sdilhbas doli ahsbdla cxzj,bc xzj,kczxl.c zxòck nzòlxcaskdhjbasldi aslidhba sdilhbas doli ahsbdla cxzj,bc xzj,kczxl.c zxòck nzòlxcaskdhjbasldi aslidhba sdilhbas doli ahsbdla cxzj,bc xzj,kczxl.c zxòck nzòlxc</div>
+
+
+
+
+                        <?php
+                        require_once "Comments.php";
+                        $commenti = new Comments($db);
+                        //count($commenti->comments)
+                        $classComm = array();
+
+                        for ($i = 0; $i < count($commenti->comments); $i++) {
+                            $classComm[$commenti->comments[$i]->id] = $commenti->comments[$i]->likes;
+                        }
+
+                        arsort($classComm);
+                        $i = 0;
+                        foreach ($classComm as $key => $value) {
+                            //  echo "id:".$key . "   -   likes:" . $value;
+                            //   echo "<br>";
+                            $comm = $commenti->getComment($key);
+
+
+                            if ($i < 5) {
+                                echo '<div style="font-size:20px;">';
+                                echo '<div  class=" panel panel-default col-md-3"><b>#' . ($i + 1) . '</b> <span class="glyphicon glyphicon-thumbs-up" ></span>' . $comm->likes . ' </div>';
+                                echo '<div  class=" panel panel-default col-md-9">' . $comm->author . '</div>';
+
+                                echo '</div>';
+                                echo '<div  class=" panel panel-body panel-default ">' . $comm->text . '</div>';
+                            }
+                            $i++;
+                        }
+                        ?>
+                    </div>
 
                 </div>
             </div>
