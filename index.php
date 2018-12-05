@@ -1,5 +1,7 @@
 ﻿<?php
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 ?>
 <html>
     <head>
@@ -175,7 +177,7 @@ session_start();
         <div class="jumbotron  " >
 
             <div class="title" id="title" align="center">Mucca & Polly</div>
-            <div class="col-md-4 col-md-offset-4">
+            <div id="popu" class="col-md-4 col-md-offset-4">
                 <h5 class=" " align="center">
 
                     <?php
@@ -403,54 +405,6 @@ session_start();
                         </table>
                     </div>
                 </div>
-                <!--                <div  class="panel-default col-md-6">
-                                    <div class=" panel-default panel form-group">
-                                        <h4 align='center'>2 vs 2</h4>
-                                    </div>
-                                    <div style="background-image: url('img/biglia.png'); background-size: 100%; height:30%" id="div2vs2">
-                                        <div class="col-md-4">
-                                            <select style="margin-top: 20%" id="player1Game4">  ATTACCANTE SQUADRA 1 
-                <?php
-                for ($i = 0; $i < $numPlayers; $i++) {
-                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
-                }
-                ?>
-                                            </select>
-                                            <br>
-                                            <select style="margin-top: 115%" id="player4Game4">  DIFENSORE SQUADRA 2 
-                <?php
-                for ($i = 0; $i < $numPlayers; $i++) {
-                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
-                }
-                ?>
-                                            </select>
-                                            <input id="defResult1Game4" type="number" value="0">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input style="color: blue; width: 50%; font-weight: bold; text-align: center; margin-top: 20%" type="number" min="0" placeholder="Blu"><br>
-                                            <button style="margin-top: 35%">Conferma</button><input id="dateGame4" type="date" value="<?php $date ?>"><br>
-                                            <input style="color: red; width: 50%; font-weight: bold; text-align: center; margin-top: 40%" type="number" min="0" placeholder="Rossi">
-                                        </div>
-                                        <div class="col-md-4">	
-                                            <select style="margin-top: 20%" id="player2Game4">  DIFENSORE SQUADRA 1 
-                <?php
-                for ($i = 0; $i < $numPlayers; $i++) {
-                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: red'>" . $players->players[$i]->name . "</a></option>";
-                }
-                ?>
-                                            </select>		
-                                            <br>
-                                            <select style="margin-top: 115%" id="player3Game4">  ATTACCANTE SQUADRA 2 
-                <?php
-                for ($i = 0; $i < $numPlayers; $i++) {
-                    echo "<option value='" . $players->players[$i]->id . "'><a style='color: blue'>" . $players->players[$i]->name . "</a></option>";
-                }
-                ?>
-                                            </select>
-                                            <input id="defResult2Game4" type="number" value="0">
-                                        </div>
-                                    </div>
-                                </div>-->
             </div>
             <div class="panel-body text-center">
                 <div  class="" >
@@ -525,8 +479,6 @@ session_start();
                                             echo "<tr><td>" . $data->format('%a') . "</td>";
                                         }
 
-
-
                                         if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
                                             echo "<td><b> " . $games4->games4[$i]->player2->name . "<a1 class='trattino1'> - </a1><br class='trattino2'>" . $games4->games4[$i]->player1->name . "</b></td>";
                                             echo "<td><b>({$games4->games4[$i]->defResult1}) {$games4->games4[$i]->result1}</b>  - {$games4->games4[$i]->result2} ({$games4->games4[$i]->defResult2})</td>";
@@ -576,41 +528,37 @@ session_start();
                             }
 
                             arsort($classifica);
-                            $i = 1;
+                            $c = 1;
                             foreach ($classifica as $key => $value) {
-                                switch ($i) {
+                                switch ($c) {
                                     case $value:
                                     case 1:
                                         //echo "<tr bgcolor='#C98910'><td>$i</td>";
-                                        echo '<tr bgcolor="#CFB53B"><td>' . $i . ' </td>';
+                                        echo '<tr bgcolor="#CFB53B"><td>' . $c . ' </td>';
                                         echo "<td>🏆</td>";
                                         echo "<td> $key</td>";
-
                                         break;
                                     case 2:
-                                        echo '<tr bgcolor="#A8A8A8"><td>' . $i . ' </td>';
+                                        echo '<tr bgcolor="#A8A8A8"><td>' . $c . ' </td>';
                                         echo "<td>🏆</td>";
                                         echo "<td> $key</td>";
-
-
                                         break;
                                     case 3:
-                                        echo '<tr bgcolor="#965A38"><td>' . $i . ' </td>';
+                                        echo '<tr bgcolor="#965A38"><td>' . $c . ' </td>';
                                         echo "<td>🏆</td>";
                                         echo "<td> $key</td>";
                                         break;
                                     default:
-                                        echo "<tr><td>$i</td>";
+                                        echo "<tr><td>$c</td>";
                                         echo "<td></td>";
                                         echo "<td>$key</td>";
-
                                         break;
                                 }
 
                                 //echo "<td>$key</td>";
                                 echo "<td>$value</td>";
                                 echo "</tr>";
-                                $i++;
+                                $c++;
                             }
 
                             echo "</table>";
@@ -650,23 +598,22 @@ session_start();
                             $i = 1;
                             foreach ($classifica2 as $key => $value) {
                                 switch ($i) {
-                                    case $value:
                                     case 1:
                                         //echo "<tr bgcolor='#C98910'><td>$i</td>";
                                         echo "<tr bgcolor='#CFB53B'><td>$i</td>";
                                         echo "<td>🏆</td>";
-                                        echo "<td> $key</td>";
+                                        echo "<td> $key </td>";
                                         break;
                                     case 2:
                                         echo "<tr bgcolor='#A8A8A8'><td>$i</td>";
                                         echo "<td>🏆</td>";
-                                        echo "<td> $key</td>";
+                                        echo "<td>a $key </td>";
                                         // echo "<tr bgcolor='#E6E8FA'><td>$i</td>";
                                         break;
                                     case 3:
                                         echo "<tr bgcolor='#965A38'><td>$i</td>";
                                         echo "<td>🏆</td>";
-                                        echo "<td> $key</td>";
+                                        echo "<td> $key </td>";
                                         //echo "<tr bgcolor='#8C7853'><td>$i</td>";
                                         break;
                                     default:
@@ -719,11 +666,11 @@ session_start();
                                 }
                             }
 
-                            arsort($classifica);
+                            arsort($classifica4);
                             $perpagina = 20;
 
 
-                            $paginamax = count($classifica) / 20;
+                            $paginamax = count($classifica4) / 20;
 
                             if (isset($_GET["cls4"])) {
                                 $_SESSION["cls4"] = $_GET["cls4"];
@@ -739,7 +686,6 @@ session_start();
                             foreach ($classifica4 as $key => $value) {
                                 if ($i < $max && $i > $min) {
                                     switch ($ii) {
-                                        case $value:
                                         case 1:
                                             //echo "<tr bgcolor='#C98910'><td>$i</td>";
                                             echo "<tr bgcolor='#CFB53B'><td>$ii</td>";
@@ -804,14 +750,14 @@ session_start();
                 </div>
                 <div  class="panel-body">
                     <div class="panel col-md-8">
-                        <input class="form-control" id="author" name="author"  type="text" maxlength="15" placeholder="autore"/>
+                        <input class="form-control" tabindex="1" id="author" name="author"  type="text" maxlength="15" placeholder="autore"/>
                     </div>
                     <div class="panel col-md-4">
-                        <button class="form-control btn" style=" background-color: #FEFE9a;; "  id="submitComment"><span style="color: #ae1f1b;; " class="glyphicon glyphicon-ok" ></span></button>
+                        <button class="form-control btn" tabindex="3" style=" background-color: #FEFE9a;; "  id="submitComment"><span style="color: #ae1f1b;; " class="glyphicon glyphicon-ok" ></span></button>
                     </div>
 
                     <div class=" panel col-md-12">
-                        <textarea class="form-control" id="text" name="text" type="text" maxlength="300" rows="4" cols="50" placeholder="testo" ></textarea>
+                        <textarea class="form-control" tabindex="2" id="text" name="text" type="text" maxlength="300" rows="4" cols="50" placeholder="testo" ></textarea>
                     </div>
 
                     <div class=" panel col-md-12">
@@ -833,29 +779,25 @@ session_start();
                             foreach ($classComm as $key => $value) {
                                 //  echo "id:".$key . "   -   likes:" . $value;
                                 //   echo "<br>";
-                                $comm = $commenti->getComment($key);
 
                                 if ($i < 5) {
+                                    $comm = $commenti->getComment($key);
+
                                     echo '<div style = "font-size:20px;">';
                                     echo '<div class = "col-md-3 panel panel-default">';
                                     echo '<div class = "col-md-4" style = "text-align: left;">';
                                     echo '<b>#' . ($i + 1) . '</b>';
-                                    echo '</div><div class = "col-md-4">';
-                                    echo '<a id="' . $comm->id . '" onclick="addLike(' . $comm->id . ')"><span class = "glyphicon glyphicon-thumbs-up" ></span></a></div>';
+                                    echo '</div><div  class = "col-md-4">';
+
+                                    if (isset($_SESSION["like{$comm->id}"]) && $_SESSION["like{$comm->id}"] == 1) {
+                                        echo '<a id="' . $comm->id . '" onclick="addLike(' . $comm->id . ')"><span style="color:blue    " class = "glyphicon glyphicon-thumbs-up" ></span></a></div>';
+                                    } else {
+                                        echo '<a id="' . $comm->id . '" onclick="addLike(' . $comm->id . ')"><span style="color:#606770" class = "  glyphicon glyphicon-thumbs-up" ></span></a></div>';
+                                    }
+
                                     echo '<div class = "col-md-4">' . $comm->likes . '</div></div>';
                                     echo '<div class = " panel panel-default col-md-9">' . $comm->author . '</div></div>';
                                     echo '<div class = " panel panel-body panel-default ">' . $comm->text . '</div>';
-
-
-
-
-
-
-                                    //   echo '<div style="font-size:20px;">';
-                                    //    echo '<div  class=" panel panel-default col-md-3"><b>#' . ($i + 1) . '</b> <span class="glyphicon glyphicon-thumbs-up" ></span>' . $comm->likes . ' </div>';
-                                    //    echo '<div  class=" panel panel-default col-md-9">' . $comm->author . '</div>';
-                                    //    echo '</div>';
-                                    //   echo '<div  class=" panel panel-body panel-default ">' . $comm->text . '</div>';
                                 }
                                 $i++;
                             }
@@ -888,13 +830,11 @@ session_start();
                 }
                 ,
                 success: function (data) {
-                    alert(data);
-                    $("#newalert").html('<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Quote pubblicata!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
-                    //var b = updateComments();
-                    // $("#quote").html(data);
+                    $("#quote").html(data);
+
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    $("#newalert").html('<div id="alert" class="alert alert-danger alert-dismissible col-md-10 col-md-offset-1">la pubblicazione della quote ha avuto un <strong>ERRORE!</strong><a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+                    $("#newalert").html('<div id="alert" class="alert alert-danger alert-dismissible col-md-10 col-md-offset-1">Si è rotto qualcosa: <strong>ERRORE!</strong><a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
                     alert(xhr.responseText);
                     alert(thrownError);
                 }
@@ -911,7 +851,9 @@ session_start();
         $("#submitComment").click(function () {
             var author = $("#author").val();
             var text = $("#text").val();
-            insertComment(author, text);
+            if (author != "" && text != "") {
+                insertComment(author, text);
+            }
         });
 
 
@@ -947,10 +889,6 @@ session_start();
                 }
             });
         }
-
-
-
-
 
         $("#submitGame2").click(function () {
             var date = $("#dateGame2").val();
