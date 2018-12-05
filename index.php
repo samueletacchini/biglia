@@ -392,7 +392,7 @@ session_start();
 
                                 <td style="background: red" class="col-md-2"><input class="form-control" type="number" id="result2Game4"></td>
                                 <td style="background: red" class="col-md-2"><input class="form-control" id="defResult2Game4" type="number" value="0"></td>
-                                <td style="background: #d9d9d9" class="col-md-2"> <button class="form-control btn" style="background-color: white; color: #000000"  id="submitGame2"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
+                                <td style="background: #d9d9d9" class="col-md-2"> <button class="form-control btn" style="background-color: white; color: #000000"  id="submitGame4"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
                             </tr>
 
 
@@ -814,28 +814,17 @@ session_start();
                         <textarea class="form-control" id="text" name="text" type="text" maxlength="300" rows="4" cols="50" placeholder="testo" ></textarea>
                     </div>
 
-                    <br><br><br><br><br><br><br><br><br><br>
                     <div class=" panel col-md-12">
                         <div   class=" text-center form-group">
                             <h3><i>Quote</i> Più Popu </h3>
                         </div>
                         <div id ="quote">
-                            <div style="font-size:20px;">
-                                <div  class=" panel panel-default col-md-1"><b>#8</b></div>
-                                <div  class=" panel panel-default col-md-2"><a><span class="glyphicon glyphicon-thumbs-up" ></span></a> <b>3</b>  </div>
-                                <div  class=" panel panel-default col-md-9">autoreeeeeee</div>
-
-                            </div>
-                            <div  class=" panel panel-body panel-default ">askdhjbasldi aslidhba sdilhbas doli ahsbdla cxzj,bc xzj,kczxl.c zxòck nzòlxc askdhjbasldi aslidhba sdilhbas doli ahsbdla </div>
-
-
 
 
                             <?php
-//count($commenti->comments)
-                            $classComm = array();
-
-                            for ($i = 0; $i < count($commenti->comments); $i++) {
+                            $dim = count($commenti->comments);
+                            for ($i = 0; $i < $dim; $i++) {
+                                //* (($dim - 1 - $i) * 0.1)
                                 $classComm[$commenti->comments[$i]->id] = $commenti->comments[$i]->likes;
                             }
 
@@ -847,11 +836,26 @@ session_start();
                                 $comm = $commenti->getComment($key);
 
                                 if ($i < 5) {
-                                    echo '<div style="font-size:20px;">';
-                                    echo '<div  class=" panel panel-default col-md-3"><b>#' . ($i + 1) . '</b> <span class="glyphicon glyphicon-thumbs-up" ></span>' . $comm->likes . ' </div>';
-                                    echo '<div  class=" panel panel-default col-md-9">' . $comm->author . '</div>';
-                                    echo '</div>';
-                                    echo '<div  class=" panel panel-body panel-default ">' . $comm->text . '</div>';
+                                    echo '<div style = "font-size:20px;">';
+                                    echo '<div class = "col-md-3 panel panel-default">';
+                                    echo '<div class = "col-md-4" style = "text-align: left;">';
+                                    echo '<b>#' . ($i + 1) . '</b>';
+                                    echo '</div><div class = "col-md-4">';
+                                    echo '<a id="' . $comm->id . '" onclick="addLike(' . $comm->id . ')"><span class = "glyphicon glyphicon-thumbs-up" ></span></a></div>';
+                                    echo '<div class = "col-md-4">' . $comm->likes . '</div></div>';
+                                    echo '<div class = " panel panel-default col-md-9">' . $comm->author . '</div></div>';
+                                    echo '<div class = " panel panel-body panel-default ">' . $comm->text . '</div>';
+
+
+
+
+
+
+                                    //   echo '<div style="font-size:20px;">';
+                                    //    echo '<div  class=" panel panel-default col-md-3"><b>#' . ($i + 1) . '</b> <span class="glyphicon glyphicon-thumbs-up" ></span>' . $comm->likes . ' </div>';
+                                    //    echo '<div  class=" panel panel-default col-md-9">' . $comm->author . '</div>';
+                                    //    echo '</div>';
+                                    //   echo '<div  class=" panel panel-body panel-default ">' . $comm->text . '</div>';
                                 }
                                 $i++;
                             }
@@ -874,6 +878,31 @@ session_start();
         </div>
     </body>
     <script>
+
+        function addLike(id) {
+            $.ajax({
+                type: "POST",
+                url: 'addLike.php',
+                data: {
+                    id: id
+                }
+                ,
+                success: function (data) {
+                    alert(data);
+                    $("#newalert").html('<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Quote pubblicata!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+                    //var b = updateComments();
+                    // $("#quote").html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#newalert").html('<div id="alert" class="alert alert-danger alert-dismissible col-md-10 col-md-offset-1">la pubblicazione della quote ha avuto un <strong>ERRORE!</strong><a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+                    alert(xhr.responseText);
+                    alert(thrownError);
+                }
+            });
+        }
+
+
+
         function close() {
             document.getElementById("alert").innerHTML = "";
         }
@@ -882,10 +911,10 @@ session_start();
         $("#submitComment").click(function () {
             var author = $("#author").val();
             var text = $("#text").val();
-
             insertComment(author, text);
-
         });
+
+
 
         function updateComments() {
             var a = '';
@@ -980,7 +1009,8 @@ session_start();
             var idPlayer3 = parseInt($("#player3Game4").val());
             var idPlayer4 = parseInt($("#player4Game4").val());
             if ((result1 > (result2 + 1) || result2 > (result1 + 1)) && (result1 >= 10 || result2 >= 10)) {
-                if (idPlayer1 != idPlayer2) {
+
+                if (idPlayer1 != idPlayer2 && idPlayer1 != idPlayer3 && idPlayer1 != idPlayer4 && idPlayer2 != idPlayer3 && idPlayer2 != idPlayer4 && idPlayer3 != idPlayer4) {
                     insertGame4(date, result1, result2, defResult1, defResult2, idPlayer1, idPlayer2, idPlayer3, idPlayer4);
                 }
             }

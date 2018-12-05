@@ -49,4 +49,6 @@ class Comments {
         return $this->getComment($maxId);
     }
 
+    
+
 }
