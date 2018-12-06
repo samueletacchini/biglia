@@ -600,7 +600,7 @@ if (!isset($_SESSION)) {
                                     case 2:
                                         echo "<tr bgcolor='#A8A8A8'><td>$i</td>";
                                         echo "<td>🏆</td>";
-                                        echo "<td>a $key </td>";
+                                        echo "<td> $key </td>";
                                         // echo "<tr bgcolor='#E6E8FA'><td>$i</td>";
                                         break;
                                     case 3:
