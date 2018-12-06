@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require_once("ConnessioneDb.php");
 $db = new ConnessioneDb();
@@ -29,28 +30,20 @@ foreach ($classComm as $key => $value) {
     if ($i < 5) {
         $comm = $commenti->getComment($key);
 
-        echo '<div style = "font-size:20px;">';
-        echo '<div class = "col-md-3 panel panel-default">';
-        echo '<div class = "col-md-4" style = "text-align: left;">';
-        echo '<b>#' . ($i + 1) . '</b>';
-        echo '</div><div  class = "col-md-4">';
-
+        echo '<div><div style = "font-size:20px;"><table class = "table">';
+        echo '<tr><td  class = " divlike panel panel-default col-md-2"><b>#' . ($i + 1) . '</b></td>';
         if (isset($_SESSION["like{$comm->id}"]) && $_SESSION["like{$comm->id}"] == 1) {
-            echo '<a id="' . $comm->id . '" onclick="addLike(' . $comm->id . ')"><span style="color:blue    " class = "glyphicon glyphicon-thumbs-up" ></span></a></div>';
+            echo '<td  class = "divlike panel panel-default  col-md-2"><a id="' . $comm->id . '" onclick="addLike(' . $comm->id . ')"><span style="color:blue; margin-top: px;" class = "  glyphicon glyphicon-thumbs-up" ></span></a></td>';
         } else {
-            echo '<a id="' . $comm->id . '" onclick="addLike(' . $comm->id . ')"><span style="color:#606770" class = "  glyphicon glyphicon-thumbs-up" ></span></a></div>';
+            echo '<td  class = "divlike panel panel-default  col-md-2"><a id="' . $comm->id . '" onclick="addLike(' . $comm->id . ')"><span style="color:#606770; margin-top: px;" class = "  glyphicon glyphicon-thumbs-up" ></span></a></td>';
         }
-
-        echo '<div class = "col-md-4">' . $comm->likes . '</div></div>';
-        echo '<div class = " panel panel-default col-md-9">' . $comm->author . '</div></div>';
-        echo '<div class = " panel panel-body panel-default ">' . $comm->text . '</div>';
+        echo '<td class = "divlike panel panel-default col-md-2">' . $comm->likes . '</td>';
+        echo '<td class = "divlike panel panel-default col-md-6">' . $comm->author . '</td></tr>';
+        echo '<tr><td class = " panel panel-body panel-default " colspan="4">' . $comm->text . '</td></tr>';
+        echo '</table></div></div>';
     }
     $i++;
 }
-
-
-
-
 ?>
 
 
