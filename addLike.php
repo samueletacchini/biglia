@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once "Comments.php";
+require_once("Comments.php");
 require_once("ConnessioneDb.php");
 $db = new ConnessioneDb();
 $commenti = new Comments($db);

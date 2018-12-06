@@ -16,8 +16,8 @@ class Games2 {
     public $games2 = array();
 
     public function __construct($con) {
-        require_once 'players.php';
-        require_once 'game2.php';
+        require_once 'Players.php';
+        require_once 'Game2.php';
         $sql = "SELECT * FROM `game2`";
         $ris = $con->query($sql);
         $players = new players($con);

@@ -191,7 +191,6 @@ if (!isset($_SESSION)) {
                     $popu = $commenti->getPopuComment();
                     echo '"' . $popu->text . '"';
                     ?>
-
                 </h5>
 
                 <div style='text-align: right;'>
@@ -422,8 +421,6 @@ if (!isset($_SESSION)) {
                                 <table  class=" text-center table table-bordered">
                                     <tr><td>Giorni fa</td><td>Blu</td><td>Score</td><td>Rossi</td></tr>
                                     <?php
-                                    require_once("ConnessioneDb.php");
-                                    require_once("Players.php");
                                     require_once('Games2.php');
                                     require_once('Games4.php');
 
@@ -511,10 +508,7 @@ if (!isset($_SESSION)) {
                         <table class=" text-center table table-hover">
                             <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td></tr>
                             <?php
-                            require_once('ConnessioneDb.php');
-                            require_once('Games2.php');
-                            require_once('Players.php');
-
+                            
                             for ($i = 0; $i < count($players->players); $i++) {
                                 $classifica[$players->players[$i]->name] = 0;
                             }
@@ -574,10 +568,7 @@ if (!isset($_SESSION)) {
                         <table class=" text-center  table table-hover">
                             <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td></tr>
                             <?php
-                            require_once('ConnessioneDb.php');
-                            require_once('Games4.php');
-                            require_once('Players.php');
-
+                         
 
                             for ($i = 0; $i < count($players->players); $i++) {
                                 $classifica2[$players->players[$i]->name] = 0;
@@ -642,10 +633,7 @@ if (!isset($_SESSION)) {
                         <table class=" text-center  table table-hover">
                             <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td></tr>
                             <?php
-                            require_once('ConnessioneDb.php');
-                            require_once('Games4.php');
-                            require_once('Players.php');
-
+                           
 //                                    for ($i = 0; $i < count($players->players); $i++) {
 //                                        $classifica[$players->players[$i]->name] = 0;
 //                                    }
