@@ -36,6 +36,16 @@ class Players {
         }
         return $player;
     }
+    
+     public function getPlayerByname($id) {
+        $player = new player(0, "");
+        for ($x = 0; $x < count($this->players); $x++) {
+            if ($this->players[$x]->name == $id) {
+                return $this->players[$x];
+            }
+        }
+        return $player;
+    }
 
 //put your code here
 }

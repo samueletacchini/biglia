@@ -511,49 +511,58 @@ if (!isset($_SESSION)) {
 
                         </div>
                         <table class=" text-center table table-hover">
-                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td></tr>
+                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td><td>Winrate %</td></tr>
                             <?php
                             for ($i = 0; $i < count($players->players); $i++) {
                                 $classifica[$players->players[$i]->name] = 0;
+                                $perse[$players->players[$i]->name] = 0;
                             }
 
                             for ($i = 0; $i < count($games2->games2); $i++) {
                                 if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
                                     $classifica[$games2->games2[$i]->player1->name] ++;
+                                    $perse[$games2->games2[$i]->player2->name] ++;
                                 } else {
                                     $classifica[$games2->games2[$i]->player2->name] ++;
+                                    $perse[$games2->games2[$i]->player1->name] ++;
                                 }
                             }
 
                             arsort($classifica);
                             $c = 1;
                             foreach ($classifica as $key => $value) {
+                                if ($value != 0) {
+                                    $provv = round(($value / ($perse[$key] + $value)) * 100, 2);
+                                } else {
+                                    $provv = 0;
+                                }
                                 switch ($c) {
                                     case 1:
-                                        //echo "<tr bgcolor='#C98910'><td>$i</td>";
                                         echo '<tr bgcolor="#CFB53B"><td>' . $c . ' </td>';
                                         echo "<td>🏆</td>";
-                                        echo "<td> $key</td>";
+
                                         break;
                                     case 2:
                                         echo '<tr bgcolor="#A8A8A8"><td>' . $c . ' </td>';
                                         echo "<td>🏆</td>";
-                                        echo "<td> $key</td>";
+
                                         break;
                                     case 3:
                                         echo '<tr bgcolor="#965A38"><td>' . $c . ' </td>';
                                         echo "<td>🏆</td>";
-                                        echo "<td> $key</td>";
+
                                         break;
                                     default:
                                         echo "<tr><td>$c</td>";
                                         echo "<td></td>";
-                                        echo "<td>$key</td>";
+
                                         break;
                                 }
 
-                                //echo "<td>$key</td>";
+                                //echo "<td></td>";
+                                echo "<td>$key</td>";
                                 echo "<td>$value</td>";
+                                echo "<td>$provv%</td>";
                                 echo "</tr>";
                                 $c++;
                             }
@@ -569,19 +578,24 @@ if (!isset($_SESSION)) {
                             <h5 align = "center">Solo </h5>
                         </div>
                         <table class=" text-center  table table-hover">
-                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td></tr>
+                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td><td>Winrate %</td></tr>
                             <?php
                             for ($i = 0; $i < count($players->players); $i++) {
                                 $classifica2[$players->players[$i]->name] = 0;
+                                $perse2[$players->players[$i]->name] = 0;
                             }
 
                             for ($i = 0; $i < count($games4->games4); $i++) {
                                 if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
                                     $classifica2[$games4->games4[$i]->player1->name] ++;
                                     $classifica2[$games4->games4[$i]->player2->name] ++;
+                                    $perse2[$games4->games4[$i]->player3->name] ++;
+                                    $perse2[$games4->games4[$i]->player4->name] ++;
                                 } else {
                                     $classifica2[$games4->games4[$i]->player3->name] ++;
                                     $classifica2[$games4->games4[$i]->player4->name] ++;
+                                    $perse2[$games4->games4[$i]->player1->name] ++;
+                                    $perse2[$games4->games4[$i]->player2->name] ++;
                                 }
                             }
 
@@ -589,34 +603,32 @@ if (!isset($_SESSION)) {
 
                             $i = 1;
                             foreach ($classifica2 as $key => $value) {
+                                if ($value != 0) {
+                                    $provv2 = round(($value / ($perse2[$key] + $value)) * 100, 2);
+                                } else {
+                                    $provv2 = 0;
+                                }
                                 switch ($i) {
                                     case 1:
-                                        //echo "<tr bgcolor='#C98910'><td>$i</td>";
                                         echo "<tr bgcolor='#CFB53B'><td>$i</td>";
                                         echo "<td>🏆</td>";
-                                        echo "<td> $key </td>";
                                         break;
                                     case 2:
                                         echo "<tr bgcolor='#A8A8A8'><td>$i</td>";
                                         echo "<td>🏆</td>";
-                                        echo "<td> $key </td>";
-                                        // echo "<tr bgcolor='#E6E8FA'><td>$i</td>";
                                         break;
                                     case 3:
                                         echo "<tr bgcolor='#965A38'><td>$i</td>";
                                         echo "<td>🏆</td>";
-                                        echo "<td> $key </td>";
-                                        //echo "<tr bgcolor='#8C7853'><td>$i</td>";
                                         break;
                                     default:
                                         echo "<tr><td>$i</td>";
                                         echo "<td></td>";
-                                        echo "<td>$key</td>";
                                         break;
                                 }
-                                // echo "<tr><td>$i</td>";
-                                // echo "<td>$key</td>";
+                                echo "<td>$key</td>";
                                 echo "<td>$value</td>";
+                                echo "<td>$provv2%</td>";
                                 echo "</tr>";
                                 $i++;
                             }
@@ -629,36 +641,48 @@ if (!isset($_SESSION)) {
                     <div class = "panel panel-default panel-body col-md-4">
                         <div class = " panel panel-default  form-group">
                             <h3 align = "center">2 vs 2</h3>
-                            <h5 align = "center">Duo </h5>
+                            <h5 align = "center">Duo</h5>
                         </div>
                         <table class=" text-center  table table-hover">
-                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td></tr>
+                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td><td>Winrate</td></tr>
                             <?php
-//                                    for ($i = 0; $i < count($players->players); $i++) {
-//                                        $classifica[$players->players[$i]->name] = 0;
-//                                    }
-
                             for ($i = 0; $i < count($games4->games4); $i++) {
                                 if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
-                                    if (isset($classifica4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
-                                        $classifica4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] ++;
+                                    if (isset($vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
+                                        $vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] ++;
                                     } else {
-                                        $classifica4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 1;
+                                        $vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 1;
+                                    }
+                                    if (isset($perse4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
+                                        $perse4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] ++;
+                                    } else {
+                                        $perse4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 1;
+                                    }
+                                    if (!isset($vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
+                                        $vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 0;
                                     }
                                 } else {
-                                    if (isset($classifica4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
-                                        $classifica4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] ++;
+                                    if (isset($vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
+                                        $vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] ++;
                                     } else {
-                                        $classifica4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 1;
+                                        $vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 1;
+                                    }
+                                    if (isset($perse4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
+                                        $perse4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] ++;
+                                    } else {
+                                        $perse4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 1;
+                                    }
+                                    if (!isset($vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
+                                        $vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 0;
                                     }
                                 }
                             }
 
-                            arsort($classifica4);
+                            arsort($vinte4);
                             $perpagina = 20;
 
 
-                            $paginamax = count($classifica4) / 20;
+                            $paginamax = count($vinte4) / 20;
 
                             if (isset($_GET["cls4"])) {
                                 $_SESSION["cls4"] = $_GET["cls4"];
@@ -667,41 +691,45 @@ if (!isset($_SESSION)) {
                             }
 
                             $max = $_SESSION["cls4"] * $perpagina;
-
                             $min = $_SESSION["cls4"] * $perpagina - $perpagina;
 
                             $ii = 1;
-                            foreach ($classifica4 as $key => $value) {
-                                if ($i < $max && $i > $min) {
+                            foreach ($vinte4 as $key => $value) {
+                                if (!isset($perse4[$key])) {
+                                    $perse4[$key] = 0;
+                                }
+                                if ($value != 0) {
+
+                                    $winrate22 = round(($value / ($perse4[$key] + $value)) * 100, 2);
+                                } else {
+                                    $winrate22 = 0;
+                                }
+                                if ($ii < $max && $ii > $min) {
                                     switch ($ii) {
                                         case 1:
                                             //echo "<tr bgcolor='#C98910'><td>$i</td>";
                                             echo "<tr bgcolor='#CFB53B'><td>$ii</td>";
                                             echo "<td>🏆</td>";
-                                            echo "<td> $key</td>";
                                             break;
                                         case 2:
                                             echo "<tr bgcolor='#A8A8A8'><td>$ii</td>";
                                             echo "<td>🏆</td>";
-                                            echo "<td> $key</td>";
                                             // echo "<tr bgcolor='#E6E8FA'><td>$i</td>";
                                             break;
                                         case 3:
                                             echo "<tr bgcolor='#965A38'><td>$ii</td>";
                                             echo "<td>🏆</td>";
-                                            echo "<td> $key</td>";
                                             //echo "<tr bgcolor='#8C7853'><td>$i</td>";
                                             break;
                                         default:
                                             echo "<tr><td>$ii</td>";
                                             echo "<td></td>";
-                                            echo "<td>$key</td>";
                                             break;
                                     }
-                                    //   echo "<tr><td>$ii</td>";
-                                    //echo "<td>$key</td>";
-                                    // echo '<td> <div class = "col-md-5" > ' . explode("-", $key)[0] . '  </div><div class = "col-md-2" > - </div><div class = "col-md-5" > ' . explode("-", $key)[1] . '  </div></td>';
+
+                                    echo "<td>$key</td>";
                                     echo "<td>$value</td>";
+                                    echo "<td>$winrate22%</td>";
 
                                     echo "</tr>";
                                     $ii++;
@@ -782,11 +810,6 @@ if (!isset($_SESSION)) {
                                     echo '<td class = "divlike panel panel-default col-md-6">' . $comm->author . '</td></tr>';
                                     echo '<tr><td class = " panel panel-body panel-default " colspan="4">' . $comm->text . '</td></tr>';
                                     echo '</table></div></div>';
-
-
-
-
-                                    
                                 }
                                 $i++;
                             }
