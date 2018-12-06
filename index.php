@@ -529,7 +529,6 @@ if (!isset($_SESSION)) {
                             $c = 1;
                             foreach ($classifica as $key => $value) {
                                 switch ($c) {
-                                    case $value:
                                     case 1:
                                         //echo "<tr bgcolor='#C98910'><td>$i</td>";
                                         echo '<tr bgcolor="#CFB53B"><td>' . $c . ' </td>';
