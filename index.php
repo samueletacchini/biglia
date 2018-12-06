@@ -204,9 +204,7 @@ if (!isset($_SESSION)) {
             </div>
 
         </div>
-        <div id="newalert">
-
-        </div>
+        <div id="newalert"></div>
 
 
         <div class="col-md-8 panel-default">
@@ -931,6 +929,8 @@ if (!isset($_SESSION)) {
                 },
                 success: function (data) {
                     //alert(data);
+                    $("#newalert").html('<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Partita inserita!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+
                     $("#dateGame2").val("<?php $date ?>");
                     $("#result1Game2").val("0");
                     $("#result2Game2").val("0");
@@ -938,7 +938,8 @@ if (!isset($_SESSION)) {
                     $("#defResult2Game2").val("0");
                     $("#player1Game2").val($("#player1Game2 option:first").val());
                     $("#player2Game2").val($("#player2Game2 option:second").val());
-                    $("#newalert").html('<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Partita inserita!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+                    // document.getElementById().innerHTML = '<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Partita inserita!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>';
+                    //Uncaught Error: Syntax error, unrecognized expression: unsupported pseudo: second
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     $("#newalert").html('<div id="alert" class="alert alert-danger alert-dismissible col-md-10 col-md-offset-1">L` inserimento della partita ha avuto  <strong>ERRORE!</strong><a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
@@ -981,7 +982,7 @@ if (!isset($_SESSION)) {
                     idPlayer4: idPlayer4
                 },
                 success: function (data) {
-                    //alert(data);
+                    $("#newalert").html('<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Partita inserita!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
                     $("#dateGame4").val("<?php $date ?>");
                     $("#result1Game4").val("0");
                     $("#result2Game4").val("0");
@@ -991,7 +992,8 @@ if (!isset($_SESSION)) {
                     $("#player2Game4").val($("#player2Game4 option:second").val());
                     $("#player3Game4").val($("#player3Game4 option:third").val());
                     $("#player4Game4").val($("#player4Game4 option:fourth").val());
-                    $("#newalert").html('<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Partita inserita!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
+                    //document.getElementById().innerHTML = '<div id="alert" class=" alert alert-success alert-dismissible col-md-10 col-md-offset-1">Partita inserita!<a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>';
+
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     $("#newalert").html('<div id="alert" class="alert alert-danger alert-dismissible col-md-10 col-md-offset-1">L` inserimento della partita ha avuto  <strong>ERRORE!</strong><a onclick="close()" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>');
