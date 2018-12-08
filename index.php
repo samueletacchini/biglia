@@ -179,7 +179,7 @@ if (!isset($_SESSION)) {
     </style>
     <body>
 
-        <div class="jumbotron  " >
+        <div class="jumbotron">
 
             <div class="title" id="title" align="center">Mucca & Polly</div>
             <div id="popu" class="col-md-4 col-md-offset-4">
@@ -432,7 +432,7 @@ if (!isset($_SESSION)) {
 
                                     $oggi = new DateTime($date);
 
-                                    for ($i = count($games2->games2) - 1; $i > count($games2->games2) - 4; $i--) {
+                                    for ($i = count($games2->games2) - 1; $i > count($games2->games2) - 6; $i--) {
 
                                         $diff = new DateTime($games2->games2[$i]->date);
                                         $data = $diff->diff($oggi);
@@ -443,9 +443,6 @@ if (!isset($_SESSION)) {
                                         }
 
                                         if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
-                                            if (true) {
-                                                
-                                            }
                                             echo "<td><b>{$games2->games2[$i]->player1->name}</b></td>";
                                             echo "<td><b>({$games2->games2[$i]->defResult1}) {$games2->games2[$i]->result1}</b>  - {$games2->games2[$i]->result2} ({$games2->games2[$i]->defResult2})</td>";
                                             echo "<td>{$games2->games2[$i]->player2->name}</td>";
@@ -469,7 +466,7 @@ if (!isset($_SESSION)) {
                                 <table  class=" text-center table table-bordered">
                                     <tr><td>Giorni fa</td><td>Blu</td><td>Score</td><td>Rossi</td></tr>
                                     <?php
-                                    for ($i = count($games4->games4) - 1; $i > count($games4->games4) - 4; $i--) {
+                                    for ($i = count($games4->games4) - 1; $i > count($games4->games4) - 6; $i--) {
 
                                         $diff = new DateTime($games4->games4[$i]->date);
                                         $data = $diff->diff($oggi);
@@ -509,7 +506,7 @@ if (!isset($_SESSION)) {
 
                         </div>
                         <table class=" text-center table table-hover">
-                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td><td>Winrate %</td></tr>
+                            <tr><td>#</td><td></td><td>Player</td><td>Win / Lose</td><td>Winrate %</td></tr>
                             <?php
                             for ($i = 0; $i < count($players->players); $i++) {
                                 $classifica[$players->players[$i]->name] = 0;
@@ -559,7 +556,7 @@ if (!isset($_SESSION)) {
 
                                 //echo "<td></td>";
                                 echo "<td>$key</td>";
-                                echo "<td>$value</td>";
+                                echo "<td>$value / $perse[$key]</td>";
                                 echo "<td>$provv%</td>";
                                 echo "</tr>";
                                 $c++;
@@ -576,7 +573,7 @@ if (!isset($_SESSION)) {
                             <h5 align = "center">Solo </h5>
                         </div>
                         <table class=" text-center  table table-hover">
-                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td><td>Winrate %</td></tr>
+                            <tr><td>#</td><td></td><td>Player</td><td>Win / Lose</td><td>Winrate %</td></tr>
                             <?php
                             for ($i = 0; $i < count($players->players); $i++) {
                                 $classifica2[$players->players[$i]->name] = 0;
@@ -625,7 +622,7 @@ if (!isset($_SESSION)) {
                                         break;
                                 }
                                 echo "<td>$key</td>";
-                                echo "<td>$value</td>";
+                                echo "<td>$value / $perse2[$key]</td>";
                                 echo "<td>$provv2%</td>";
                                 echo "</tr>";
                                 $i++;
@@ -642,7 +639,7 @@ if (!isset($_SESSION)) {
                             <h5 align = "center">Duo</h5>
                         </div>
                         <table class=" text-center  table table-hover">
-                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td><td>Winrate</td></tr>
+                            <tr><td>#</td><td></td><td>Player</td><td>Win / Lose</td><td>Winrate</td></tr>
                             <?php
                             for ($i = 0; $i < count($games4->games4); $i++) {
                                 if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
@@ -726,7 +723,7 @@ if (!isset($_SESSION)) {
                                     }
 
                                     echo "<td>$key</td>";
-                                    echo "<td>$value</td>";
+                                    echo "<td>$value / $perse4[$key]</td>";
                                     echo "<td>$winrate22%</td>";
 
                                     echo "</tr>";
@@ -787,7 +784,7 @@ if (!isset($_SESSION)) {
                                 $classComm[$commenti->comments[$i]->id] = $commenti->comments[$i]->likes;
                             }
 
-                            arsort($classComm);
+                            //arsort($classComm);
                             $i = 0;
                             foreach ($classComm as $key => $value) {
                                 //  echo "id:".$key . "   -   likes:" . $value;
