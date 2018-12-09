@@ -1,3 +1,4 @@
+
 <?php
 if (!isset($_SESSION)) {
     session_start();
@@ -660,7 +661,7 @@ if (!isset($_SESSION)) {
                             }
                             arsort($vinte4);
                             $perpagina = 20;
-                            $paginamax = count($vinte4) / 20;
+                            $paginamax = (count($vinte4) / $perpagina);
                             if (isset($_GET["cls4"])) {
                                 $_SESSION["cls4"] = $_GET["cls4"];
                             } else {
@@ -670,6 +671,7 @@ if (!isset($_SESSION)) {
                             $min = $_SESSION["cls4"] * $perpagina - $perpagina;
                             $ii = 1;
                             foreach ($vinte4 as $key => $value) {
+
                                 if (!isset($perse4[$key])) {
                                     $perse4[$key] = 0;
                                 }
@@ -704,8 +706,8 @@ if (!isset($_SESSION)) {
                                     echo "<td>$value / $perse4[$key]</td>";
                                     echo "<td>$winrate22%</td>";
                                     echo "</tr>";
-                                    $ii++;
                                 }
+                                $ii++;
                             }
                             echo "</table>";
                             ?>
