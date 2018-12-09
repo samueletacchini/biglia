@@ -408,11 +408,147 @@ if (!isset($_SESSION)) {
                     </div>
                 </div>
             </div>
+
+            <?php
+            require_once('Games2.php');
+            require_once('Games4.php');
+
+            $games2 = new Games2($db);
+            $games4 = new Games4($db);
+
+            $oggi = new DateTime($date);
+
+            $rossi = 0;
+            $blu = 0;
+
+            //1v1 solo
+            $game1v1 = "";
+
+            for ($i = count($games2->games2) - 1; $i > count($games2->games2) - 6; $i--) {
+
+                $diff = new DateTime($games2->games2[$i]->date);
+                $data = $diff->diff($oggi);
+                if ($data->format('%a') == 0) {
+                    $game1v1 .= "<tr><td>Oggi</td>";
+                } else {
+                    $game1v1 .= "<tr><td>" . $data->format('%a') . "</td>";
+                }
+
+                if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
+                    $blu++;
+                    $game1v1 .= "<td><b>{$games2->games2[$i]->player1->name}</b></td>";
+                    $game1v1 .= "<td><b>({$games2->games2[$i]->defResult1}) {$games2->games2[$i]->result1}</b>  - {$games2->games2[$i]->result2} ({$games2->games2[$i]->defResult2})</td>";
+                    $game1v1 .= "<td>{$games2->games2[$i]->player2->name}</td>";
+                } else {
+                    $rossi++;
+                    $game1v1 .= "<td>{$games2->games2[$i]->player1->name}</td>";
+                    $game1v1 .= "<td>({$games2->games2[$i]->defResult1}) {$games2->games2[$i]->result1}  - <b>{$games2->games2[$i]->result2} ({$games2->games2[$i]->defResult2})</b></td>";
+                    $game1v1 .= "<td><b>{$games2->games2[$i]->player2->name}</b></td>";
+                }
+                $game1v1 .= "</tr>";
+            }
+
+            //2v2 SOLO
+            $game2v2solo = "";
+            for ($i = count($games4->games4) - 1; $i > count($games4->games4) - 6; $i--) {
+
+                $diff = new DateTime($games4->games4[$i]->date);
+                $data = $diff->diff($oggi);
+                if ($data->format('%a') == 0) {
+                    $game2v2solo .= "<tr><td>Oggi</td>";
+                } else {
+                    $game2v2solo .= "<tr><td>" . $data->format('%a') . "</td>";
+                }
+
+                if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
+                    $blu++;
+                    $game2v2solo .= "<td><b> " . $games4->games4[$i]->player2->name . "<a1 class='trattino1'> - </a1><br class='trattino2'>" . $games4->games4[$i]->player1->name . "</b></td>";
+                    $game2v2solo .= "<td><b>({$games4->games4[$i]->defResult1}) {$games4->games4[$i]->result1}</b>  - {$games4->games4[$i]->result2} ({$games4->games4[$i]->defResult2})</td>";
+                    $game2v2solo .= "<td>" . $games4->games4[$i]->player4->name . " <a1 class='trattino1'> - </a1><br class='trattino2'> " . $games4->games4[$i]->player3->name . "</td>";
+                } else {
+                    $rossi++;
+                    $game2v2solo .= "<td>" . $games4->games4[$i]->player2->name . " <a1 class='trattino1'> - </a1><br class='trattino2'> " . $games4->games4[$i]->player1->name . "</td>";
+                    $game2v2solo .= "<td>({$games4->games4[$i]->defResult1}) {$games4->games4[$i]->result1}  - <b> {$games4->games4[$i]->result2} ({$games4->games4[$i]->defResult2})</b></td>";
+                    $game2v2solo .= "<td><b>" . $games4->games4[$i]->player4->name . " <a1 class='trattino1'> - </a1><br class='trattino2'> " . $games4->games4[$i]->player3->name . "</b></td>";
+                }
+                $game2v2solo .= "</tr>";
+            }
+
+
+            //2v2 DUO
+            $game2v2duo = "";
+
+            for ($i = 0; $i < count($players->players); $i++) {
+                $classifica[$players->players[$i]->name] = 0;
+                $perse[$players->players[$i]->name] = 0;
+            }
+
+            for ($i = 0; $i < count($games2->games2); $i++) {
+                if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
+                    $blu++;
+                    $classifica[$games2->games2[$i]->player1->name] ++;
+                    $perse[$games2->games2[$i]->player2->name] ++;
+                } else {
+                    $rossi++;
+                    $classifica[$games2->games2[$i]->player2->name] ++;
+                    $perse[$games2->games2[$i]->player1->name] ++;
+                }
+            }
+
+            arsort($classifica);
+            $c = 1;
+            foreach ($classifica as $key => $value) {
+                if ($value != 0) {
+                    $provv = round(($value / ($perse[$key] + $value)) * 100, 2);
+                } else {
+                    $provv = 0;
+                }
+                switch ($c) {
+                    case 1:
+                        $game2v2duo .= '<tr bgcolor="#CFB53B"><td>' . $c . ' </td>';
+                        $game2v2duo .= "<td>🏆</td>";
+
+                        break;
+                    case 2:
+                        $game2v2duo .= '<tr bgcolor="#A8A8A8"><td>' . $c . ' </td>';
+                        $game2v2duo .= "<td>🏆</td>";
+
+                        break;
+                    case 3:
+                        $game2v2duo .= '<tr bgcolor="#965A38"><td>' . $c . ' </td>';
+                        $game2v2duo .= "<td>🏆</td>";
+
+                        break;
+                    default:
+                        $game2v2duo .= "<tr><td>$c</td>";
+                        $game2v2duo .= "<td></td>";
+
+                        break;
+                }
+
+                //echo "<td></td>";
+                $game2v2duo .= "<td>$key</td>";
+                $game2v2duo .= "<td>$value / $perse[$key]</td>";
+                $game2v2duo .= "<td>$provv%</td>";
+                $game2v2duo .= "</tr>";
+                $c++;
+            }
+            ?>
+
             <div class="panel-body text-center">
                 <div  class="" >
-                    <div class = "panel-body" >
-                        <div  class=" panel-default panel form-group">
-                            <h3 align='center'  >Ultime Partite</h3>
+                    <div  class="panel-body" >
+                        <div class = "panel-body panel-default panel" >
+                            <div  class="col-md-3">
+
+                            </div>
+                            <div  class="col-md-6 ">
+                                <h3 align='center'  >Ultime Partite</h3>
+
+                            </div>
+                            <div  class="col-md-3  panel-default panel">
+                                <h5><b>Vittorie Totali</b> <br> <font color="blue"> Blu: </font><?php echo $blu ?><br> <font color="red"> Rossi: </font><?php echo $rossi ?> </h5>
+                            </div>
                         </div>
                     </div>
                     <div class = "" >
@@ -423,37 +559,7 @@ if (!isset($_SESSION)) {
                             <div>
                                 <table  class=" text-center table table-bordered">
                                     <tr><td>Giorni fa</td><td>Blu</td><td>Score</td><td>Rossi</td></tr>
-                                    <?php
-                                    require_once('Games2.php');
-                                    require_once('Games4.php');
-
-                                    $games2 = new Games2($db);
-                                    $games4 = new Games4($db);
-
-                                    $oggi = new DateTime($date);
-
-                                    for ($i = count($games2->games2) - 1; $i > count($games2->games2) - 6; $i--) {
-
-                                        $diff = new DateTime($games2->games2[$i]->date);
-                                        $data = $diff->diff($oggi);
-                                        if ($data->format('%a') == 0) {
-                                            echo "<tr><td>Oggi</td>";
-                                        } else {
-                                            echo "<tr><td>" . $data->format('%a') . "</td>";
-                                        }
-
-                                        if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
-                                            echo "<td><b>{$games2->games2[$i]->player1->name}</b></td>";
-                                            echo "<td><b>({$games2->games2[$i]->defResult1}) {$games2->games2[$i]->result1}</b>  - {$games2->games2[$i]->result2} ({$games2->games2[$i]->defResult2})</td>";
-                                            echo "<td>{$games2->games2[$i]->player2->name}</td>";
-                                        } else {
-                                            echo "<td>{$games2->games2[$i]->player1->name}</td>";
-                                            echo "<td>({$games2->games2[$i]->defResult1}) {$games2->games2[$i]->result1}  - <b>{$games2->games2[$i]->result2} ({$games2->games2[$i]->defResult2})</b></td>";
-                                            echo "<td><b>{$games2->games2[$i]->player2->name}</b></td>";
-                                        }
-                                        echo "</tr>";
-                                    }
-                                    ?>
+                                    <?php echo $game1v1; ?>
                                 </table>
                             </div>
                         </div>
@@ -466,27 +572,7 @@ if (!isset($_SESSION)) {
                                 <table  class=" text-center table table-bordered">
                                     <tr><td>Giorni fa</td><td>Blu</td><td>Score</td><td>Rossi</td></tr>
                                     <?php
-                                    for ($i = count($games4->games4) - 1; $i > count($games4->games4) - 6; $i--) {
-
-                                        $diff = new DateTime($games4->games4[$i]->date);
-                                        $data = $diff->diff($oggi);
-                                        if ($data->format('%a') == 0) {
-                                            echo "<tr><td>Oggi</td>";
-                                        } else {
-                                            echo "<tr><td>" . $data->format('%a') . "</td>";
-                                        }
-
-                                        if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
-                                            echo "<td><b> " . $games4->games4[$i]->player2->name . "<a1 class='trattino1'> - </a1><br class='trattino2'>" . $games4->games4[$i]->player1->name . "</b></td>";
-                                            echo "<td><b>({$games4->games4[$i]->defResult1}) {$games4->games4[$i]->result1}</b>  - {$games4->games4[$i]->result2} ({$games4->games4[$i]->defResult2})</td>";
-                                            echo "<td>" . $games4->games4[$i]->player4->name . " <a1 class='trattino1'> - </a1><br class='trattino2'> " . $games4->games4[$i]->player3->name . "</td>";
-                                        } else {
-                                            echo "<td>" . $games4->games4[$i]->player2->name . " <a1 class='trattino1'> - </a1><br class='trattino2'> " . $games4->games4[$i]->player1->name . "</td>";
-                                            echo "<td>({$games4->games4[$i]->defResult1}) {$games4->games4[$i]->result1}  - <b> {$games4->games4[$i]->result2} ({$games4->games4[$i]->defResult2})</b></td>";
-                                            echo "<td><b>" . $games4->games4[$i]->player4->name . " <a1 class='trattino1'> - </a1><br class='trattino2'> " . $games4->games4[$i]->player3->name . "</b></td>";
-                                        }
-                                        echo "</tr>";
-                                    }
+                                    echo $game2v2solo;
                                     ?>
                                 </table>
                             </div>
@@ -508,61 +594,7 @@ if (!isset($_SESSION)) {
                         <table class=" text-center table table-hover">
                             <tr><td>#</td><td></td><td>Player</td><td>Win / Lose</td><td>Winrate %</td></tr>
                             <?php
-                            for ($i = 0; $i < count($players->players); $i++) {
-                                $classifica[$players->players[$i]->name] = 0;
-                                $perse[$players->players[$i]->name] = 0;
-                            }
-
-                            for ($i = 0; $i < count($games2->games2); $i++) {
-                                if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
-                                    $classifica[$games2->games2[$i]->player1->name] ++;
-                                    $perse[$games2->games2[$i]->player2->name] ++;
-                                } else {
-                                    $classifica[$games2->games2[$i]->player2->name] ++;
-                                    $perse[$games2->games2[$i]->player1->name] ++;
-                                }
-                            }
-
-                            arsort($classifica);
-                            $c = 1;
-                            foreach ($classifica as $key => $value) {
-                                if ($value != 0) {
-                                    $provv = round(($value / ($perse[$key] + $value)) * 100, 2);
-                                } else {
-                                    $provv = 0;
-                                }
-                                switch ($c) {
-                                    case 1:
-                                        echo '<tr bgcolor="#CFB53B"><td>' . $c . ' </td>';
-                                        echo "<td>🏆</td>";
-
-                                        break;
-                                    case 2:
-                                        echo '<tr bgcolor="#A8A8A8"><td>' . $c . ' </td>';
-                                        echo "<td>🏆</td>";
-
-                                        break;
-                                    case 3:
-                                        echo '<tr bgcolor="#965A38"><td>' . $c . ' </td>';
-                                        echo "<td>🏆</td>";
-
-                                        break;
-                                    default:
-                                        echo "<tr><td>$c</td>";
-                                        echo "<td></td>";
-
-                                        break;
-                                }
-
-                                //echo "<td></td>";
-                                echo "<td>$key</td>";
-                                echo "<td>$value / $perse[$key]</td>";
-                                echo "<td>$provv%</td>";
-                                echo "</tr>";
-                                $c++;
-                            }
-
-                            echo "</table>";
+                            echo $game2v2duo;
                             ?>
                         </table>
                     </div>
@@ -784,7 +816,7 @@ if (!isset($_SESSION)) {
                                 $classComm[$commenti->comments[$i]->id] = $commenti->comments[$i]->likes;
                             }
 
-                            //arsort($classComm);
+//arsort($classComm);
                             $i = 0;
                             foreach ($classComm as $key => $value) {
                                 //  echo "id:".$key . "   -   likes:" . $value;
