@@ -1,21 +1,3 @@
-Skip to content
-
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
-@samueletacchini Sign out
-1
-1 0 samueletacchini/biglia
-Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
-biglia/index.php
-d1d0f78  2 days ago
-tacch Aggiunto Winrate
-@jacopozanti @samueletacchini
-
-1007 lines (888 sloc)  51.5 KB
 <?php
 if (!isset($_SESSION)) {
     session_start();
