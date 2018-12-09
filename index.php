@@ -522,7 +522,7 @@ if (!isset($_SESSION)) {
 
                         </div>
                         <table class=" text-center table table-hover">
-                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td><td>Winrate %</td></tr>
+                            <tr><td>#</td><td></td><td>Player</td><td>Win/ Lose</td><td>Winrate %</td></tr>
                             <?php
                             for ($i = 0; $i < count($players->players); $i++) {
                                 $classifica[$players->players[$i]->name] = 0;
@@ -565,7 +565,7 @@ if (!isset($_SESSION)) {
                                 }
                                 //echo "<td></td>";
                                 echo "<td>$key</td>";
-                                echo "<td>$value</td>";
+                                echo "<td>$value / $perse[$key]</td>";
                                 echo "<td>$provv%</td>";
                                 echo "</tr>";
                                 $c++;
@@ -581,7 +581,7 @@ if (!isset($_SESSION)) {
                             <h5 align = "center">Solo </h5>
                         </div>
                         <table class=" text-center  table table-hover">
-                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td><td>Winrate %</td></tr>
+                            <tr><td>#</td><td></td><td>Player</td><td>Win / Lose</td><td>Winrate %</td></tr>
                             <?php
                             for ($i = 0; $i < count($players->players); $i++) {
                                 $classifica2[$players->players[$i]->name] = 0;
@@ -627,7 +627,7 @@ if (!isset($_SESSION)) {
                                         break;
                                 }
                                 echo "<td>$key</td>";
-                                echo "<td>$value</td>";
+                                echo "<td>$value / $perse2[$key]</td>";
                                 echo "<td>$provv2%</td>";
                                 echo "</tr>";
                                 $i++;
@@ -643,7 +643,7 @@ if (!isset($_SESSION)) {
                             <h5 align = "center">Duo</h5>
                         </div>
                         <table class=" text-center  table table-hover">
-                            <tr><td>#</td><td></td><td>Player</td><td>Vittorie</td><td>Winrate</td></tr>
+                            <tr><td>#</td><td></td><td>Player</td><td>Win / Lose</td><td>Winrate</td></tr>
                             <?php
                             for ($i = 0; $i < count($games4->games4); $i++) {
                                 if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
@@ -719,7 +719,7 @@ if (!isset($_SESSION)) {
                                             break;
                                     }
                                     echo "<td>$key</td>";
-                                    echo "<td>$value</td>";
+                                    echo "<td>$value / $perse4[$key]</td>";
                                     echo "<td>$winrate22%</td>";
                                     echo "</tr>";
                                     $ii++;
