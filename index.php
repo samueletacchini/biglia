@@ -420,6 +420,23 @@ if (!isset($_SESSION)) {
 
             $rossi = 0;
             $blu = 0;
+            //calcolo blu vs rossi
+            for ($i = 0; $i < count($games2->games2); $i++) {
+                if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
+                    $blu++;
+                } else {
+                    $rossi++;
+                }
+            }
+            for ($i = 0; $i < count($games4->games4); $i++) {
+                if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
+                    $blu++;
+                } else {
+                    $rossi++;
+                }
+            }
+
+
 
             //1v1 solo
             $game1v1 = "";
@@ -435,12 +452,10 @@ if (!isset($_SESSION)) {
                 }
 
                 if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
-                    $blu++;
                     $game1v1 .= "<td><b>{$games2->games2[$i]->player1->name}</b></td>";
                     $game1v1 .= "<td><b>({$games2->games2[$i]->defResult1}) {$games2->games2[$i]->result1}</b>  - {$games2->games2[$i]->result2} ({$games2->games2[$i]->defResult2})</td>";
                     $game1v1 .= "<td>{$games2->games2[$i]->player2->name}</td>";
                 } else {
-                    $rossi++;
                     $game1v1 .= "<td>{$games2->games2[$i]->player1->name}</td>";
                     $game1v1 .= "<td>({$games2->games2[$i]->defResult1}) {$games2->games2[$i]->result1}  - <b>{$games2->games2[$i]->result2} ({$games2->games2[$i]->defResult2})</b></td>";
                     $game1v1 .= "<td><b>{$games2->games2[$i]->player2->name}</b></td>";
@@ -461,12 +476,11 @@ if (!isset($_SESSION)) {
                 }
 
                 if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
-                    $blu++;
                     $game2v2solo .= "<td><b> " . $games4->games4[$i]->player2->name . "<a1 class='trattino1'> - </a1><br class='trattino2'>" . $games4->games4[$i]->player1->name . "</b></td>";
                     $game2v2solo .= "<td><b>({$games4->games4[$i]->defResult1}) {$games4->games4[$i]->result1}</b>  - {$games4->games4[$i]->result2} ({$games4->games4[$i]->defResult2})</td>";
                     $game2v2solo .= "<td>" . $games4->games4[$i]->player4->name . " <a1 class='trattino1'> - </a1><br class='trattino2'> " . $games4->games4[$i]->player3->name . "</td>";
                 } else {
-                    $rossi++;
+
                     $game2v2solo .= "<td>" . $games4->games4[$i]->player2->name . " <a1 class='trattino1'> - </a1><br class='trattino2'> " . $games4->games4[$i]->player1->name . "</td>";
                     $game2v2solo .= "<td>({$games4->games4[$i]->defResult1}) {$games4->games4[$i]->result1}  - <b> {$games4->games4[$i]->result2} ({$games4->games4[$i]->defResult2})</b></td>";
                     $game2v2solo .= "<td><b>" . $games4->games4[$i]->player4->name . " <a1 class='trattino1'> - </a1><br class='trattino2'> " . $games4->games4[$i]->player3->name . "</b></td>";
@@ -485,11 +499,9 @@ if (!isset($_SESSION)) {
 
             for ($i = 0; $i < count($games2->games2); $i++) {
                 if ($games2->games2[$i]->result1 > $games2->games2[$i]->result2) {
-                    $blu++;
                     $classifica[$games2->games2[$i]->player1->name] ++;
                     $perse[$games2->games2[$i]->player2->name] ++;
                 } else {
-                    $rossi++;
                     $classifica[$games2->games2[$i]->player2->name] ++;
                     $perse[$games2->games2[$i]->player1->name] ++;
                 }
@@ -507,22 +519,18 @@ if (!isset($_SESSION)) {
                     case 1:
                         $game2v2duo .= '<tr bgcolor="#CFB53B"><td>' . $c . ' </td>';
                         $game2v2duo .= "<td>🏆</td>";
-
                         break;
                     case 2:
                         $game2v2duo .= '<tr bgcolor="#A8A8A8"><td>' . $c . ' </td>';
                         $game2v2duo .= "<td>🏆</td>";
-
                         break;
                     case 3:
                         $game2v2duo .= '<tr bgcolor="#965A38"><td>' . $c . ' </td>';
                         $game2v2duo .= "<td>🏆</td>";
-
                         break;
                     default:
                         $game2v2duo .= "<tr><td>$c</td>";
                         $game2v2duo .= "<td></td>";
-
                         break;
                 }
 
