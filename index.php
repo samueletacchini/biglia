@@ -644,9 +644,7 @@ if (!isset($_SESSION)) {
                                 $partitetot[$players->players[$i]->name] = 0;
                             }
                             for ($i = 0; $i < count($games4->games4); $i++) {
-                                $partitetot[$games4->games4[$i]->player1->name] ++;
                                 $partitetot[$games4->games4[$i]->player2->name] ++;
-                                $partitetot[$games4->games4[$i]->player3->name] ++;
                                 $partitetot[$games4->games4[$i]->player4->name] ++;
 
                                 $cannonieri[$games4->games4[$i]->player2->name] += $games4->games4[$i]->defResult1;
