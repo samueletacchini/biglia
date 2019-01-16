@@ -644,8 +644,11 @@ if (!isset($_SESSION)) {
                                 $partitetot[$players->players[$i]->name] = 0;
                             }
                             for ($i = 0; $i < count($games4->games4); $i++) {
+                                $partitetot[$games4->games4[$i]->player1->name] ++;
                                 $partitetot[$games4->games4[$i]->player2->name] ++;
+                                $partitetot[$games4->games4[$i]->player3->name] ++;
                                 $partitetot[$games4->games4[$i]->player4->name] ++;
+
                                 $cannonieri[$games4->games4[$i]->player2->name] += $games4->games4[$i]->defResult1;
                                 $cannonieri[$games4->games4[$i]->player4->name] += $games4->games4[$i]->defResult2;
                             }
@@ -774,14 +777,40 @@ if (!isset($_SESSION)) {
                                 $perse2[$games4->games4[$i]->player2->name] ++;
                             }
                         }
-                        arsort($classifica2);
-                        $i = 1;
+
+
+                        //IO LAVOROO
                         foreach ($classifica2 as $key => $value) {
-                            if ($value != 0) {
-                                $provv2 = round(($value / ($perse2[$key] + $value)) * 100, 2);
-                            } else {
-                                $provv2 = 0;
+                            //se è minore di 20 la sposto
+                            if ($partitetot[$key] < 20) {
+                                $classificaMeno[$key] = $value;
+                                unset($classifica2[$key]);
                             }
+                        }
+
+                        // echo "<br>";
+                        //creo nuovo array con winrate per i maggiori di 20
+                        foreach ($classifica2 as $key => $value) {
+                            if ($partitetot[$key] != 0) {
+                                $classifica2Rate[$key] = round(($value / ($perse2[$key] + $value)) * 100, 2);
+                            }
+                        }
+                        //poi per quelli minori
+                        foreach ($classificaMeno as $key => $value) {
+                            if ($partitetot[$key] != 0) {
+                                $classificaMenoRate[$key] = round(($value / ($perse2[$key] + $value)) * 100, 2);
+                            }
+                        }
+
+
+                        arsort($classifica2Rate);
+                        arsort($classificaMeno);
+
+
+
+                        //printo quelli con PIU di 20 game
+                        $i = 1;
+                        foreach ($classifica2Rate as $key => $value) {
                             switch ($i) {
                                 case 1:
                                     echo "<tr bgcolor='#CFB53B'><td>$i</td>";
@@ -801,11 +830,28 @@ if (!isset($_SESSION)) {
                                     break;
                             }
                             echo "<td>$key</td>";
+                            echo "<td>$classifica2[$key] / $perse2[$key]</td>";
+                            echo "<td>$value%</td>";
+                            echo "</tr>";
+                            $i++;
+                        }
+
+                        //printo quelli con MENO di 20 game
+                        foreach ($classificaMeno as $key => $value) {
+                            if ($value != 0) {
+                                $provv2 = round(($value / ($perse2[$key] + $value)) * 100, 2);
+                            } else {
+                                $provv2 = 0;
+                            }
+                            echo "<tr><td>$i</td>";
+                            echo "<td></td>";
+                            echo "<td>$key</td>";
                             echo "<td>$value / $perse2[$key]</td>";
                             echo "<td>$provv2%</td>";
                             echo "</tr>";
                             $i++;
                         }
+
                         echo "</table>";
                         ?>
                     </table>

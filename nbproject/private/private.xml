@@ -5,6 +5,8 @@
         <group>
             <file>file:/C:/xampp/htdocs/lamucca/addComment.php</file>
             <file>file:/C:/xampp/htdocs/lamucca/index.php</file>
+            <file>file:/C:/xampp/htdocs/lamucca/sampy.php</file>
+            <file>file:/C:/xampp/htdocs/lamucca/Player.php</file>
             <file>file:/C:/xampp/htdocs/lamucca/addLike.php</file>
         </group>
     </open-files>
