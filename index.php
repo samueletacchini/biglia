@@ -399,7 +399,7 @@ if (!isset($_SESSION)) {
             }
             ?>
 
-            <div id="divUltimepartite" class="panel-body text-center">
+            <div id="divUltimepartite" class="panel-body text-center" >
                 <div  class="panel-body" id="DivTitoloUltimePartite">
                     <div class = "panel-body panel-default panel" >
                         <div  class="col-md-3">
@@ -646,6 +646,8 @@ if (!isset($_SESSION)) {
                             for ($i = 0; $i < count($games4->games4); $i++) {
                                 $partitetot[$games4->games4[$i]->player2->name] ++;
                                 $partitetot[$games4->games4[$i]->player4->name] ++;
+                                $partitetot[$games4->games4[$i]->player1->name] ++;
+                                $partitetot[$games4->games4[$i]->player3->name] ++;
 
                                 $cannonieri[$games4->games4[$i]->player2->name] += $games4->games4[$i]->defResult1;
                                 $cannonieri[$games4->games4[$i]->player4->name] += $games4->games4[$i]->defResult2;
@@ -780,6 +782,7 @@ if (!isset($_SESSION)) {
                         //IO LAVOROO
                         foreach ($classifica2 as $key => $value) {
                             //se è minore di 20 la sposto
+
                             if ($partitetot[$key] < 20) {
                                 $classificaMeno[$key] = $value;
                                 unset($classifica2[$key]);
@@ -789,13 +792,14 @@ if (!isset($_SESSION)) {
                         // echo "<br>";
                         //creo nuovo array con winrate per i maggiori di 20
                         foreach ($classifica2 as $key => $value) {
-                            if ($partitetot[$key] != 0) {
-                                $classifica2Rate[$key] = round(($value / ($perse2[$key] + $value)) * 100, 2);
-                            }
+                            $classifica2Rate[$key] = round(($value / ($perse2[$key] + $value)) * 100, 2);
                         }
+
                         //poi per quelli minori
                         foreach ($classificaMeno as $key => $value) {
-                            if ($partitetot[$key] != 0) {
+                            if ($value == 0 && $perse2[$key] == 0) {
+                                $classificaMenoRate[$key] = 0;
+                            } else {
                                 $classificaMenoRate[$key] = round(($value / ($perse2[$key] + $value)) * 100, 2);
                             }
                         }
@@ -833,9 +837,9 @@ if (!isset($_SESSION)) {
                             echo "</tr>";
                             $i++;
                         }
-
+                        //   echo "<tr><td>OOOOOOOOOOOOOO</td></tr>";
                         //printo quelli con MENO di 20 game
-                        foreach ($classificaMeno as $key => $value) {
+                        foreach ($classificaMenoRate as $key => $value) {
                             if ($value != 0) {
                                 $provv2 = round(($value / ($perse2[$key] + $value)) * 100, 2);
                             } else {
@@ -844,8 +848,8 @@ if (!isset($_SESSION)) {
                             echo "<tr><td>$i</td>";
                             echo "<td></td>";
                             echo "<td>$key</td>";
-                            echo "<td>$value / $perse2[$key]</td>";
-                            echo "<td>$provv2%</td>";
+                            echo "<td>$classificaMeno[$key] / $perse2[$key]</td>";
+                            echo "<td>$value%</td>";
                             echo "</tr>";
                             $i++;
                         }
@@ -862,101 +866,101 @@ if (!isset($_SESSION)) {
                     </div>
                     <table class=" text-center  table table-hover">
                         <tr><td>#</td><td></td><td>Player</td><td>Win / Lose</td><td>Winrate</td></tr>
-                        <?php
-                        for ($i = 0; $i < count($games4->games4); $i++) {
-                            if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
-                                if (isset($vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
-                                    $vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] ++;
-                                } else {
-                                    $vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 1;
-                                }
-                                if (isset($perse4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
-                                    $perse4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] ++;
-                                } else {
-                                    $perse4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 1;
-                                }
-                                if (!isset($vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
-                                    $vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 0;
-                                }
-                            } else {
-                                if (isset($vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
-                                    $vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] ++;
-                                } else {
-                                    $vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 1;
-                                }
-                                if (isset($perse4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
-                                    $perse4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] ++;
-                                } else {
-                                    $perse4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 1;
-                                }
-                                if (!isset($vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
-                                    $vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 0;
-                                }
-                            }
-                        }
-                        arsort($vinte4);
-                        $perpagina = 20;
-                        $paginamax = (count($vinte4) / $perpagina);
-                        if (isset($_GET["cls4"])) {
-                            $_SESSION["cls4"] = $_GET["cls4"];
-                        } else {
-                            $_SESSION["cls4"] = 1;
-                        }
-                        $max = $_SESSION["cls4"] * $perpagina;
-                        $min = $_SESSION["cls4"] * $perpagina - $perpagina;
-                        $ii = 1;
-                        foreach ($vinte4 as $key => $value) {
+<?php
+for ($i = 0; $i < count($games4->games4); $i++) {
+    if ($games4->games4[$i]->result1 > $games4->games4[$i]->result2) {
+        if (isset($vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
+            $vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] ++;
+        } else {
+            $vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 1;
+        }
+        if (isset($perse4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
+            $perse4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] ++;
+        } else {
+            $perse4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 1;
+        }
+        if (!isset($vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
+            $vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 0;
+        }
+    } else {
+        if (isset($vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name])) {
+            $vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] ++;
+        } else {
+            $vinte4[$games4->games4[$i]->player4->name . "-" . $games4->games4[$i]->player3->name] = 1;
+        }
+        if (isset($perse4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
+            $perse4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] ++;
+        } else {
+            $perse4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 1;
+        }
+        if (!isset($vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name])) {
+            $vinte4[$games4->games4[$i]->player2->name . "-" . $games4->games4[$i]->player1->name] = 0;
+        }
+    }
+}
+arsort($vinte4);
+$perpagina = 20;
+$paginamax = (count($vinte4) / $perpagina);
+if (isset($_GET["cls4"])) {
+    $_SESSION["cls4"] = $_GET["cls4"];
+} else {
+    $_SESSION["cls4"] = 1;
+}
+$max = $_SESSION["cls4"] * $perpagina;
+$min = $_SESSION["cls4"] * $perpagina - $perpagina;
+$ii = 1;
+foreach ($vinte4 as $key => $value) {
 
-                            if (!isset($perse4[$key])) {
-                                $perse4[$key] = 0;
-                            }
-                            if ($value != 0) {
-                                $winrate22 = round(($value / ($perse4[$key] + $value)) * 100, 2);
-                            } else {
-                                $winrate22 = 0;
-                            }
-                            if ($ii < $max && $ii > $min) {
-                                switch ($ii) {
-                                    case 1:
-                                        //echo "<tr bgcolor='#C98910'><td>$i</td>";
-                                        echo "<tr bgcolor='#CFB53B'><td>$ii</td>";
-                                        echo "<td>🏆</td>";
-                                        break;
-                                    case 2:
-                                        echo "<tr bgcolor='#A8A8A8'><td>$ii</td>";
-                                        echo "<td>🏆</td>";
-                                        // echo "<tr bgcolor='#E6E8FA'><td>$i</td>";
-                                        break;
-                                    case 3:
-                                        echo "<tr bgcolor='#965A38'><td>$ii</td>";
-                                        echo "<td>🏆</td>";
-                                        //echo "<tr bgcolor='#8C7853'><td>$i</td>";
-                                        break;
-                                    default:
-                                        echo "<tr><td>$ii</td>";
-                                        echo "<td></td>";
-                                        break;
-                                }
-                                echo "<td>$key</td>";
-                                echo "<td>$value / $perse4[$key]</td>";
-                                echo "<td>$winrate22%</td>";
-                                echo "</tr>";
-                            }
-                            $ii++;
-                        }
-                        echo "</table>";
-                        ?>
+    if (!isset($perse4[$key])) {
+        $perse4[$key] = 0;
+    }
+    if ($value != 0) {
+        $winrate22 = round(($value / ($perse4[$key] + $value)) * 100, 2);
+    } else {
+        $winrate22 = 0;
+    }
+    if ($ii < $max && $ii > $min) {
+        switch ($ii) {
+            case 1:
+                //echo "<tr bgcolor='#C98910'><td>$i</td>";
+                echo "<tr bgcolor='#CFB53B'><td>$ii</td>";
+                echo "<td>🏆</td>";
+                break;
+            case 2:
+                echo "<tr bgcolor='#A8A8A8'><td>$ii</td>";
+                echo "<td>🏆</td>";
+                // echo "<tr bgcolor='#E6E8FA'><td>$i</td>";
+                break;
+            case 3:
+                echo "<tr bgcolor='#965A38'><td>$ii</td>";
+                echo "<td>🏆</td>";
+                //echo "<tr bgcolor='#8C7853'><td>$i</td>";
+                break;
+            default:
+                echo "<tr><td>$ii</td>";
+                echo "<td></td>";
+                break;
+        }
+        echo "<td>$key</td>";
+        echo "<td>$value / $perse4[$key]</td>";
+        echo "<td>$winrate22%</td>";
+        echo "</tr>";
+    }
+    $ii++;
+}
+echo "</table>";
+?>
                     </table>
                     <div id='cls4warp'>
-                        <?php
-                        if ($_SESSION['cls4'] > 1) {
-                            echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] - 1) . " \"> <span  class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span></a>";
-                        }
-                        if ($_SESSION['cls4'] < $paginamax) {
-                            //echo "<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>";
-                            echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] + 1) . " \" > <span  class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span></a>";
-                        }
-                        ?>
+<?php
+if ($_SESSION['cls4'] > 1) {
+    echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] - 1) . " \"> <span  class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span></a>";
+}
+if ($_SESSION['cls4'] < $paginamax) {
+    //echo "<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>";
+    echo "<a href=\"index.php?cls4=" . ($_SESSION['cls4'] + 1) . " \" > <span  class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span></a>";
+}
+?>
                     </div>
 
                 </div>
@@ -989,34 +993,34 @@ if (!isset($_SESSION)) {
                         </div>
                         <div id ="quote">
 
-                            <?php
-                            $dim = count($commenti->comments);
-                            for ($i = 0; $i < $dim; $i++) {
-                                //* (($dim - 1 - $i) * 0.1)
-                                $classComm[$commenti->comments[$i]->id] = $commenti->comments[$i]->likes;
-                            }
-                            arsort($classComm);
-                            $i = 0;
-                            foreach ($classComm as $key => $value) {
-                                //  echo "id:".$key . "   -   likes:" . $value;
-                                //   echo "<br>";
-                                if ($i < 5) {
-                                    $comm = $commenti->getComment($key);
-                                    echo '<div><div style = "font-size:20px;"><table class = "table">';
-                                    echo '<tr><td  class = " divlike panel panel-default col-md-2"><b>#' . ($i + 1) . '</b></td>';
-                                    if (isset($_SESSION["like{$comm->id}"]) && $_SESSION["like{$comm->id}"] == 1) {
-                                        echo '<td  class = "divlike panel panel-default  col-md-2"><a id="' . $comm->id . '" onclick="addLike(' . $comm->id . ')"><span style="color:blue; margin-top: px;" class = "  glyphicon glyphicon-thumbs-up" ></span></a></td>';
-                                    } else {
-                                        echo '<td  class = "divlike panel panel-default  col-md-2"><a id="' . $comm->id . '" onclick="addLike(' . $comm->id . ')"><span style="color:#606770; margin-top: px;" class = "  glyphicon glyphicon-thumbs-up" ></span></a></td>';
-                                    }
-                                    echo '<td class = "divlike panel panel-default col-md-2">' . $comm->likes . '</td>';
-                                    echo '<td class = "divlike panel panel-default col-md-6">' . $comm->author . '</td></tr>';
-                                    echo '<tr><td class = " panel panel-body panel-default " colspan="4">' . $comm->text . '</td></tr>';
-                                    echo '</table></div></div>';
-                                }
-                                $i++;
-                            }
-                            ?>
+<?php
+$dim = count($commenti->comments);
+for ($i = 0; $i < $dim; $i++) {
+    //* (($dim - 1 - $i) * 0.1)
+    $classComm[$commenti->comments[$i]->id] = $commenti->comments[$i]->likes;
+}
+arsort($classComm);
+$i = 0;
+foreach ($classComm as $key => $value) {
+    //  echo "id:".$key . "   -   likes:" . $value;
+    //   echo "<br>";
+    if ($i < 5) {
+        $comm = $commenti->getComment($key);
+        echo '<div><div style = "font-size:20px;"><table class = "table">';
+        echo '<tr><td  class = " divlike panel panel-default col-md-2"><b>#' . ($i + 1) . '</b></td>';
+        if (isset($_SESSION["like{$comm->id}"]) && $_SESSION["like{$comm->id}"] == 1) {
+            echo '<td  class = "divlike panel panel-default  col-md-2"><a id="' . $comm->id . '" onclick="addLike(' . $comm->id . ')"><span style="color:blue; margin-top: px;" class = "  glyphicon glyphicon-thumbs-up" ></span></a></td>';
+        } else {
+            echo '<td  class = "divlike panel panel-default  col-md-2"><a id="' . $comm->id . '" onclick="addLike(' . $comm->id . ')"><span style="color:#606770; margin-top: px;" class = "  glyphicon glyphicon-thumbs-up" ></span></a></td>';
+        }
+        echo '<td class = "divlike panel panel-default col-md-2">' . $comm->likes . '</td>';
+        echo '<td class = "divlike panel panel-default col-md-6">' . $comm->author . '</td></tr>';
+        echo '<tr><td class = " panel panel-body panel-default " colspan="4">' . $comm->text . '</td></tr>';
+        echo '</table></div></div>';
+    }
+    $i++;
+}
+?>
                         </div>
                     </div>
 
