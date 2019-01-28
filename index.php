@@ -791,7 +791,7 @@ if (!isset($_SESSION)) {
                             //se è minore di 20 la sposto
 
                             //quanti game vanno sotto
-                            if ($partitetot[$key] < 30) {
+                            if ($partitetot[$key] < 50) {
                                 $classificaMeno[$key] = $value;
                                 unset($classifica2[$key]);
                             }
