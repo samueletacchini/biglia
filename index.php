@@ -806,7 +806,7 @@ if (!isset($_SESSION)) {
 
 
                         arsort($classifica2Rate);
-                        arsort($classificaMeno);
+                        arsort($classificaMenoRate);
 
 
 
