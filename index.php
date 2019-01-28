@@ -790,7 +790,8 @@ if (!isset($_SESSION)) {
                         foreach ($classifica2 as $key => $value) {
                             //se è minore di 20 la sposto
 
-                            if ($partitetot[$key] < 20) {
+                            //quanti game vanno sotto
+                            if ($partitetot[$key] < 30) {
                                 $classificaMeno[$key] = $value;
                                 unset($classifica2[$key]);
                             }
