@@ -18,7 +18,7 @@ class Games4 {
     public function __construct($con) {
         require_once 'Players.php';
         require_once 'Game4.php';
-        $sql = "SELECT * FROM `game4` ORDER BY `date`, id DESC";
+        $sql = "SELECT * FROM `game4` ORDER BY `date` ASC, `id` ASC";
         $ris = $con->query($sql);
         $players = new players($con);
         $i = 0;
