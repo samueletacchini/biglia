@@ -683,7 +683,11 @@ if (!isset($_SESSION)) {
                                     echo "<td>$key</td>";
                                     echo "<td>$value</td>";
                                     echo "<td>{$partitetotdif[$key]}</td>";
-                                    echo "<td>" . round($value / $partitetotdif[$key], 2) . "</td>";
+									if($partitetotdif[$key] != 0){
+										echo "<td>" . round($value / $partitetotdif[$key], 2) . "</td>";
+									}else{
+										echo "<td>0</td>";
+									}
                                     echo "</tr>";
                                     $f++;
                                 }
@@ -799,6 +803,7 @@ if (!isset($_SESSION)) {
 
                         // echo "<br>";
                         //creo nuovo array con winrate per i maggiori di 20
+						$classifica2Rate = [];
                         foreach ($classifica2 as $key => $value) {
                             $classifica2Rate[$key] = round(($value / ($perse2[$key] + $value)) * 100, 2);
                         }
@@ -812,8 +817,8 @@ if (!isset($_SESSION)) {
                             }
                         }
 
-
                         arsort($classifica2Rate);
+						
                         arsort($classificaMenoRate);
 
 
